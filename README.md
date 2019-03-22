@@ -14,7 +14,7 @@ sudo apt-get install -y nodejs
 Install npm modules and Run development server
 ```
 git clone <Repo URL>
-cd <Repo>
+cd budget-frontend
 npm install
 npm start
 ```
