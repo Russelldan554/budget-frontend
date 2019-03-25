@@ -1,19 +1,40 @@
 import React, { Component } from 'react';
+import Brand from './Brand';
+import Item from './Item';
 
 class Navbar extends Component {
-    constructor(props) {
-        super(props);
+  constructor(props) {
+    super(props);
 
-        this.state = {
-
-        }
+    this.state = {
+      
     }
+  }
 
   render() {
     return (
-        <div>
-          <h1>Navbar</h1>
+      <nav className="navbar navbar-expand-sm navbar-dark bg-dark">
+        <Brand />
+        
+        <div className="collapse navbar-collapse">
+          <ul className="navbar-nav ml-auto">
+            
+            <Item 
+              name={"Home"}
+              url={"/"} 
+            />
+            <Item 
+              name={"Link1"}
+              url={"/"} 
+            />
+            <Item 
+              name={"Link2"}
+              url={"/"} 
+            />
+            
+          </ul>
         </div>
+      </nav>
     );
   }
 }
