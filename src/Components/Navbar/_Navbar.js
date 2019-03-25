@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
-import './../App.css';
 
-class Header extends Component {
+class Navbar extends Component {
     constructor(props) {
         super(props);
 
@@ -12,11 +11,11 @@ class Header extends Component {
 
   render() {
     return (
-      <div>
-        <h1>Header</h1>
-      </div>
+        <div>
+          <h1>Navbar</h1>
+        </div>
     );
   }
 }
 
-export default Header;
+export default Navbar;
