@@ -16,15 +16,6 @@ class Navbar extends Component {
   toggleCollapsed() {
     this.setState({
       collapsed: !this.state.collapsed,
-      height: document.getElementById("appNav").clientHeight
-    });
-    console.log(this.state.collapsed);
-    console.log(this.state.height);
-  }
-
-  componentDidMount() {
-    this.setState({
-      height: document.getElementById("appNav").clientHeight
     });
   }
 
@@ -48,9 +39,8 @@ class Navbar extends Component {
   }
 }
 
-// Navbar.propTypes = {
-//   collapseClasses: PropTypes.string,
-//   toggleCollapsed: PropTypes.func,
-// }
+Navbar.propTypes = {
+  toggleCollapsed: PropTypes.func
+}
 
 export default Navbar;
