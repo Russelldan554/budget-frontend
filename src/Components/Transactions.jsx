@@ -1,9 +1,10 @@
 import React, { Component } from 'react';
+import {} from 'reactstrap';
 
-class Main extends Component {
+class Transactions extends Component {
     constructor(props) {
       super(props);
-      
+
       this.state = {
 
       }
@@ -11,11 +12,11 @@ class Main extends Component {
 
   render() {
     return (
-      <div className="container-fluid">
-        <h1>Home</h1>
+      <div>
+          Safeway | Groceries | $50.34
       </div>
     );
   }
 }
 
-export default Main;
+export default Transactions;

@@ -2,12 +2,14 @@ import React, { Component } from 'react';
 import { render } from 'react-dom';
 import { BrowserRouter as Router, Route } from 'react-router-dom';
 import * as serviceWorker from './serviceWorker';
+import {Container, Col, Row} from "reactstrap"
 
-import Navbar from './components/Navbar/_Navbar';
-import Footer from './components/Footer/_Footer';
-
-import Home from './components/_Home';
-import User from './components/_User';
+import Header from './Components/Header/_Header';
+import Footer from './Components/Footer/_Footer';
+import Sidebar from './Components/Sidebar';
+import Home from './Views/_Home';
+import User from './Views/_User';
+import Transactions from './Views/_Transactions';
 
 import './styles/app.scss';
 
@@ -16,12 +18,20 @@ class App extends Component {
     return (
       <div className="App">
         <Router>
-          <Navbar />
-
-          <Route exact path="/" component={Home} />
-          <Route path="/user" component={User} />
-
-          <Footer />
+          <Header />
+          <Container fluid>
+            <Row>
+              <Col sm={1}>
+                <Sidebar />
+              </Col>
+              <Col sm={10}>
+                <Route exact path="/" component={Home} />
+                <Route path="/user" component={User} />
+                <Route path="/transactions" component={Transactions} />
+              </Col>
+            </Row>
+          </Container>
+          <Footer  />
         </Router>
       </div>
     );
