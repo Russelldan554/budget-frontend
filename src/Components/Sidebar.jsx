@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import {Collapse, Navbar, NavbarToggler, Nav, NavItem,  UncontrolledDropdown,  DropdownToggle,  DropdownMenu,  DropdownItem } from "reactstrap";
+import {Collapse, Navbar, NavbarToggler, Nav, NavItem } from "reactstrap";
 import { NavLink } from 'react-router-dom';
 
 class Sidebar extends Component{
@@ -8,7 +8,7 @@ class Sidebar extends Component{
 
     this.toggleNavbar = this.toggleNavbar.bind(this);
     this.state = {
-      collapsed: true
+      collapsed: false
     };
   }
 
@@ -21,7 +21,9 @@ class Sidebar extends Component{
     return (
       <div className="_Sidebar">
       <Navbar color="faded" light>
+        <div className="_sideToggle">
         <NavbarToggler onClick={this.toggleNavbar} className="mr-2" />
+        </div>
         <Collapse isOpen={!this.state.collapsed} navbar>
           <Nav navbar>
             <NavItem>

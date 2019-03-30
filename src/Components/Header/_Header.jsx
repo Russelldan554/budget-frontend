@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import {Collapse, Navbar, NavbarToggler, Nav, NavItem,  UncontrolledDropdown,  DropdownToggle,  DropdownMenu,  DropdownItem } from "reactstrap";
+import {Collapse, Navbar, Nav, NavItem,  UncontrolledDropdown,  DropdownToggle,  DropdownMenu,  DropdownItem } from "reactstrap";
 import { NavLink } from 'react-router-dom';
 import Brand from './Brand';
 
@@ -22,7 +22,6 @@ class Header extends Component {
     return (
         <Navbar color="dark" dark expand="md">
           <Brand />
-           <NavbarToggler onClick={this.toggle} />
            <Collapse isOpen={this.state.isOpen} navbar>
              <Nav className="ml-auto" navbar>
                <NavItem>
