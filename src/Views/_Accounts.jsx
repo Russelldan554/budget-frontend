@@ -1,8 +1,7 @@
 import React, { Component } from 'react';
 import {} from "reactstrap";
-import TransactionsTable from "../Components/TransactionsTable"
 
-class Transactions extends Component{
+class Accounts extends Component{
   constructor(props) {
     super(props);
   }
@@ -10,10 +9,10 @@ class Transactions extends Component{
   render() {
     return (
       <div>
-        <TransactionsTable />
+          Accounts
       </div>
     );
   }
 }
 
-export default Transactions;
+export default Accounts;

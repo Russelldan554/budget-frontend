@@ -5,19 +5,26 @@
 @import './Navbar/_Navbar.scss';
 
 ._Home {
-  height: 85vh;
+
 }
 
 ._Footer {
   background-color: #000;
   color: white;
-  height: 7vh
-}
-
-._Sidebar {
-
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+  height: 6rem;
 }
 
 .App {
     background-color: #bbb;
+    position:relative;
+    min-height: 98vh;
+}
+
+@media screen and (min-width: 770px) {
+    ._sideToggle {
+        display: none !important;
+    }
 }
