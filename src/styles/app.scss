@@ -2,11 +2,7 @@
 @import '~bootstrap/scss/bootstrap.scss';
 
 // Import Custom Styles
-@import './Navbar/_Navbar.scss';
-
-._Home {
-
-}
+@import './variable.scss';
 
 ._Footer {
   background-color: #000;
@@ -18,7 +14,7 @@
 }
 
 .App {
-    background-color: #bbb;
+    background-color: $gray-500;
     position:relative;
     min-height: 98vh;
 }
@@ -26,5 +22,86 @@
 @media screen and (min-width: 770px) {
     ._sideToggle {
         display: none !important;
+    }
+}
+
+.navbar {
+    min-width: 250px;
+}
+
+.navbar-brand {
+    font-size: 1.2rem;
+    font-weight: 300;
+}
+
+// General .card
+.card {
+    border-color: $gray-600;
+
+    // General .card-header
+    .card-header {
+        border-color: $gray-500;
+    }
+
+    // General .card-body
+    .card-body {
+        padding: 0.5rem;
+
+        // _AccountsCard .card-body
+        .account + .account{
+            margin-top: 0.5rem;
+        }
+        .account {
+            .card {
+                border-color: $gray-500;
+            }
+            .card-header {
+                padding: 0.5rem;
+                .accountName {
+                    color: $white;
+                    margin: 0;
+                }
+                .bankName {
+                    font-size: 14px;
+                    color: $gray-500;
+                }
+            }
+            .card-body {
+                .info {
+                    margin: 0;
+                    .col {
+                        padding: 0;
+                    }
+                    .accountType {
+                        color: $gray-700;
+                    }
+                    .balance {
+                        font-weight: 500;
+                    }
+                }
+            }
+        }
+    }
+    
+    // _AccountsCard .card-footer
+    .card-footer.account-totals {
+        border-color: $gray-500;
+
+        font-size: $account-totals-font-size;
+        padding: 0.75rem 1rem;
+    
+        .title {
+            color: $gray-600;
+        }
+        .assets {
+            color: $green;
+        }
+        .debts {
+            color: $red;
+        }
+        .net-worth {
+            font-size: $account-totals-font-size + 1;
+            font-weight: 500;
+        }
     }
 }

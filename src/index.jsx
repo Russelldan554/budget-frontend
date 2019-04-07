@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { render } from 'react-dom';
-import {BrowserRouter as Router, Route, Switch, Redirect } from 'react-router-dom';
+import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 import * as serviceWorker from './serviceWorker';
 import {Container, Col, Row} from "reactstrap"
 
@@ -17,7 +17,6 @@ import Budgets from './Views/_Budgets';
 import Signup from './Views/_CreateAccount';
 
 import './styles/app.scss';
-import "react-table/react-table.css";
 import '../node_modules/font-awesome/css/font-awesome.min.css';
 
 const PrivateRoute = ({ component: Component, ...rest}) => {
@@ -81,7 +80,7 @@ class App extends Component {
         <Router>
           <Header userName={this.state.userName} />
           <Container fluid>
-            <Row>
+            <Row className="pt-4">
               <Col sm={12} lg={2} xl={1} className="">
                 { this.state.showBar ?
                     <Sidebar />
@@ -102,7 +101,7 @@ class App extends Component {
               </Col>
             </Row>
           </Container>
-          <Footer  />
+          {/* <Footer  /> */}
         </Router>
       </div>
     );
