@@ -2,10 +2,6 @@ import React, { Component } from 'react';
 import {Container, Row, Col, Card, CardHeader, CardBody, CardFooter } from 'reactstrap';
 
 class Accounts extends Component{
-  constructor(props) {
-    super(props);
-  }
-
   render() {
     return (
       <div>

@@ -3,10 +3,6 @@ import {} from "reactstrap";
 import TransactionsTable from "../Components/TransactionsTable"
 
 class Transactions extends Component{
-  constructor(props) {
-    super(props);
-  }
-
   render() {
     return (
       <div>

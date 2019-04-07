@@ -27,7 +27,7 @@ class Sidebar extends Component{
         <Collapse isOpen={!this.state.collapsed} navbar>
           <Nav navbar>
             <NavItem>
-              <NavLink to="/" className="nav-link" exact={true} activeClassName="active">Home</NavLink>
+              <NavLink to="/home" className="nav-link" exact={true} activeClassName="active">Home</NavLink>
             </NavItem>
             <NavItem>
               <NavLink to="/budget" className="nav-link" exact={true} activeClassName="active">Budgets</NavLink>

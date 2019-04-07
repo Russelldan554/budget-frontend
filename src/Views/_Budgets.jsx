@@ -3,10 +3,6 @@ import {} from "reactstrap";
 import {Goal} from "../Components/Goal"
 
 class Budgets extends Component{
-  constructor(props) {
-    super(props);
-  }
-
   render() {
     return (
       <div>
