@@ -1,6 +1,3 @@
-import React from "react";
-
-
 const range = len => {
   const arr = [];
   for (let i = 0; i < len; i++) {
@@ -10,7 +7,6 @@ const range = len => {
 };
 
 const newPerson = () => {
-  const statusChance = Math.random();
   return {
     name: "SafeWay",
     category: "shopping",
@@ -25,4 +21,8 @@ export function makeData(len = 55) {
       children: range(10).map(newPerson)
     };
   });
+}
+
+export default {
+  makeData
 }

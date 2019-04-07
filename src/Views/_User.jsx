@@ -13,18 +13,20 @@ class User extends Component {
     return (
       <div className="container-fluid">
         <table className="p-5">
-          <tr>
-            <td>Name</td>
-            <td>Dan</td>
-          </tr>
-          <tr>
-            <td>Account ID</td>
-            <td>Ad342FG43</td>
-          </tr>
-          <tr>
-            <td>Email</td>
-            <td>Dan@gmail.com</td>
-          </tr>
+          <tbody>
+            <tr>
+              <td>Name</td>
+              <td>Dan</td>
+            </tr>
+            <tr>
+              <td>Account ID</td>
+              <td>Ad342FG43</td>
+            </tr>
+            <tr>
+              <td>Email</td>
+              <td>Dan@gmail.com</td>
+            </tr>
+          </tbody>
         </table>
       </div>
     );

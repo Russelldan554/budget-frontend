@@ -2,14 +2,6 @@ import React, { Component } from 'react';
 import {} from 'reactstrap';
 
 class Account extends Component {
-    constructor(props) {
-      super(props);
-
-      this.state = {
-
-      }
-    }
-
   render() {
     return (
       <div>
@@ -17,6 +9,6 @@ class Account extends Component {
       </div>
     );
   }
-} 
+}
 
 export default Account;
