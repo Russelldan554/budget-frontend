@@ -1,17 +1,18 @@
 import React, { Component } from 'react';
-import { Col } from 'reactstrap';
+import { Container, Row, Col } from 'reactstrap';
 
 import AccountsCard from '../Components/AccountsCard/_AccountsCard'
 
 class Accounts extends Component{
-
   render() {
     return (
-      <React.Fragment>
-        <Col lg={12}>
-          <AccountsCard />
-        </Col>
-      </ React.Fragment>
+      <Container fluid>
+        <Row className="pt-4">
+          <Col className="pb-4" lg={12}>
+            <AccountsCard />
+          </Col>
+        </Row>
+      </Container>
     );
   }
 }

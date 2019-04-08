@@ -1,37 +1,38 @@
 // Import Bootstrap and its default variables
 @import '~bootstrap/scss/bootstrap.scss';
 
-// Import Custom Styles
+// Import Font Awesome, set path of fonts
+$fa-font-path: "~font-awesome/fonts";
+@import "~font-awesome/scss/font-awesome";
+
+// Import Custom Variables
 @import './variable.scss';
 
-._Footer {
-  background-color: #000;
-  color: white;
-  position: absolute;
-  bottom: 0;
-  width: 100%;
-  height: 6rem;
+
+html, body, #root, .App {
+    height: auto !important;
+    height: 100%;
+    min-height: 100%;
 }
 
-.App {
+.App-body {
+    min-height: calc(100vh - #{$nav-footer-height});
     background-color: $gray-500;
-    position:relative;
-    min-height: 98vh;
-}
-
-@media screen and (min-width: 770px) {
-    ._sideToggle {
-        display: none !important;
-    }
 }
 
 .navbar {
+    height: $navbar-height;
     min-width: 250px;
-}
 
-.navbar-brand {
-    font-size: 1.2rem;
-    font-weight: 300;
+    .navbar-brand {
+        font-size: 1.2rem;
+        font-weight: 300;
+
+        span.logo {
+            font-size: 22px;
+            padding: 0 2px;
+        }
+    }
 }
 
 // General .card
@@ -47,51 +48,68 @@
     .card-body {
         padding: 0.5rem;
 
-        // _AccountsCard .card-body
-        .account + .account{
+        // Inner Cards
+        .account + .account,
+        .budget + .budget {
             margin-top: 0.5rem;
         }
-        .account {
-            .card {
-                border-color: $gray-500;
+    }
+    
+    // General .card-footer
+    .card-footer {
+        border-color: $gray-500;
+    }
+}
+
+// _AccountsCard
+.accountsCard {
+    
+    > .card-body {
+        background-color: $gray-300;
+    }
+
+    // Accounts in the _AccountsCard
+    .account {
+        .card {
+            border-color: $gray-500;
+        }
+        .card-header {
+            padding: 0.5rem;
+            .accountName {
+                color: $white;
+                margin: 0;
             }
-            .card-header {
-                padding: 0.5rem;
-                .accountName {
-                    color: $white;
-                    margin: 0;
-                }
-                .bankName {
-                    font-size: 14px;
-                    color: $gray-500;
-                }
+            .bankName {
+                font-size: 14px;
+                color: $gray-500;
             }
-            .card-body {
-                .info {
-                    margin: 0;
-                    .col {
-                        padding: 0;
-                    }
-                    .accountType {
-                        color: $gray-700;
-                    }
-                    .balance {
-                        font-weight: 500;
-                    }
+        }
+        .card-body {
+            .info {
+                margin: 0;
+                .col {
+                    padding: 0;
+                }
+                .accountType {
+                    color: $gray-700;
+                }
+                .balance {
+                    font-weight: 500;
                 }
             }
         }
     }
-    
-    // _AccountsCard .card-footer
-    .card-footer.account-totals {
-        border-color: $gray-500;
 
+    .card-footer.account-totals {
         font-size: $account-totals-font-size;
         padding: 0.75rem 1rem;
     
         .title {
             color: $gray-600;
+            padding-right: 0;
+        }
+        .amount {
+            padding-left: 0;
         }
         .assets {
             color: $green;
@@ -105,3 +123,59 @@
         }
     }
 }
+
+.budgetsCard {
+
+    > .card-body {
+        background-color: $gray-300;
+    }
+
+    .budget {
+        .card {
+            border-color: $gray-500;
+            font-weight: 500;
+        }
+        .card-header {
+            padding: 0.25rem 0.5rem;
+            border: none;
+
+            .of {
+                font-weight: 400;
+                font-style: italic;
+            }
+        }
+        .card-body {
+            padding: 0 0.5rem 0.5rem 0.5rem;
+
+            .progress {
+                border: 1px solid $gray-500;
+                background-color: $gray-400;
+            }
+        }
+    }
+}
+
+.footer {
+    height: $footer-height;
+    padding: 1rem 1rem;
+    a {
+        color: rgba(255, 255, 255, 0.5);
+    }
+    a:hover {
+        color: rgba(255, 255, 255, 0.75);
+    }
+    .fa {
+        font-size: 22px;
+    }
+}
+
+.jumbotron {
+    background-color: $gray-700;
+    color: $white;
+}
+
+// @media screen and (min-width: 770px) {
+//     ._sideToggle {
+//         display: none !important;
+//     }
+// }

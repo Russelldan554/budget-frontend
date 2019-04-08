@@ -1,30 +1,23 @@
-import React, { Component } from 'react';
-import {Row, Col} from 'reactstrap';
+import React from 'react';
+import {Container, Row, Col} from 'reactstrap';
 
-class Footer extends Component {
-    constructor(props) {
-      super(props);
-
-      this.state = {
-
-      }
-    }
-
-  render() {
-    return (
-      <div className="_Footer">
-        <Row className="justify-content-md-center">
-          <Col className="p-2" sm={6} md={4}>
-              
-          </Col>
-          <Col sm={6} md={5}>
-              Contact: some@somewhere.com <br />
-            Github <a href="www.github.com">link</a>
-          </Col>
-        </Row>
-      </div>
-    );
-  }
+const Footer  = props => {
+  return (
+    <Container className="footer bg-dark" fluid>
+      <Row>
+        <Col className="text-left">
+        <a href="mailto:someone@example.com" target="_top">
+          someone@example.com
+        </a>
+        </Col>
+        <Col className="text-right">
+          <a href="https://github.com/Russelldan554/budget-app">
+            <i className="fa fa-github"></i>
+          </a>
+        </Col>
+      </Row>
+    </Container>
+  );
 }
 
 export default Footer;

@@ -3,13 +3,13 @@ import { Card, CardHeader, CardBody, Row, Col } from 'reactstrap';
 import PropTypes from 'prop-types';
 
 class Account extends Component {
-    constructor(props) {
-      super(props);
-      this.accountName = this.props.accountName;
-      this.bankName = this.props.bankName;
-      this.accountType = this.props.accountType;
-      this.balance = this.props.balance;
-    }
+  constructor(props) {
+    super(props);
+    this.accountName = this.props.accountName;
+    this.bankName = this.props.bankName;
+    this.accountType = this.props.accountType;
+    this.balance = this.props.balance;
+  }
 
   render() {
     return (

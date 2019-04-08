@@ -6,6 +6,7 @@ import Account from './Account'
 class AccountsCard extends Component {
   constructor(props) {
     super(props);
+    // Use states if netWorth will be calculated on the frontend?
     this.state = {
         assets: 15000,
         debts: 250,
@@ -17,7 +18,7 @@ class AccountsCard extends Component {
     return (
       <Card className="accountsCard">
         <CardHeader>
-          <h5 className="cardHeader">Accounts</h5>
+          <h3 className="cardHeader">Accounts</h3>
         </CardHeader>
         <CardBody>
           <Row noGutters>
