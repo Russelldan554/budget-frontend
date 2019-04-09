@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
-import {} from 'reactstrap';
 import ReactTable from "react-table";
-import "react-table/react-table.css";
 import { makeData } from "./Utils.js";
+
+import "react-table/react-table.css";
 
 class Transactions extends Component {
     constructor(props) {

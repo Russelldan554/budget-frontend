@@ -1,24 +1,22 @@
 import React, { Component } from 'react';
 import { render } from 'react-dom';
-import {BrowserRouter as Router, Route, Switch, Redirect } from 'react-router-dom';
+import { BrowserRouter as Router, Route, Switch, Redirect } from 'react-router-dom';
 import * as serviceWorker from './serviceWorker';
-import {Container, Col, Row} from "reactstrap"
+import { Container } from "reactstrap"
+
+import Login from './Views/_Login';
+import User from './Views/_User';
+import Transactions from './Views/_Transactions';
+import Signup from './Views/_CreateAccount';
 
 import Header from './Components/Header/_Header';
 import Footer from './Components/Footer/_Footer';
-import Sidebar from './Components/Sidebar';
+import Welcome from './Views/_Welcome';
 import Home from './Views/_Home';
-import Login from './Views/_Login';
 import Accounts from './Views/_Accounts';
-import UserHome from './Views/_UserHome';
-import User from './Views/_User';
-import Transactions from './Views/_Transactions';
 import Budgets from './Views/_Budgets';
-import Signup from './Views/_CreateAccount';
 
 import './styles/app.scss';
-import "react-table/react-table.css";
-import '../node_modules/font-awesome/css/font-awesome.min.css';
 
 const PrivateRoute = ({ component: Component, ...rest}) => {
   const user_info = localStorage.getItem('username');
@@ -27,7 +25,7 @@ const PrivateRoute = ({ component: Component, ...rest}) => {
       user_info
         ? <Component {...props}/>
       : <Redirect to={{
-        pathname:'/login',
+        pathname:'/',
         state: { from: props.location}
       }}/>
     )
@@ -80,27 +78,20 @@ class App extends Component {
       <div className="App">
         <Router>
           <Header userName={this.state.userName} />
-          <Container fluid>
-            <Row>
-              <Col sm={12} lg={2} xl={1} className="">
-                { this.state.showBar ?
-                    <Sidebar />
-                    : ""
-                }
-              </Col>
-              <Col sm={10}>
-                <Switch>
-                  <Route exact path="/" component={Home} />
-                  <Route exact path="/signup" component={Signup} />
-                  <Route exact path="/login" render={(props) => <Login {...props} hideSidebar={this.hideSidebar} auth={auth} loggedIn={this.loggedIn}/>} />
-                  <PrivateRoute path="/user" component={User} />
-                  <PrivateRoute path="/transactions" component={Transactions} />
-                  <PrivateRoute path="/budget" component={Budgets} />
-                  <PrivateRoute path="/accounts" component={Accounts} />
-                  <PrivateRoute exact path="/home" component={UserHome} />
-                  </Switch>
-              </Col>
-            </Row>
+          <Container className="App-body p-0" fluid>
+            <Switch>
+              <Route exact path="/" component={Welcome} />
+              <Route path="/signup" component={Signup} />
+              <Route path="/login" render={(props) => <Login {...props} hideSidebar={this.hideSidebar} auth={auth} loggedIn={this.loggedIn}/>} />
+              <PrivateRoute path="/user" component={User} />
+              <PrivateRoute path="/transactions" component={Transactions} />
+              <PrivateRoute path="/budgets" component={Budgets} />
+              <PrivateRoute path="/accounts" component={Accounts} />
+              <PrivateRoute path="/" component={Home} />
+              <Route render={() => 
+                <Redirect to={{pathname: "/"}} />
+              }/>
+            </Switch>
           </Container>
           <Footer  />
         </Router>
