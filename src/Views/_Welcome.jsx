@@ -15,7 +15,7 @@ class Home extends Component {
       <Row noGutters>
         <Col xs={12}>
           <div className="jumbotron jumbotron-fluid">
-            <Container fluid>
+            <Container className="pl-5 pr-5" fluid>
               <Row>
                 <Col md={8}>
                   <h1 className="display-4">Welcome to Moolah</h1>

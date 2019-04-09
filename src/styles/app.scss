@@ -139,6 +139,13 @@ html, body, #root, .App {
             padding: 0.25rem 0.5rem;
             border: none;
 
+            .row {
+                margin: 0;
+            }
+            .category,
+            .amounts {
+                padding: 0;
+            }
             .of {
                 font-weight: 400;
                 font-style: italic;
@@ -158,11 +165,12 @@ html, body, #root, .App {
 .footer {
     height: $footer-height;
     padding: 1rem 1rem;
+
     a {
-        color: rgba(255, 255, 255, 0.5);
+        color: rgba(255, 255, 255, 0.4);
     }
     a:hover {
-        color: rgba(255, 255, 255, 0.75);
+        color: rgba(255, 255, 255, 0.7);
     }
     .fa {
         font-size: 22px;
@@ -170,12 +178,21 @@ html, body, #root, .App {
 }
 
 .jumbotron {
-    background-color: $gray-700;
+    background-color: $gray-800;
     color: $white;
+    padding-top: 6rem;
+    padding-bottom: 6rem;
 }
 
-// @media screen and (min-width: 770px) {
-//     ._sideToggle {
-//         display: none !important;
-//     }
-// }
+.bg-dark {
+    background-color: $gray-900 !important;
+}
+
+.navbar-dark .navbar-nav .nav-link, .navbar-dark .navbar-brand {
+    color: rgba(255, 255, 255, 1);
+}
+
+.navbar-dark .navbar-nav .nav-link:hover, .navbar-dark .navbar-nav .nav-link:focus,
+.navbar-dark .navbar-brand:hover {
+    color: rgba(255, 255, 255, .7);
+}

@@ -8,17 +8,6 @@ import BudgetsCard from '../Components/BudgetsCard/_BudgetsCard'
 
 
 class Home extends Component {
-    constructor(props) {
-      super(props);
-      this.state = {
-
-      }
-    }
-
-    componentDidMount(){
-      // this.props.showSidebar();
-    }
-
   render() {
     return (
       <Container fluid>

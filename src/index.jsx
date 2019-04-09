@@ -4,18 +4,17 @@ import { BrowserRouter as Router, Route, Switch, Redirect } from 'react-router-d
 import * as serviceWorker from './serviceWorker';
 import { Container } from "reactstrap"
 
-import Sidebar from './Components/Sidebar';
 import Login from './Views/_Login';
-import Accounts from './Views/_Accounts';
 import User from './Views/_User';
 import Transactions from './Views/_Transactions';
-import Budgets from './Views/_Budgets';
 import Signup from './Views/_CreateAccount';
 
 import Header from './Components/Header/_Header';
 import Footer from './Components/Footer/_Footer';
 import Welcome from './Views/_Welcome';
 import Home from './Views/_Home';
+import Accounts from './Views/_Accounts';
+import Budgets from './Views/_Budgets';
 
 import './styles/app.scss';
 
@@ -80,14 +79,6 @@ class App extends Component {
         <Router>
           <Header userName={this.state.userName} />
           <Container className="App-body p-0" fluid>
-            {/* <Row>
-              <Col sm={12} lg={2} xl={1} className="">
-                { this.state.showBar ?
-                    <Sidebar />
-                    : ""
-                }
-              </Col>
-            </Row> */}
             <Switch>
               <Route exact path="/" component={Welcome} />
               <Route path="/signup" component={Signup} />
@@ -96,7 +87,7 @@ class App extends Component {
               <PrivateRoute path="/transactions" component={Transactions} />
               <PrivateRoute path="/budgets" component={Budgets} />
               <PrivateRoute path="/accounts" component={Accounts} />
-              <PrivateRoute path="/home" component={Home} />
+              <PrivateRoute path="/" component={Home} />
               <Route render={() => 
                 <Redirect to={{pathname: "/"}} />
               }/>

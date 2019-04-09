@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom';
 
 const Brand = (props) => {
   return (
-    <Link to="/home" className="navbar-brand">
+    <Link to="/home" className="navbar-brand active">
       {/* These lines were commented out in case we wanted to use an actual svg logo.  The emoji was put as an idea/placeholder */}
       {/* <img src={ logo } width="30" height="30" className="d-inline-block align-top" alt="" /> */}
       <span className="logo" role="img" aria-label="Money Bag">💰</span>
