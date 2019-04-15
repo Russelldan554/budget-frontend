@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import {Container, InputGroup, InputGroupAddon, Card, CardHeader,  Form, FormGroup, Label, Input, Button, InputGroupText} from "reactstrap";
+import {Container, NavLink, InputGroup, InputGroupAddon, Card, CardHeader,  Form, FormGroup, Label, Input, Button, InputGroupText} from "reactstrap";
 import { Redirect } from 'react-router-dom';
 
 class Login extends Component{
@@ -32,7 +32,6 @@ class Login extends Component{
   }
 
   componentDidMount() {
-    this.props.hideSidebar();
     if (localStorage.getItem('username'))
       this.setState({redirectToReferrer: true})
   }
@@ -47,8 +46,8 @@ class Login extends Component{
 
     return (
       <div>
-        <Container style={{'maxWidth':'550px'}}>
-            <Card className="p-3 m-5">
+        <Container style={{'maxWidth':'550px', 'padding-top':'20px'}}>
+            <Card className="p-3 ">
               <CardHeader align="center">
                   <b>Login</b>
               </CardHeader>
@@ -83,7 +82,10 @@ class Login extends Component{
                   />
                   </InputGroup>
                 </FormGroup>
-                <Button>Submit</Button>
+                Don't have an Account? <NavLink href="/signup"> Register Here</NavLink>
+                <div className="text-center">
+                  <Button>Submit</Button>
+                </div>
               </Form>
             </Card>
       </Container>

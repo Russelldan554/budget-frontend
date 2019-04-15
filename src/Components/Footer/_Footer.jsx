@@ -7,7 +7,7 @@ const Footer  = props => {
       <Row>
         <Col className="text-left">
         <a href="mailto:someone@example.com" target="_top">
-          someone@example.com
+          This is a School Project. Do not enter real information!
         </a>
         </Col>
         <Col className="text-right">

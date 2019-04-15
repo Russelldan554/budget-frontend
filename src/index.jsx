@@ -15,6 +15,7 @@ import Welcome from './Views/_Welcome';
 import Home from './Views/_Home';
 import Accounts from './Views/_Accounts';
 import Budgets from './Views/_Budgets';
+import Test from './Views/_Test';
 
 import './styles/app.scss';
 
@@ -45,13 +46,10 @@ class App extends Component {
     super(props);
 
     this.state = {
-        userName: "",
-        showBar:true
+        userName: ""
     }
 
     this.loggedIn = this.loggedIn.bind(this);
-    this.hideSidebar = this.hideSidebar.bind(this);
-    this.showSidebar = this.showSidebar.bind(this);
   }
 
   componentDidMount() {
@@ -65,14 +63,6 @@ class App extends Component {
     this.setState({userName: userName});
   }
 
-  hideSidebar(){
-    this.setState({showBar: false});
-  }
-
-  showSidebar(){
-    this.setState({showBar: true});
-  }
-
   render() {
     return (
       <div className="App">
@@ -82,13 +72,14 @@ class App extends Component {
             <Switch>
               <Route exact path="/" component={Welcome} />
               <Route path="/signup" component={Signup} />
-              <Route path="/login" render={(props) => <Login {...props} hideSidebar={this.hideSidebar} auth={auth} loggedIn={this.loggedIn}/>} />
+              <Route path="/test" component={Test} />
+              <Route path="/login" render={(props) => <Login {...props} auth={auth} loggedIn={this.loggedIn}/>} />
               <PrivateRoute path="/user" component={User} />
               <PrivateRoute path="/transactions" component={Transactions} />
               <PrivateRoute path="/budgets" component={Budgets} />
               <PrivateRoute path="/accounts" component={Accounts} />
               <PrivateRoute path="/" component={Home} />
-              <Route render={() => 
+              <Route render={() =>
                 <Redirect to={{pathname: "/"}} />
               }/>
             </Switch>

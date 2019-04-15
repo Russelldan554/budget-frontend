@@ -38,6 +38,7 @@ html, body, #root, .App {
 // General .card
 .card {
     border-color: $gray-600;
+    box-shadow: 1px 1px 5px grey;
 
     // General .card-header
     .card-header {
@@ -54,7 +55,7 @@ html, body, #root, .App {
             margin-top: 0.5rem;
         }
     }
-    
+
     // General .card-footer
     .card-footer {
         border-color: $gray-500;
@@ -63,7 +64,7 @@ html, body, #root, .App {
 
 // _AccountsCard
 .accountsCard {
-    
+
     > .card-body {
         background-color: $gray-300;
     }
@@ -103,7 +104,7 @@ html, body, #root, .App {
     .card-footer.account-totals {
         font-size: $account-totals-font-size;
         padding: 0.75rem 1rem;
-    
+
         .title {
             color: $gray-600;
             padding-right: 0;

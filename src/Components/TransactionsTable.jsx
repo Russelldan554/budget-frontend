@@ -33,9 +33,16 @@ class Transactions extends Component {
               Header: "Amount",
               accessor: "amount"
             },
-
+            {
+              Header: "Date",
+              accessor:"date"
+            },
+            {
+              Header: "Account",
+              accessor: "account"
+            }
           ]}
-          defaultPageSize={10}
+          defaultPageSize={20}
           className="-striped -highlight"
         />
         <br />
