@@ -195,3 +195,28 @@ html, body, #root, .App {
 .navbar-dark .navbar-brand:hover {
     color:                              rgba(255, 255, 255, .7);
 }
+
+.loginCard, .signUpCard {
+    width:                              290px;
+    margin-left:                        auto;
+    margin-right:                       auto;
+
+    .card-body {
+        padding:                        1rem;
+
+        label {
+            margin-bottom:                  0.25rem;
+            font-size:                      0.9rem;
+            font-weight:                    500;
+        }
+
+        button {
+            margin-top:                     2rem;
+        }
+    }
+}
+
+label.required::after {
+    content:                        " *";
+    color:                          $red;
+}

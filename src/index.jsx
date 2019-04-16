@@ -4,14 +4,14 @@ import { BrowserRouter as Router, Route, Switch, Redirect } from 'react-router-d
 import * as serviceWorker from './serviceWorker';
 import { Container } from "reactstrap"
 
-import Login from './Views/_Login';
 import User from './Views/_User';
 import Transactions from './Views/_Transactions';
-import Signup from './Views/_CreateAccount';
+import SignUp from './Views/_SignUp';
 
 import Header from './Components/Header/_Header';
 import Footer from './Components/Footer/_Footer';
 import Welcome from './Views/_Welcome';
+import Login from './Views/_Login';
 import Home from './Views/_Home';
 import Accounts from './Views/_Accounts';
 import Budgets from './Views/_Budgets';
@@ -43,7 +43,7 @@ const auth = {
 class App extends Component {
   constructor(props) {
     super(props);
-
+    this.loggedIn = this.loggedIn.bind(this);
     this.state = {
         userName: ""
     }
@@ -72,15 +72,15 @@ class App extends Component {
           <Container className="App-body p-0 flex-grow-1" fluid  >
             <Switch>
               <Route exact path="/" component={Welcome} />
-              <Route path="/signup" component={Signup} />
-              <Route path="/login" render={(props) => <Login {...props} hideSidebar={this.hideSidebar} auth={auth} loggedIn={this.loggedIn}/>} />
+              <Route path="/signup" render={(props) => <SignUp {...props} auth={auth} loggedIn={this.loggedIn} />} />
+              <Route path="/login" render={(props) => <Login {...props} auth={auth} loggedIn={this.loggedIn} />} />
               <PrivateRoute path="/user" component={User} />
               <PrivateRoute path="/transactions" component={Transactions} />
               <PrivateRoute path="/budgets" component={Budgets} />
               <PrivateRoute path="/accounts" component={Accounts} />
-              <PrivateRoute path="/" component={Home} />
+              <PrivateRoute path="/home" component={Home} />
               <Route render={() => 
-                <Redirect to={{pathname: "/"}} />
+                <Redirect to={{pathname: "/home"}} />
               }/>
             </Switch>
           </Container>
