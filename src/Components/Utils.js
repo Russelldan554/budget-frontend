@@ -1,6 +1,3 @@
-import axios from "axios";
-const URL = 'https://moolah-backend.herokuapp.com/';
-
 const range = len => {
   const arr = [];
   for (let i = 0; i < len; i++) {
@@ -26,36 +23,6 @@ export function makeData(len = 55) {
   });
 }
 
-export function addUsers(un,em,pa,fn,ln,dc) {
-  const userName = un;
-  const email = em;
-  const password = pa;
-  const firstName= fn;
-  const lastName = ln;
-  const dateCreated = dc;
-  try {
-  axios.post(URL + '/users', {
-      userName, email, password, firstName, lastName, dateCreated
-    });
-  } catch (e) {
-    console.log("error");
-  }
-}
-
-export function addAccount(an, bal, id) {
-  const accountName = an;
-  const balance = bal;
-  try {
-  axios.post(URL + '/users/' + id + '/accounts', {
-    accountName, balance
-  });
-  } catch (e) {
-  console.log("error" + e);
-  }
-}
-
 export default {
-  makeData,
-  addUsers,
-  addAccount
+  makeData
 }

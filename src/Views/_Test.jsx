@@ -1,8 +1,7 @@
 import React, { Component } from 'react';
-import API from "../Components/API";
+import * as API from "../Components/API";
 import {Button} from "reactstrap";
-import axios from "axios";
-import { addUsers, addAccount } from "../Components/Utils.js";
+import { addUsers, addAccount} from "../Components/Utils.js";
 
 class Test extends Component {
     constructor(props) {
@@ -20,42 +19,26 @@ class Test extends Component {
     }
 
     getUsers() {
-      let info = [];
-      API.get('/users', {
-        params: {
-        }
-      }).then((response) => {
-        console.log(response.data[0]);
-        info = response.data;
-        this.setState({userInfo: info})
-      });
+      API.getUsers().then((res)=>{this.setState({userInfo: res})});
     }
 
     addUser() {
-      addUsers("dan4","1@2.com","password","dan","r","2019-01-01");
+      API.getUser(1).then((res)=>{this.setState({userInfo: res})});
     }
 
     getAccount() {
-      let info = [];
-      API.get('/users/1/accounts', {
-        params: {
-        }
-      }).then((response) => {
-        console.log(response.data[0]);
-        info = response.data;
-        this.setState({accountInfo: info})
-      });
+      API.getAccounts(1).then((res)=>{this.setState({accountInfo: res})});
     }
 
     addAccount() {
-        addAccount("New",800,1);
+
     }
 
   render() {
     return (
       <div className="container-fluid">
         <Button onClick={this.getUsers}>get users</Button>
-        <Button onClick={this.addUser}>add users</Button>
+        <Button onClick={this.addUser}>get user</Button>
         <p>{JSON.stringify(this.state.userInfo)}</p>
 
         <Button onClick={this.getAccount}>get Account</Button>
