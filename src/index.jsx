@@ -45,32 +45,23 @@ class App extends Component {
     super(props);
 
     this.state = {
-        userName: "",
-        showBar:true
+        userName: ""
     }
-
-    this.loggedIn = this.loggedIn.bind(this);
-    this.hideSidebar = this.hideSidebar.bind(this);
-    this.showSidebar = this.showSidebar.bind(this);
   }
 
   componentDidMount() {
     const userName = localStorage.getItem('username');
     if (userName) {
-        this.setState({userName: userName});
+        this.setState({
+          userName: userName
+        });
     }
   }
 
   loggedIn(userName) {
-    this.setState({userName: userName});
-  }
-
-  hideSidebar(){
-    this.setState({showBar: false});
-  }
-
-  showSidebar(){
-    this.setState({showBar: true});
+    this.setState({
+      userName: userName
+    });
   }
 
   render() {
