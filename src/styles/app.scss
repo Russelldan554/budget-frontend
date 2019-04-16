@@ -10,54 +10,54 @@ $fa-font-path: "~font-awesome/fonts";
 
 
 html, body, #root, .App {
-    height: auto !important;
-    height: 100%;
+    height:                             100%;
+    min-height:                         100%;
     min-height: 100%;
 }
 
 .App-body {
-    min-height: calc(100vh - #{$nav-footer-height});
+    background-color:                   $gray-500;
     background-color: $gray-500;
 }
 
 .navbar {
-    height: $navbar-height;
-    min-width: 250px;
+    min-height:                         $navbar-height;
+    min-width:                          $app-min-width;
 
     .navbar-brand {
-        font-size: 1.2rem;
-        font-weight: 300;
+        font-size:                      1.2rem;
+        font-weight:                    300;
 
         span.logo {
-            font-size: 22px;
-            padding: 0 2px;
+            font-size:                  22px;
+            padding:                    0 2px;
         }
     }
 }
 
 // General .card
 .card {
-    border-color: $gray-600;
+    border-color:                       $gray-600;
 
     // General .card-header
     .card-header {
-        border-color: $gray-500;
+        border-color:                   $gray-500;
     }
 
     // General .card-body
     .card-body {
-        padding: 0.5rem;
+        padding:                        0.5rem;
 
         // Inner Cards
         .account + .account,
         .budget + .budget {
-            margin-top: 0.5rem;
+            margin-top:                 0.5rem;
         }
     }
     
     // General .card-footer
     .card-footer {
-        border-color: $gray-500;
+        border-color:                   $gray-500;
     }
 }
 
@@ -65,61 +65,61 @@ html, body, #root, .App {
 .accountsCard {
     
     > .card-body {
-        background-color: $gray-300;
+        background-color:               $gray-300;
     }
 
     // Accounts in the _AccountsCard
     .account {
         .card {
-            border-color: $gray-500;
+            border-color:               $gray-500;
         }
         .card-header {
-            padding: 0.5rem;
+            padding:                    0.5rem;
             .accountName {
-                color: $white;
-                margin: 0;
+                color:                  $white;
+                margin:                 0;
             }
             .bankName {
-                font-size: 14px;
-                color: $gray-500;
+                font-size:              14px;
+                color:                  $gray-500;
             }
         }
         .card-body {
             .info {
-                margin: 0;
+                margin:                 0;
                 .col {
-                    padding: 0;
+                    padding:            0;
                 }
                 .accountType {
-                    color: $gray-700;
+                    color:              $gray-700;
                 }
                 .balance {
-                    font-weight: 500;
+                    font-weight:        500;
                 }
             }
         }
     }
 
     .card-footer.account-totals {
-        font-size: $account-totals-font-size;
-        padding: 0.75rem 1rem;
+        font-size:                      $account-totals-font-size;
+        padding:                        0.75rem 1rem;
     
         .title {
-            color: $gray-600;
-            padding-right: 0;
+            color:                      $gray-600;
+            padding-right:              0;
         }
         .amount {
-            padding-left: 0;
+            padding-left:               0;
         }
         .assets {
-            color: $green;
+            color:                      $green;
         }
         .debts {
-            color: $red;
+            color:                      $red;
         }
         .net-worth {
-            font-size: $account-totals-font-size + 1;
-            font-weight: 500;
+            font-size:                  $account-totals-font-size + 1;
+            font-weight:                500;
         }
     }
 }
@@ -127,36 +127,36 @@ html, body, #root, .App {
 .budgetsCard {
 
     > .card-body {
-        background-color: $gray-300;
+        background-color:               $gray-300;
     }
 
     .budget {
         .card {
-            border-color: $gray-500;
-            font-weight: 500;
+            border-color:               $gray-500;
+            font-weight:                500;
         }
         .card-header {
-            padding: 0.25rem 0.5rem;
-            border: none;
+            padding:                    0.25rem 0.5rem;
+            border:                     none;
 
             .row {
-                margin: 0;
+                margin:                 0;
             }
             .category,
             .amounts {
-                padding: 0;
+                padding:                0;
             }
             .of {
-                font-weight: 400;
-                font-style: italic;
+                font-weight:            400;
+                font-style:             italic;
             }
         }
         .card-body {
-            padding: 0 0.5rem 0.5rem 0.5rem;
+            padding:                    0 0.5rem 0.5rem 0.5rem;
 
             .progress {
-                border: 1px solid $gray-500;
-                background-color: $gray-400;
+                border: 1px solid       $gray-500;
+                background-color:       $gray-400;
             }
         }
     }
@@ -164,13 +164,13 @@ html, body, #root, .App {
 
 .footer {
     height: $footer-height;
-    padding: 1rem 1rem;
+    min-width:                          $app-min-width;
 
     a {
-        color: rgba(255, 255, 255, 0.4);
+        color:                          rgba(255, 255, 255, 0.4);
     }
     a:hover {
-        color: rgba(255, 255, 255, 0.7);
+        color:                          rgba(255, 255, 255, 0.7);
     }
     .fa {
         font-size: 22px;
@@ -178,21 +178,21 @@ html, body, #root, .App {
 }
 
 .jumbotron {
-    background-color: $gray-800;
-    color: $white;
-    padding-top: 6rem;
-    padding-bottom: 6rem;
+    background-color:                   $gray-800;
+    color:                              $white;
+    padding-top:                        6rem;
+    padding-bottom:                     6rem;
 }
 
 .bg-dark {
-    background-color: $gray-900 !important;
+    background-color:                   $gray-900 !important;
 }
 
 .navbar-dark .navbar-nav .nav-link, .navbar-dark .navbar-brand {
-    color: rgba(255, 255, 255, 1);
+    color:                              rgba(255, 255, 255, 1);
 }
 
-.navbar-dark .navbar-nav .nav-link:hover, .navbar-dark .navbar-nav .nav-link:focus,
+.navbar-dark .navbar-nav .nav-link:hover, .navbar-dark .navbar-nav .nav-link:focus, .navbar-dark .navbar-nav .nav-link.active,
 .navbar-dark .navbar-brand:hover {
-    color: rgba(255, 255, 255, .7);
+    color:                              rgba(255, 255, 255, .7);
 }

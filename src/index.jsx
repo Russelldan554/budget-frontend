@@ -75,10 +75,10 @@ class App extends Component {
 
   render() {
     return (
-      <div className="App">
+      <div className="App d-flex flex-column">
         <Router>
           <Header userName={this.state.userName} />
-          <Container className="App-body p-0" fluid>
+          <Container className="App-body p-0 flex-grow-1" fluid  >
             <Switch>
               <Route exact path="/" component={Welcome} />
               <Route path="/signup" component={Signup} />
@@ -93,7 +93,7 @@ class App extends Component {
               }/>
             </Switch>
           </Container>
-          <Footer  />
+          <Footer />
         </Router>
       </div>
     );
