@@ -15,6 +15,7 @@ import Login from './Views/_Login';
 import Home from './Views/_Home';
 import Accounts from './Views/_Accounts';
 import Budgets from './Views/_Budgets';
+import Test from './Views/_Test';
 
 import './styles/app.scss';
 
@@ -74,12 +75,13 @@ class App extends Component {
               <Route exact path="/" component={Welcome} />
               <Route path="/signup" render={(props) => <SignUp {...props} auth={auth} loggedIn={this.loggedIn} />} />
               <Route path="/login" render={(props) => <Login {...props} auth={auth} loggedIn={this.loggedIn} />} />
+              <Route path="/test" component={Test} />
               <PrivateRoute path="/user" component={User} />
               <PrivateRoute path="/transactions" component={Transactions} />
               <PrivateRoute path="/budgets" component={Budgets} />
               <PrivateRoute path="/accounts" component={Accounts} />
               <PrivateRoute path="/home" component={Home} />
-              <Route render={() => 
+              <Route render={() =>
                 <Redirect to={{pathname: "/home"}} />
               }/>
             </Switch>
