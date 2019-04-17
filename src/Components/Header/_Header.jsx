@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import {Collapse, Navbar, Nav, NavItem,  UncontrolledDropdown,  DropdownToggle,  DropdownMenu,  DropdownItem } from "reactstrap";
+import {Collapse, Navbar, Nav, NavItem, NavbarToggler, UncontrolledDropdown,  DropdownToggle,  DropdownMenu,  DropdownItem } from "reactstrap";
 import { NavLink } from 'react-router-dom';
 
 import Brand from './Brand';
@@ -7,13 +7,13 @@ import Brand from './Brand';
 class Header extends Component {
   constructor(props) {
     super(props);
-    this.toggleCollapsed = this.toggleCollapsed.bind(this);
+    this.toggleNavbar = this.toggleNavbar.bind(this);
     this.state = {
       collapsed: true,
     }
   }
 
-  toggleCollapsed() {
+  toggleNavbar() {
     this.setState({
       collapsed: !this.state.collapsed,
     });
@@ -28,7 +28,8 @@ class Header extends Component {
     return (
       <Navbar color="dark" dark expand="md">
         <Brand />
-        <Collapse isOpen={this.state.isOpen} navbar>
+        <NavbarToggler onClick={this.toggleNavbar} className="mr-2" />
+        <Collapse isOpen={!this.state.collapsed} navbar>
           <Nav className="ml-auto" navbar>
             { this.props.userName ?
               <React.Fragment>
