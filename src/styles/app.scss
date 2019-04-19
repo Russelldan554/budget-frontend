@@ -1,0 +1,222 @@
+// Import Bootstrap and its default variables
+@import '~bootstrap/scss/bootstrap.scss';
+
+// Import Font Awesome, set path of fonts
+$fa-font-path: "~font-awesome/fonts";
+@import "~font-awesome/scss/font-awesome";
+
+// Import Custom Variables
+@import './variable.scss';
+
+
+html, body, #root, .App {
+    height:                             100%;
+    min-height:                         100%;
+}
+
+.App-body {
+    background-color:                   $gray-500;
+}
+
+.navbar {
+    min-height:                         $navbar-height;
+    min-width:                          $app-min-width;
+
+    .navbar-brand {
+        font-size:                      1.2rem;
+        font-weight:                    300;
+
+        span.logo {
+            font-size:                  22px;
+            padding:                    0 2px;
+        }
+    }
+}
+
+// General .card
+.card {
+    border-color:                       $gray-600;
+
+    // General .card-header
+    .card-header {
+        border-color:                   $gray-500;
+    }
+
+    // General .card-body
+    .card-body {
+        padding:                        0.5rem;
+
+        // Inner Cards
+        .account + .account,
+        .budget + .budget {
+            margin-top:                 0.5rem;
+        }
+    }
+    
+    // General .card-footer
+    .card-footer {
+        border-color:                   $gray-500;
+    }
+}
+
+// _AccountsCard
+.accountsCard {
+    
+    > .card-body {
+        background-color:               $gray-300;
+    }
+
+    // Accounts in the _AccountsCard
+    .account {
+        .card {
+            border-color:               $gray-500;
+        }
+        .card-header {
+            padding:                    0.5rem;
+            .accountName {
+                color:                  $white;
+                margin:                 0;
+            }
+            .bankName {
+                font-size:              14px;
+                color:                  $gray-500;
+            }
+        }
+        .card-body {
+            .info {
+                margin:                 0;
+                .col {
+                    padding:            0;
+                }
+                .accountType {
+                    color:              $gray-700;
+                }
+                .balance {
+                    font-weight:        500;
+                }
+            }
+        }
+    }
+
+    .card-footer.account-totals {
+        font-size:                      $account-totals-font-size;
+        padding:                        0.75rem 1rem;
+    
+        .title {
+            color:                      $gray-600;
+            padding-right:              0;
+        }
+        .amount {
+            padding-left:               0;
+        }
+        .assets {
+            color:                      $green;
+        }
+        .debts {
+            color:                      $red;
+        }
+        .net-worth {
+            font-size:                  $account-totals-font-size + 1;
+            font-weight:                500;
+        }
+    }
+}
+
+.budgetsCard {
+
+    > .card-body {
+        background-color:               $gray-300;
+    }
+
+    .budget {
+        .card {
+            border-color:               $gray-500;
+            font-weight:                500;
+        }
+        .card-header {
+            padding:                    0.25rem 0.5rem;
+            border:                     none;
+
+            .row {
+                margin:                 0;
+            }
+            .category,
+            .amounts {
+                padding:                0;
+            }
+            .of {
+                font-weight:            400;
+                font-style:             italic;
+            }
+        }
+        .card-body {
+            padding:                    0 0.5rem 0.5rem 0.5rem;
+
+            .progress {
+                border: 1px solid       $gray-500;
+                background-color:       $gray-400;
+            }
+        }
+    }
+}
+
+.footer {
+    min-height:                         $footer-height;
+    min-width:                          $app-min-width;
+    padding:                            1rem 1rem;
+
+    a {
+        color:                          rgba(255, 255, 255, 0.4);
+    }
+    a:hover {
+        color:                          rgba(255, 255, 255, 0.7);
+    }
+    .fa {
+        font-size: 22px;
+    }
+}
+
+.jumbotron {
+    background-color:                   $gray-800;
+    color:                              $white;
+    padding-top:                        6rem;
+    padding-bottom:                     6rem;
+}
+
+.bg-dark {
+    background-color:                   $gray-900 !important;
+}
+
+.navbar-dark .navbar-nav .nav-link, .navbar-dark .navbar-brand {
+    color:                              rgba(255, 255, 255, 1);
+}
+
+.navbar-dark .navbar-nav .nav-link:hover, .navbar-dark .navbar-nav .nav-link:focus, .navbar-dark .navbar-nav .nav-link.active,
+.navbar-dark .navbar-brand:hover {
+    color:                              rgba(255, 255, 255, .7);
+}
+
+.loginCard, .signUpCard {
+    width:                              290px;
+    margin-left:                        auto;
+    margin-right:                       auto;
+
+    .card-body {
+        padding:                        1rem;
+
+        label {
+            margin-bottom:                  0.25rem;
+            font-size:                      0.9rem;
+            font-weight:                    500;
+        }
+
+        button {
+            margin-top:                     2rem;
+        }
+    }
+}
+
+label.required::after {
+    content:                        " *";
+    color:                          $red;
+}
