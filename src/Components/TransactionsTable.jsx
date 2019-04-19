@@ -17,7 +17,7 @@ class Transactions extends Component {
   render() {
     const { data } = this.state;
     return (
-      <div>
+      <div className="p-3 ">
         <ReactTable
           data={data}
           columns={[
@@ -33,10 +33,17 @@ class Transactions extends Component {
               Header: "Amount",
               accessor: "amount"
             },
-
+            {
+              Header: "Account",
+              accessor: "account"
+            },
+            {
+              Header: "Date",
+              accessor: "date"
+            },
           ]}
           defaultPageSize={10}
-          className="-striped -highlight"
+          className="-striped -highlight bg-light"
         />
         <br />
       </div>

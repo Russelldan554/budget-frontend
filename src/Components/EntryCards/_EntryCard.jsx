@@ -6,8 +6,10 @@ class Entry extends Component{
     super(props);
     this.handleChange = this.handleChange.bind(this);
     this.onRedirectTrue = this.onRedirectTrue.bind(this);
+    this.onRedirectLogin = this.onRedirectLogin.bind(this);
     this.state = {
-      redirectToHome: false
+      redirectToHome: false,
+      redirectToLogin: false
     }
   }
 
@@ -32,18 +34,29 @@ class Entry extends Component{
     });
   }
 
+  onRedirectLogin() {
+    this.setState({
+      redirectToLogin: true
+    });
+  }
+
   render() {
     if (this.state.redirectToHome === true) {
       return <Redirect to={{pathname: "/home"}} />
     }
 
+    if (this.state.redirectToLogin === true) {
+      return <Redirect to={{pathname: "/login"}} />
+    }
+
     return (
       <div>
-        {React.cloneElement(this.props.children, { 
+        {React.cloneElement(this.props.children, {
           handleChange: this.handleChange,
           parentClass: this.parentClass,
           submitForm: this.submitForm,
-          onRedirectTrue: this.onRedirectTrue
+          onRedirectTrue: this.onRedirectTrue,
+          onRedirectLogin: this.onRedirectLogin
         })}
       </div>
     );

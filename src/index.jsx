@@ -16,6 +16,7 @@ import Home from './Views/_Home';
 import Accounts from './Views/_Accounts';
 import Budgets from './Views/_Budgets';
 import Test from './Views/_Test';
+import * as API from './Components/API';
 
 import './styles/app.scss';
 
@@ -34,10 +35,21 @@ const PrivateRoute = ({ component: Component, ...rest}) => {
 }
 
 const auth = {
-  authenticate(userName, password) {
+  async authenticate(userName, password) {
+      let login = false
       //Check DB for username and password
-      localStorage.setItem("username", userName);
-      localStorage.setItem("token", 1234);
+      await API.login(userName, password).then((res) => {
+        if (res !== 0) {
+          console.log("intrue");
+          localStorage.setItem("username", userName);
+          localStorage.setItem("userId", res);
+          login = true;
+        } else {
+          //handle failed login
+          login = false;
+        }
+      });
+      return login;
   }
 }
 
