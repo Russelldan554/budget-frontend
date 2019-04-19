@@ -9,11 +9,18 @@ class LoginCard extends Component {
     this.onRedirectTrue = this.props.onRedirectTrue;
   }
 
-  submitForm(e) {
+  async submitForm(e) {
     e.preventDefault();
-    this.props.auth.authenticate(e.target.userName.value, e.target.password.value);
-    this.props.loggedIn(e.target.userName.value);
-    this.onRedirectTrue(e);
+    let userName = e.target.userName.value;
+    await this.props.auth.authenticate(e.target.userName.value, e.target.password.value)
+      .then( (res) => {
+        if (res) {
+          this.props.loggedIn(userName);
+          this.onRedirectTrue(e);
+        } else {
+          alert("Login Failed");
+        }
+      });
   }
 
   render() {
@@ -60,7 +67,7 @@ class LoginCard extends Component {
             </FormGroup>
             <Button className="btn-block bg-success">Submit</Button>
           </Form>
-        </CardBody>  
+        </CardBody>
       </Card>
     );
   }

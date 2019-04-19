@@ -1,19 +1,32 @@
 import React, { Component } from 'react';
 import { InputGroup, InputGroupAddon, Card, CardHeader, CardBody, Form, FormGroup, Label, Input, Button, InputGroupText } from "reactstrap";
+import * as API from "../API"
 
 class LoginCard extends Component {
   constructor(props) {
     super(props);
     this.handleChange = this.props.handleChange;
     this.submitForm = this.submitForm.bind(this);
-    this.onRedirectTrue = this.props.onRedirectTrue;
+    this.onRedirectLogin = this.props.onRedirectLogin;
   }
 
   submitForm(e) {
     e.preventDefault();
-    this.props.auth.authenticate(e.target.userName.value, e.target.password.value);
-    this.props.loggedIn(e.target.userName.value);
-    this.onRedirectTrue(e);
+    if (e.target.password.value === e.target.confirmPassword.value) {
+      let payload = {
+        "userName" : e.target.userName.value,
+        "firstName": e.target.firstName.value,
+        "lastName": e.target.lastName.value,
+        "email": e.target.email.value,
+        "password": e.target.password.value,
+        "dateCreated": "2019-04-18"
+      }
+      API.addUser(payload).then((res)=>{
+        this.onRedirectLogin(e);
+      });
+    } else {
+      //handle error message for mismatch password
+    }
   }
 
   render() {

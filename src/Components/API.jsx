@@ -1,7 +1,7 @@
 import axios from "axios";
 //Comment out whichever one you need for testing
-const URL = 'https://moolah-backend.herokuapp.com/';
-// const URL = 'http://localhost:8080';
+// const URL = 'https://moolah-backend.herokuapp.com/';
+const URL = 'http://localhost:8080';
 const headers = {
   'Content-Type': 'application/json'
 }
@@ -44,11 +44,11 @@ export const getAccounts = payload => {
 };
 
 //This is experimental call for login not implemented on backend yet
-export const checkUser = payload => {
-  return axios(URL + '/users/check/' + payload, {
-    method: 'GET',
-    headers: headers,
-    data: payload,
+export const login = (userName,password) => {
+  return axios(URL + '/users/login' , {
+    method: 'POST',
+    headers: {"Content-Type":"application/json"},
+    data: {'username':userName, 'password': password},
   })
     .then(response => response.data)
     .catch(error => {
