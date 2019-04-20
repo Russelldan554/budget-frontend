@@ -6,9 +6,9 @@ const Footer  = props => {
     <Container className="footer bg-dark" fluid>
       <Row noGutters>
         <Col className="text-left" xs={11}>
-        <a href="mailto:someone@example.com" target="_top">
-          someone@example.com
-        </a>
+        <div>
+          This project was developed for CMSC 495 at UMUC
+        </div>
         </Col>
         <Col className="text-right my-auto" xs={1}>
           <a href="https://github.com/Russelldan554/budget-app">

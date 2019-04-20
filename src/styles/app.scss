@@ -165,7 +165,7 @@ html, body, #root, .App {
     min-width:                          $app-min-width;
     padding:                            1rem 1rem;
 
-    a {
+    a, div {
         color:                          rgba(255, 255, 255, 0.4);
     }
     a:hover {
