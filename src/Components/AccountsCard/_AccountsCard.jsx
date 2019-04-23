@@ -1,12 +1,18 @@
 import React, { Component } from 'react';
-import { Card, CardHeader, CardBody, CardFooter, Row, Col } from 'reactstrap';
+import { Card, CardBody, CardFooter, Row, Col } from 'reactstrap';
+import Utils from '../Utils';
 
 import Account from './Account'
+import WidgetCardHeader from '../WidgetCardHeader/_WidgetCardHeader'
 
 class AccountsCard extends Component {
   constructor(props) {
     super(props);
     // Use states if netWorth will be calculated on the frontend?
+    this.cardHeader = Utils.cardHeaders[0];
+    this.buttonID = "addAccount";
+    this.actionTitle = "Add an Account";
+    this.actionConfirm = "Add Account"
     this.state = {
         assets: 15000,
         debts: 250,
@@ -16,10 +22,8 @@ class AccountsCard extends Component {
 
   render() {
     return (
-      <Card className="accountsCard">
-        <CardHeader>
-          <h3 className="cardHeader">Accounts</h3>
-        </CardHeader>
+      <Card id="accountsCard">
+        <WidgetCardHeader cardHeader={this.cardHeader} buttonID={this.buttonID} actionTitle={this.actionTitle} actionConfirm={this.actionConfirm} />
         <CardBody>
           <Row noGutters>
             {/*For each account in database (for pertaining user) create an Account Component with the appropriate props*/}

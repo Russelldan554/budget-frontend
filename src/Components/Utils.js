@@ -24,6 +24,9 @@ export function makeData(len = 55) {
   });
 }
 
+var cardHeaders = ["Accounts","Budgets"];
+
 export default {
-  makeData
+  makeData,
+  cardHeaders
 }

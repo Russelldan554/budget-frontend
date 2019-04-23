@@ -1,15 +1,23 @@
 import React, { Component } from 'react';
-import { Card, CardHeader, CardBody, Row } from 'reactstrap';
+import { Card, CardBody, Row } from 'reactstrap';
+
+import Utils from '../Utils';
 
 import Budget from './Budget'
+import WidgetCardHeader from '../WidgetCardHeader/_WidgetCardHeader'
 
 class BudgetsCard extends Component {
+  constructor(props) {
+    super(props);
+    this.cardHeader = Utils.cardHeaders[1];
+    this.buttonID = "newBudget";
+    this.actionTitle = "Create a New Budget";
+    this.actionConfirm = "Create Budget";
+  }
   render() {
     return (
-      <Card className="budgetsCard">
-        <CardHeader>
-          <h3 className="cardHeader">Budgets</h3>
-        </CardHeader>
+      <Card id="budgetsCard">
+        <WidgetCardHeader cardHeader={this.cardHeader} buttonID={this.buttonID} actionTitle={this.actionTitle} actionConfirm={this.actionConfirm} />
         <CardBody>
           <Row noGutters>
             {/*For each budget in database (for pertaining user) create a Budget Component with the appropriate props*/}
