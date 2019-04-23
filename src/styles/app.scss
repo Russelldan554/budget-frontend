@@ -231,5 +231,8 @@ label.required::after {
 .tooltip {
     transition:                         opacity ease 0.25s;
     -webkit-transition:                 opacity ease 0.25s;
+}
 
+.error {
+    color:                              $red !important;
 }
