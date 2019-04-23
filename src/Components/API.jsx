@@ -6,7 +6,6 @@ const headers = {
   'Content-Type': 'application/json'
 }
 
-
 export const getUsers = payload => {
   return axios(URL + '/users', {
     method: 'GET',
@@ -43,6 +42,18 @@ export const getAccounts = payload => {
     });
 };
 
+export const getBudgets = payload => {
+  return axios(URL + '/users/' + payload + '/budgets', {
+    method: 'GET',
+    headers: headers,
+    data: payload,
+  })
+    .then(response => response.data)
+    .catch(error => {
+      throw error;
+    })
+}
+
 //This is experimental call for login not implemented on backend yet
 export const login = (userName,password) => {
   return axios(URL + '/users/login' , {
@@ -70,6 +81,18 @@ export const addUser = payload => {
 
 export const addAccount = (id, payload) => {
   return axios(URL + '/users/' + id + '/accounts', {
+    method: 'POST',
+    headers: headers,
+    data: payload,
+  })
+    .then(response => response.data)
+    .catch(error => {
+      throw error;
+    });
+};
+
+export const addBudget = (id, payload) => {
+  return axios(URL + '/users/' + id + '/budgets', {
     method: 'POST',
     headers: headers,
     data: payload,
