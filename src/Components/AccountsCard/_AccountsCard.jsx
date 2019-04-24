@@ -1,5 +1,7 @@
 import React, { Component } from 'react';
 import { Card, CardBody, CardFooter, Row, Col } from 'reactstrap';
+
+import * as API from '../API';
 import Utils from '../Utils';
 
 import Account from './Account'
@@ -11,7 +13,7 @@ class AccountsCard extends Component {
     // Use states if netWorth will be calculated on the frontend?
     this.cardHeader = Utils.cardHeaders[0];
     this.buttonID = "addAccount";
-    this.actionTitle = "Add an Account";
+    this.actionTitle = "n Account";
     this.actionConfirm = "Add Account"
     this.state = {
         assets: 15000,

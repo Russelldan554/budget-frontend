@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import { Card, CardBody, Row } from 'reactstrap';
-
 import * as API from '../API';
 import Utils from '../Utils';
 
@@ -10,9 +9,10 @@ import WidgetCardHeader from '../WidgetCardHeader/_WidgetCardHeader'
 class BudgetsCard extends Component {
   constructor(props) {
     super(props);
+    this.getBudgets = this.getBudgets.bind(this);
     this.cardHeader = Utils.cardHeaders[1];
-    this.buttonID = "newBudget";
-    this.actionTitle = "Create a New Budget";
+    this.buttonID = "Budget";
+    this.actionTitle = " Budget";
     this.actionConfirm = "Create Budget";
     this.state = {
       isLoading: true,
@@ -21,27 +21,31 @@ class BudgetsCard extends Component {
     }
   }
 
-  componentDidMount() {
+  getBudgets() {
     API.getBudgets(1)
-      .then(res => {
-        this.setState({
-          budgets: res,
-          isLoading: false
-        });
-      })
-      .catch(error => {
-        this.setState ({
-          error,
-          isLoading: false
-        })
+    .then(res => {
+      this.setState({
+        budgets: res,
+        isLoading: false
       });
+    })
+    .catch(error => {
+      this.setState ({
+        error,
+        isLoading: false
+      })
+    });
+  }
+
+  componentDidMount() {
+    this.getBudgets();
   }
 
   render() {
     const { isLoading, budgets, error } = this.state;
     return (
       <Card id="budgetsCard">
-        <WidgetCardHeader cardHeader={this.cardHeader} buttonID={this.buttonID} actionTitle={this.actionTitle} actionConfirm={this.actionConfirm} />
+        <WidgetCardHeader cardHeader={this.cardHeader} buttonID={this.buttonID} actionTitle={this.actionTitle} actionConfirm={this.actionConfirm} getBudgets={this.getBudgets} />
         <CardBody>
           <Row noGutters>
             {/*For each budget in database (for pertaining user) create a Budget Component with the appropriate props*/}

@@ -14,9 +14,9 @@ class Budget extends Component {
     var color = "success";
     var percentSpent = (this.props.spentAmount/this.props.maxAmount);
 
-    if (percentSpent > 0.99) {
+    if (percentSpent > 0.95) {
       color = "danger";
-    } else if (percentSpent > 0.80) {
+    } else if (percentSpent > 0.7) {
       color = "warning";
     }
 

@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { CardHeader, Row, Col } from 'reactstrap';
 import PropTypes from 'prop-types';
 
-import CreateButton from './CreateButton'
+import WidgetButton from './WidgetButton'
 import NewEntityModal from './NewEntityModal';
 
 class WidgetCardHeader extends Component {
@@ -13,24 +13,31 @@ class WidgetCardHeader extends Component {
     this.buttonID = this.props.buttonID;
     this.actionTitle = this.props.actionTitle;
     this.actionConfirm = this.props.actionConfirm;
+    this.getBudgets = this.props.getBudgets;
     this.modal = React.createRef();
-    this.toggleModal = this.toggleModal.bind(this);
+    this.toggleCreateModal = this.toggleCreateModal.bind(this);
+    this.buttonType = ["remove", "add"]
   }
 
-  toggleModal = () => {
+  toggleCreateModal = () => {
     this.modal.current.toggle();
+  }
+
+  toggleDelete = () => { // Placeholder
+    console.log("DELETE")
   }
 
   render() {
     return (
       <CardHeader>
         <Row className="info" noGutters>
-          <Col xs={10}>
+          <Col xs={8}>
             <h3 className="cardHeader">{this.cardHeader}</h3>
           </Col>
-          <Col xs={2}>
-            <CreateButton id={this.buttonID} tooltipMessage={this.actionTitle} toggleModal={this.toggleModal} />
-            <NewEntityModal modalTitle={this.actionTitle} actionConfirm={this.actionConfirm} ref={this.modal} modalBody={this.cardHeader} />
+          <Col xs={4} className="d-flex justify-content-end">
+            <WidgetButton id={this.buttonType[0] + this.buttonID} tooltipMessage={"Remove a" + this.actionTitle} buttonHandler={this.toggleDelete} buttonType={this.buttonType[0]} />
+            <WidgetButton id={this.buttonType[1] + this.buttonID} tooltipMessage={"Add a" + this.actionTitle} buttonHandler={this.toggleCreateModal} buttonType={this.buttonType[1]} />
+            <NewEntityModal modalTitle={this.actionTitle} actionConfirm={this.actionConfirm} ref={this.modal} modalBody={this.cardHeader} getBudgets={this.getBudgets} />
           </Col>
         </Row>
       </CardHeader>
