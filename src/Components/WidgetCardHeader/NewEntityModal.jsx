@@ -1,5 +1,13 @@
 import React, { Component } from 'react';
-import { Modal, ModalHeader, ModalBody, ModalFooter, Button } from 'reactstrap';
+import { 
+  Button, 
+  Form, 
+  Modal, 
+  ModalBody, 
+  ModalFooter, 
+  ModalHeader 
+} from 'reactstrap';
+import PropTypes from 'prop-types';
 import Utils from '../Utils';
 
 import BudgetModal from '../BudgetsCard/BudgetModal';
@@ -7,46 +15,69 @@ import AccountModal from '../AccountsCard/AccountModal';
 
 class NewEntityModal extends Component {
   constructor(props) {
-      super(props);
-      this.toggle = this.toggle.bind(this);
-      this.modalTitle = this.props.modalTitle;
-      this.actionConfirm = this.props.actionConfirm;
-      this.modalBody = this.props.modalBody;
-      this.state = {
-        modal: false
-    }
+    super(props);
+    this.submitForm = this.submitForm.bind(this);
+    this.contentRef = React.createRef();
   }
 
-  toggle() {
-    this.setState({
-      modal: !this.state.modal
-    });
+  submitForm(e) {
+    this.contentRef.current.submitForm(e);
   }
 
   render() {
     let content;
 
-    if (this.modalBody === Utils.cardHeaders[0]) {
-      content = <AccountModal />;
-    } else if (this.modalBody === Utils.cardHeaders[1]) {
-      content = <BudgetModal />;
+    if (this.props.modalBody === Utils.cardHeaders[0]) {
+      content = 
+        <AccountModal 
+          ref={this.contentRef} 
+        />
+    } else if (this.props.modalBody === Utils.cardHeaders[1]) {
+      content = 
+        <BudgetModal 
+          getBudgets={this.props.getBudgets} 
+          ref={this.contentRef} 
+          toggleModal={this.props.buttonHandler}
+        />
     }
 
     return (
-      <Modal isOpen={this.state.modal} toggle={this.toggle} centered={true}>
-        <ModalHeader toggle={this.toggle}>
-          {this.modalTitle}
-        </ModalHeader>
-        <ModalBody>
-          {content}
-        </ModalBody>
-        <ModalFooter>
-          <Button color="success" onClick={this.toggle}>{this.actionConfirm}</Button>
-          <Button color="danger" onClick={this.toggle}>Cancel</Button>
-        </ModalFooter>
+      <Modal 
+        isOpen={this.props.buttonState} 
+        toggle={this.props.buttonHandler} 
+        centered={true}
+      >
+        <Form onSubmit={(e) => this.submitForm(e)}>
+          <ModalHeader>
+            Add a {this.props.modalTitle}
+          </ModalHeader>
+          <ModalBody>
+            {content}
+          </ModalBody>
+          <ModalFooter>
+            <Button color="success">
+              {this.props.actionConfirm}
+            </Button>
+            <Button 
+              color="danger" 
+              onClick={this.props.buttonHandler}
+            >
+              Cancel
+            </Button>
+          </ModalFooter>
+        </Form>
       </Modal>
     );
   }
 }
+
+NewEntityModal.propTypes = {
+  actionConfirm: PropTypes.string.isRequired,
+  buttonHandler: PropTypes.func.isRequired,
+  buttonState: PropTypes.bool.isRequired,
+  getBudgets: PropTypes.func,
+  modalBody: PropTypes.string.isRequired,
+  modalTitle: PropTypes.string.isRequired
+};
 
 export default NewEntityModal;
