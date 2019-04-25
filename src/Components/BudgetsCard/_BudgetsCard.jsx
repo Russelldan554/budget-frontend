@@ -9,15 +9,17 @@ import WidgetCardHeader from '../WidgetCardHeader/_WidgetCardHeader'
 class BudgetsCard extends Component {
   constructor(props) {
     super(props);
-    this.getBudgets = this.getBudgets.bind(this);
-    this.cardHeader = Utils.cardHeaders[1];
-    this.buttonID = "Budget";
-    this.actionTitle = " Budget";
     this.actionConfirm = "Create Budget";
+    this.actionTitle = " Budget";
+    this.buttonID = "Budget";
+    this.cardHeader = Utils.cardHeaders[1];
+    this.getBudgets = this.getBudgets.bind(this);
+    this.toggleDeleteButtons = this.toggleDeleteButtons.bind(this);
     this.state = {
       isLoading: true,
       budgets: [],
-      error: null
+      error: null,
+      deleteButtons: false
     }
   }
 
@@ -37,6 +39,12 @@ class BudgetsCard extends Component {
     });
   }
 
+  toggleDeleteButtons() {
+    this.setState ({
+      deleteButtons: !this.state.deleteButtons
+    })
+  }
+
   componentDidMount() {
     this.getBudgets();
   }
@@ -45,21 +53,49 @@ class BudgetsCard extends Component {
     const { isLoading, budgets, error } = this.state;
     return (
       <Card id="budgetsCard">
-        <WidgetCardHeader cardHeader={this.cardHeader} buttonID={this.buttonID} actionTitle={this.actionTitle} actionConfirm={this.actionConfirm} getBudgets={this.getBudgets} />
+        <WidgetCardHeader 
+          actionConfirm={this.actionConfirm} 
+          actionTitle={this.actionTitle} 
+          buttonID={this.buttonID} 
+          cardHeader={this.cardHeader} 
+          getBudgets={this.getBudgets} 
+          toggleDeleteButtons={this.toggleDeleteButtons} 
+        />
         <CardBody>
-          <Row noGutters>
-            {/*For each budget in database (for pertaining user) create a Budget Component with the appropriate props*/}
+          <Row noGutters fluid={"true"}>
+            {/*Create a Budget Component for each of the User's budgets*/}
             <React.Fragment>
-              {error ? <Budget spentAmount={0} maxAmount={0} category={<span className="error">{error.message}</span>} /> : null}
+              {error ?  
+                <Budget 
+                  spentAmount={0} 
+                  maxAmount={0} 
+                  category={<span className="error">{error.message}</span>} 
+                /> 
+                : 
+                null
+              }
               {!isLoading ? (
                 budgets.map(budget => {
                   const { budgetId, spentAmount, maxAmount, category } = budget;
                   return (
-                    <Budget key={budgetId} spentAmount={spentAmount} maxAmount={maxAmount} category={category} />
+                    <Budget 
+                      category={category} 
+                      deleteButtons={this.state.deleteButtons} 
+                      getBudgets={this.getBudgets} 
+                      id={budgetId} 
+                      key={budgetId} 
+                      maxAmount={maxAmount} 
+                      spentAmount={spentAmount} 
+                      
+                    />
                   );
                 })
               ) : (
-                <Budget spentAmount={0} maxAmount={0} category={"Loading..."} />
+                <Budget 
+                  spentAmount={0} 
+                  maxAmount={0} 
+                  category={"Loading..."} 
+                />
               )}
             </React.Fragment>
           </ Row>

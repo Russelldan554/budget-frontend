@@ -22,10 +22,6 @@ class WidgetButton extends Component {
     });
   }
 
-  buttonHandler() {
-    this.props.buttonHandler();
-  }
-
   componentDidMount() {
       if (this.buttonType === "add") {
         this.setState ({
@@ -44,7 +40,13 @@ class WidgetButton extends Component {
     return (
       <div className="createButton d-inline-block">
         <div className="d-flex justify-content-end">
-          <Button outline color={this.state.color} className="align-self-center" id={'tooltip-' + this.props.id} onClick={this.buttonHandler}>
+          <Button 
+            className="align-self-center" 
+            color={this.state.color} 
+            id={'tooltip-' + this.props.id} 
+            onClick={this.buttonHandler}
+            outline 
+          >
             <i className={this.state.icon} aria-hidden="true"></i>
           </Button>
           <Tooltip 

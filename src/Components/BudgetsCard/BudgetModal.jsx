@@ -1,5 +1,17 @@
 import React, { Component } from 'react';
-import { Card, CardHeader, CardBody, Row, Col, Progress, FormGroup, Label, InputGroup, InputGroupAddon, Input } from 'reactstrap';
+import { 
+  Card, 
+  CardHeader, 
+  CardBody, 
+  Col, 
+  FormGroup, 
+  Input, 
+  InputGroup, 
+  InputGroupAddon, 
+  Label, 
+  Progress, 
+  Row 
+} from 'reactstrap';
 import PropTypes from 'prop-types';
 import * as API from '../API';
 
@@ -7,7 +19,6 @@ class BudgetModal extends Component {
   constructor(props) {
     super(props)
     this.submitForm = this.submitForm.bind(this);
-    this.getBudgets = this.props.getBudgets;
   }
 
   async submitForm(e) {
@@ -21,7 +32,7 @@ class BudgetModal extends Component {
     }
     API.addBudget(id, payload)
     .then(() => {
-      this.getBudgets();
+      this.props.getBudgets();
     })
   }
 
@@ -42,33 +53,40 @@ class BudgetModal extends Component {
             <CardHeader>
               <Row>
                 <Col className="text-left category">
-                <FormGroup>
-                  <Label>Category</Label>
-                  <Input
-                    type="text"
-                    name="category"
-                    id="newCategory"
-                    required
-                    onChange={(e) => this.handleChange(e)}
-                  />
-                </FormGroup>
-                </Col>
-                <Col className="text-right amounts required" required>
-                  <Label>Amount</Label>
-                  <InputGroup>
-                    <InputGroupAddon addonType="prepend" className="account">
-                      <div className="pr-1">
-                        $0 <span className="of">of</span> $  
-                      </div>
-                    </InputGroupAddon>
+                  <FormGroup>
+                    <Label>Category</Label>
                     <Input
                       type="text"
-                      name="maxAmount"
-                      id="newMaxAmount"
+                      name="category"
+                      id="newCategory"
                       required
                       onChange={(e) => this.handleChange(e)}
                     />
-                  </InputGroup>
+                  </FormGroup>
+                </Col>
+              </Row>
+              <Row>
+                <Col className="text-left amounts required" required>
+                  <Label>Amount</Label>
+                  <FormGroup>
+                    <InputGroup>
+                      <InputGroupAddon addonType="prepend" className="account">
+                        $
+                      </InputGroupAddon>
+                      <Input
+                        type="number"
+                        name="maxAmount"
+                        placeholder="0"
+                        id="newMaxAmount"
+                        step="1"
+                        required
+                        onChange={(e) => this.handleChange(e)}
+                      />
+                      <InputGroupAddon addonType="append" className="account">
+                        .00
+                      </InputGroupAddon>
+                    </InputGroup>
+                  </FormGroup>
                 </Col>
               </Row>
             </CardHeader>
@@ -91,9 +109,8 @@ class BudgetModal extends Component {
 }
 
 BudgetModal.propTypes = {
-  spent: PropTypes.string,
-  max: PropTypes.string,
-  category: PropTypes.string
+  getBudgets: PropTypes.func,
+  submitForm: PropTypes.func
 };
 
 export default BudgetModal;

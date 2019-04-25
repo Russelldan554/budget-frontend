@@ -56,8 +56,15 @@ body {
 
         // Inner Cards
         .account + .account,
-        .budget + .budget {
+        .budget + .budget,
+        .budget + .deleteBudget + .budget,
+        .deleteBudget + .budget + .deleteBudget  {
             margin-top:                 0.5rem;
+        }
+
+        .deleteBudget .btn {
+            height:                     100%;
+            width:                      100%;
         }
     }
     
@@ -131,7 +138,6 @@ body {
 }
 
 #budgetsCard, .modal {
-
     > .card-body {
         background-color:               $gray-300;
     }
@@ -164,6 +170,19 @@ body {
                 border: 1px solid       $gray-500;
                 background-color:       $gray-400;
             }
+        }
+        &.border-fix {
+            .card {
+                border-radius:          0.25rem 0 0 0.25rem !important;
+            }
+        }
+    }
+    .deleteBudget {
+        &.hidden, .hidden {
+            display:                    none;
+        }
+        button, .btn, .btn-danger {
+            border-radius:              0 0.25rem 0.25rem 0 !important;
         }
     }
 }
@@ -237,7 +256,7 @@ label.required::after {
       padding:                          0;
 
       @media (min-width: 300px) {
-        min-width:                        35px !important;
+        min-width:                      35px !important;
       }
     }
 }
@@ -267,6 +286,6 @@ label.required::after {
 
 @media (min-width: 576px) {
     .modal-dialog {
-        max-width: 700px;
+        max-width:                      700px;
     }
 }
