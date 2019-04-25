@@ -1,7 +1,7 @@
 import axios from "axios";
 //Comment out whichever one you need for testing
-//const URL = 'https://moolah-backend.herokuapp.com/';
-const URL = 'http://localhost:8080';
+const URL = 'https://moolah-backend.herokuapp.com/';
+//const URL = 'http://localhost:8080';
 const headers = {
   'Content-Type': 'application/json'
 }
