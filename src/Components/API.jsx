@@ -1,7 +1,7 @@
 import axios from "axios";
 //Comment out whichever one you need for testing
-const URL = 'https://moolah-backend.herokuapp.com/';
-//const URL = 'http://localhost:8080';
+//const URL = 'https://moolah-backend.herokuapp.com/';
+const URL = 'http://localhost:8080';
 const headers = {
   'Content-Type': 'application/json'
 }
@@ -102,6 +102,18 @@ export const addBudget = (id, payload) => {
       throw error;
     });
 };
+
+export const deleteAccount = (userId, id) => {
+  return axios(URL + '/users/' + userId + '/accounts/' + id, {
+    method: 'DELETE',
+    headers: headers,
+  })
+    .then(response => response.data)
+    .catch(error => {
+      throw error;
+    });
+};
+
 
 export const deleteBudget = (userId, id) => {
   return axios(URL + '/users/' + userId + '/budgets/' + id, {
