@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import ReactTable from "react-table";
-import { makeData } from "./Utils.js";
-
+import * as API from "../../Components/API";
 import "react-table/react-table.css";
 
 class Transactions extends Component {
@@ -9,17 +8,24 @@ class Transactions extends Component {
       super(props);
 
       this.state = {
-        data: makeData()
+        transactions: []
       }
     }
 
+  componentDidMount() {
+    API.getTransactions().then((res)=>{
+      console.log(res);
+      this.setState({transactions: res});
+    }).catch((error) => {
+    });
+  }
 
   render() {
-    const { data } = this.state;
+    const { transactions } = this.state;
     return (
       <div className="p-3 ">
         <ReactTable
-          data={data}
+          data={transactions}
           columns={[
             {
               Header: "Name",
@@ -35,7 +41,7 @@ class Transactions extends Component {
             },
             {
               Header: "Account",
-              accessor: "account"
+              accessor: "account.accountName"
             },
             {
               Header: "Date",
