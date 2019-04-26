@@ -17,12 +17,6 @@ html, body, #root, .App {
     }
 }
 
-body {
-    .modal-open {
-        padding-right:                  0 !important;
-    }
-}
-
 .App-body {
     background-color:                   $gray-500;
 }
@@ -58,13 +52,24 @@ body {
         .account + .account,
         .budget + .budget,
         .budget + .deleteBudget + .budget,
-        .deleteBudget + .budget + .deleteBudget  {
+        .deleteBudget + .budget + .deleteBudget,
+        .account + .deleteAccount + .account,
+        .deleteAccount + .account + .deleteAccount {
             margin-top:                 0.5rem;
         }
 
-        .deleteBudget .btn {
+        .deleteAccount .btn, .deleteBudget .btn {
             height:                     100%;
             width:                      100%;
+            padding:                    0;
+        }
+        .deleteAccount, .deleteBudget {
+            &.hidden, .hidden {
+                display:                none;
+            }
+            button, .btn, .btn-danger {
+                border-radius:          0 0.25rem 0.25rem 0 !important;
+            }
         }
     }
     
@@ -75,7 +80,7 @@ body {
 }
 
 // _AccountsCard
-#accountsCard {
+#accountsCard, .modal {
     
     > .card-body {
         background-color:               $gray-300;
@@ -177,14 +182,6 @@ body {
             }
         }
     }
-    .deleteBudget {
-        &.hidden, .hidden {
-            display:                    none;
-        }
-        button, .btn, .btn-danger {
-            border-radius:              0 0.25rem 0.25rem 0 !important;
-        }
-    }
 }
 
 .footer {
@@ -229,16 +226,22 @@ body {
     .card-body {
         padding:                        1rem;
 
-        label {
-            margin-bottom:              0.25rem;
-            font-size:                  0.9rem;
-            font-weight:                500;
-        }
-
         button {
             margin-top:                 2rem;
         }
     }
+}
+
+form {
+    .card-header {
+        padding: 0.5rem !important;
+    }
+}
+
+label {
+    margin-bottom:                      0.25rem;
+    font-size:                          0.9rem;
+    font-weight:                        500;
 }
 
 label.required::after {

@@ -30,14 +30,16 @@ class NewEntityModal extends Component {
     if (this.props.modalBody === Utils.cardHeaders[0]) {
       content = 
         <AccountModal 
+          getAccounts={this.props.getAccounts} 
           ref={this.contentRef} 
+          toggleModal={this.props.buttonHandler} 
         />
     } else if (this.props.modalBody === Utils.cardHeaders[1]) {
       content = 
         <BudgetModal 
           getBudgets={this.props.getBudgets} 
           ref={this.contentRef} 
-          toggleModal={this.props.buttonHandler}
+          toggleModal={this.props.buttonHandler} 
         />
     }
 
@@ -49,7 +51,7 @@ class NewEntityModal extends Component {
       >
         <Form onSubmit={(e) => this.submitForm(e)}>
           <ModalHeader>
-            Add a {this.props.modalTitle}
+            Add a{this.props.modalTitle}
           </ModalHeader>
           <ModalBody>
             {content}

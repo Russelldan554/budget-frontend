@@ -16,10 +16,10 @@ class BudgetsCard extends Component {
     this.getBudgets = this.getBudgets.bind(this);
     this.toggleDeleteButtons = this.toggleDeleteButtons.bind(this);
     this.state = {
-      isLoading: true,
       budgets: [],
+      deleteButtons: false,
       error: null,
-      deleteButtons: false
+      isLoading: true,
     }
   }
 
@@ -98,7 +98,7 @@ class BudgetsCard extends Component {
                 />
               )}
             </React.Fragment>
-          </ Row>
+          </Row>
         </CardBody>
       </Card>
     );

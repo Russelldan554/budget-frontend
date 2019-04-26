@@ -1,14 +1,11 @@
 import React, { Component } from 'react';
 import { Button, Tooltip } from 'reactstrap';
+import PropTypes from 'prop-types';
 
 class WidgetButton extends Component {
   constructor(props) {
       super(props);
-      this.id = this.props.id;
-      this.tooltipMessage = this.props.tooltipMessage;
       this.toggleToolTip = this.toggleToolTip.bind(this);
-      this.buttonHandler = this.props.buttonHandler;
-      this.buttonType = this.props.buttonType;
       this.state = {
         tooltipOpen: false,
         color: "",
@@ -23,12 +20,12 @@ class WidgetButton extends Component {
   }
 
   componentDidMount() {
-      if (this.buttonType === "add") {
+      if (this.props.buttonType === "add") {
         this.setState ({
           color: "success",
           icon: "fa fa-plus"
         })
-      } else if (this.buttonType === "remove") {
+      } else if (this.props.buttonType === "remove") {
         this.setState ({
             color: "danger",
             icon: "fa fa-minus"
@@ -44,7 +41,7 @@ class WidgetButton extends Component {
             className="align-self-center" 
             color={this.state.color} 
             id={'tooltip-' + this.props.id} 
-            onClick={this.buttonHandler}
+            onClick={this.props.buttonHandler}
             outline 
           >
             <i className={this.state.icon} aria-hidden="true"></i>
@@ -58,12 +55,19 @@ class WidgetButton extends Component {
             trigger="hover focus"
             delay={{ show: 0, hide: 100 }}
           >
-            {this.tooltipMessage}
+            {this.props.tooltipMessage}
           </Tooltip>
         </div>
       </div>
     );
   }
 }
+
+WidgetButton.propTypes = {
+  buttonHandler: PropTypes.func,
+  buttonType: PropTypes.string.isRequired,
+  id: PropTypes.string.isRequired,
+  tooltipMessage: PropTypes.string.isRequired,
+};
 
 export default WidgetButton;

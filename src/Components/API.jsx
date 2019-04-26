@@ -103,6 +103,18 @@ export const addBudget = (id, payload) => {
     });
 };
 
+export const deleteAccount = (userId, id) => {
+  return axios(URL + '/users/' + userId + '/accounts/' + id, {
+    method: 'DELETE',
+    headers: headers,
+  })
+    .then(response => response.data)
+    .catch(error => {
+      throw error;
+    });
+};
+
+
 export const deleteBudget = (userId, id) => {
   return axios(URL + '/users/' + userId + '/budgets/' + id, {
     method: 'DELETE',

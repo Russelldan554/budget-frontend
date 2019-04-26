@@ -51,7 +51,9 @@ class Test extends Component {
     addAccount() {
       let id = 1;
       let payload = {
-      	"accountName": "Testing",
+        "accountName": "Testing",
+        "accountType": "Checking",
+        "bankName": "bank1",
       	"balance": 7777.77
       }
       API.addAccount(id, payload).then((res)=>{this.setState({})});

@@ -46,6 +46,7 @@ class WidgetCardHeader extends Component {
               modalTitle={this.props.actionTitle} 
               actionConfirm={this.props.actionConfirm} 
               modalBody={this.props.cardHeader} 
+              getAccounts={this.props.getAccounts}
               getBudgets={this.props.getBudgets} 
               buttonHandler={this.toggleCreateModal} 
               buttonState={this.state.createModal} />
@@ -56,12 +57,12 @@ class WidgetCardHeader extends Component {
   }
 }
 
-
 WidgetCardHeader.propTypes = {
   actionConfirm: PropTypes.string.isRequired,
   actionTitle: PropTypes.string.isRequired,
   buttonID: PropTypes.string.isRequired,
   cardHeader: PropTypes.string.isRequired,
+  getAccounts: PropTypes.func,
   getBudgets: PropTypes.func,
   toggleDeleteButtons: PropTypes.func
 };
