@@ -23,11 +23,11 @@ class Test extends Component {
     }
 
     getUser() {
-      API.getUser(1).then((res)=>{this.setState({userInfo: res})});
+      API.getUser().then((res)=>{this.setState({userInfo: res})});
     }
 
     getAccount() {
-      API.getAccounts(1).then((res)=>{this.setState({accountInfo: res})});
+      API.getAccounts().then((res)=>{this.setState({accountInfo: res})});
     }
 
     addUser() {
@@ -57,8 +57,19 @@ class Test extends Component {
         <Button onClick={this.getUsers}>get users</Button>
         <Button onClick={this.getUser}>get user</Button>
         <Button onClick={this.addUser}>Add user</Button>
-        <p>{JSON.stringify(this.state.userInfo)}</p>
-
+        <table className="bg-white p-3">
+          <tbody>
+            {this.state.userInfo.map(function(item, key) {
+              return (
+                <tr>
+                  <td>{item.userName}</td>
+                  <td>{item.firstName}</td>
+                  <td>{item.lastName}</td>
+                </tr>
+              )
+            })}
+          </tbody>
+        </table>
         <Button onClick={this.getAccount}>get Account</Button>
         <Button onClick={this.addAccount}>add Account</Button>
         <p>{JSON.stringify(this.state.accountInfo)}</p>
