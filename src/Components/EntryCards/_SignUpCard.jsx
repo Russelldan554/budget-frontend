@@ -14,7 +14,7 @@ class LoginCard extends Component {
     e.preventDefault();
     if (e.target.password.value === e.target.confirmPassword.value) {
       let payload = {
-        "userName" : e.target.userName.value,
+        "userName": e.target.userName.value,
         "firstName": e.target.firstName.value,
         "lastName": e.target.lastName.value,
         "email": e.target.email.value,

@@ -16,6 +16,8 @@ class Test extends Component {
       this.addUser = this.addUser.bind(this);
       this.getAccount = this.getAccount.bind(this);
       this.addAccount = this.addAccount.bind(this);
+      this.getBudgets = this.getBudgets.bind(this);
+      this.addBudgets = this.addBudgets.bind(this);
     }
 
     getUsers() {
@@ -28,6 +30,10 @@ class Test extends Component {
 
     getAccount() {
       API.getAccounts().then((res)=>{this.setState({accountInfo: res})});
+    }
+
+    getBudgets() {
+      API.getBudgets(1).then((res)=>{this.setState({budgetInfo: res})});
     }
 
     addUser() {
@@ -45,10 +51,40 @@ class Test extends Component {
     addAccount() {
       let id = 1;
       let payload = {
-      	"accountName": "Testing",
+        "accountName": "Testing",
+        "accountType": "Checking",
+        "bankName": "bank1",
       	"balance": 7777.77
       }
       API.addAccount(id, payload).then((res)=>{this.setState({})});
+    }
+
+    addBudgets() {
+      let id = 1;
+      let payload = {
+        "category": "Shopping",
+        "spentAmount": 24.56,
+      	"maxAmount": 100
+      }
+      API.addBudget(id, payload).then((res)=>{this.setState({})});
+      let payload1 = {
+        "category": "Restaurant",
+        "spentAmount": 90.27,
+      	"maxAmount": 100.
+      }
+      API.addBudget(id, payload1).then((res)=>{this.setState({})});
+      let payload2 = {
+        "category": "Groceries",
+        "spentAmount": 114.38,
+      	"maxAmount": 100.0
+      }
+      API.addBudget(id, payload2).then((res)=>{this.setState({})});
+      let payload3 = {
+        "category": "Rent",
+        "spentAmount": 1400,
+      	"maxAmount": 2000
+      }
+      API.addBudget(id, payload3).then((res)=>{this.setState({})});
     }
 
   render() {
@@ -73,6 +109,10 @@ class Test extends Component {
         <Button onClick={this.getAccount}>get Account</Button>
         <Button onClick={this.addAccount}>add Account</Button>
         <p>{JSON.stringify(this.state.accountInfo)}</p>
+
+        <Button onClick={this.getBudgets}>get Budget</Button>
+        <Button onClick={this.addBudgets}>add Budgets (x4)</Button>
+        <p>{JSON.stringify(this.state.budgetInfo)}</p>
       </div>
     );
   }
