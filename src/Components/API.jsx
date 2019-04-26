@@ -1,7 +1,10 @@
 import axios from "axios";
 //Comment out whichever one you need for testing
-const URL = 'https://moolah-backend.herokuapp.com/';
-//const URL = 'http://localhost:8080';
+
+// const URL = 'https://moolah-backend.herokuapp.com/';
+const URL = 'http://localhost:8080';
+const userID = localStorage.getItem('userId');
+
 const headers = {
   'Content-Type': 'application/json'
 }
@@ -19,7 +22,7 @@ export const getUsers = payload => {
 };
 
 export const getUser = payload => {
-  return axios(URL + '/users/' + payload, {
+  return axios(URL + '/users/' + userID, {
     method: 'GET',
     headers: headers,
     data: payload,
@@ -43,7 +46,7 @@ export const getAccounts = payload => {
 };
 
 export const getBudgets = payload => {
-  return axios(URL + '/users/' + payload + '/budgets', {
+  return axios(URL + '/users/' + userID + '/budgets', {
     method: 'GET',
     headers: headers,
     data: payload,
@@ -92,8 +95,20 @@ export const addAccount = (id, payload) => {
 };
 
 export const addBudget = (id, payload) => {
-  return axios(URL + '/users/' + id + '/budgets', {
+  return axios(URL + '/users/' + userID + '/budgets', {
     method: 'POST',
+    headers: headers,
+    data: payload,
+  })
+    .then(response => response.data)
+    .catch(error => {
+      throw error;
+    });
+};
+
+export const updateUser = payload => {
+  return axios(URL + '/users/' + userID, {
+    method: 'PUT',
     headers: headers,
     data: payload,
   })
@@ -113,7 +128,6 @@ export const deleteAccount = (userId, id) => {
       throw error;
     });
 };
-
 
 export const deleteBudget = (userId, id) => {
   return axios(URL + '/users/' + userId + '/budgets/' + id, {
