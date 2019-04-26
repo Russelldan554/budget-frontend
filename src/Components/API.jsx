@@ -122,6 +122,12 @@ export const addTransaction = ( payload) => {
       amount: payload.amount,
       userId: userID
     },
+  })
+    .then(response => response.data)
+    .catch(error => {
+      throw error;
+    });
+};
 
 export const addBudget = (id, payload) => {
   return axios(URL + '/users/' + userID + '/budgets', {
