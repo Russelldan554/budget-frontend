@@ -1,36 +1,55 @@
 import React, { Component } from 'react';
-import { CardHeader, Row, Col } from 'reactstrap';
+import { CardHeader, Col, Row } from 'reactstrap';
 import PropTypes from 'prop-types';
 
-import CreateButton from './CreateButton'
+import WidgetButton from './WidgetButton'
 import NewEntityModal from './NewEntityModal';
 
 class WidgetCardHeader extends Component {
   constructor(props) {
     super(props);
-    // Use states if netWorth will be calculated on the frontend?
-    this.cardHeader = this.props.cardHeader;
-    this.buttonID = this.props.buttonID;
-    this.actionTitle = this.props.actionTitle;
-    this.actionConfirm = this.props.actionConfirm;
-    this.modal = React.createRef();
-    this.toggleModal = this.toggleModal.bind(this);
+    this.buttonType = ["remove", "add"]
+    this.toggleCreateModal = this.toggleCreateModal.bind(this);
+
+    this.state = {
+      createModal: false
+    }
   }
 
-  toggleModal = () => {
-    this.modal.current.toggle();
+  toggleCreateModal() {
+    this.setState ({
+      createModal: !this.state.createModal
+    })
   }
 
   render() {
     return (
       <CardHeader>
         <Row className="info" noGutters>
-          <Col xs={10}>
-            <h3 className="cardHeader">{this.cardHeader}</h3>
+          <Col xs={8}>
+            <h3 className="cardHeader">{this.props.cardHeader}</h3>
           </Col>
-          <Col xs={2}>
-            <CreateButton id={this.buttonID} tooltipMessage={this.actionTitle} toggleModal={this.toggleModal} />
-            <NewEntityModal modalTitle={this.actionTitle} actionConfirm={this.actionConfirm} ref={this.modal} modalBody={this.cardHeader} />
+          <Col xs={4} className="d-flex justify-content-end">
+            <WidgetButton 
+              id={this.buttonType[0] + this.props.buttonID} 
+              tooltipMessage={"Remove a" + this.props.actionTitle} 
+              buttonHandler={this.props.toggleDeleteButtons} 
+              buttonType={this.buttonType[0]} 
+            />
+            <WidgetButton 
+              id={this.buttonType[1] + this.props.buttonID} 
+              tooltipMessage={"Add a" + this.props.actionTitle} 
+              buttonHandler={this.toggleCreateModal} 
+              buttonType={this.buttonType[1]} 
+            />
+            <NewEntityModal 
+              modalTitle={this.props.actionTitle} 
+              actionConfirm={this.props.actionConfirm} 
+              modalBody={this.props.cardHeader} 
+              getAccounts={this.props.getAccounts}
+              getBudgets={this.props.getBudgets} 
+              buttonHandler={this.toggleCreateModal} 
+              buttonState={this.state.createModal} />
           </Col>
         </Row>
       </CardHeader>
@@ -38,12 +57,14 @@ class WidgetCardHeader extends Component {
   }
 }
 
-
 WidgetCardHeader.propTypes = {
-  cardHeader: PropTypes.string.isRequired,
-  buttonID: PropTypes.string.isRequired,
-  actionTitle: PropTypes.string.isRequired,
   actionConfirm: PropTypes.string.isRequired,
+  actionTitle: PropTypes.string.isRequired,
+  buttonID: PropTypes.string.isRequired,
+  cardHeader: PropTypes.string.isRequired,
+  getAccounts: PropTypes.func,
+  getBudgets: PropTypes.func,
+  toggleDeleteButtons: PropTypes.func
 };
 
 export default WidgetCardHeader;

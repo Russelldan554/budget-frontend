@@ -12,7 +12,9 @@ $fa-font-path: "~font-awesome/fonts";
 html, body, #root, .App {
     height:                             100%;
     min-height:                         100%;
-    min-width:                          $app-min-width;
+    &, .modal {
+        min-width:                      $app-min-width !important;
+    }
 }
 
 .App-body {
@@ -48,8 +50,26 @@ html, body, #root, .App {
 
         // Inner Cards
         .account + .account,
-        .budget + .budget {
+        .budget + .budget,
+        .budget + .deleteBudget + .budget,
+        .deleteBudget + .budget + .deleteBudget,
+        .account + .deleteAccount + .account,
+        .deleteAccount + .account + .deleteAccount {
             margin-top:                 0.5rem;
+        }
+
+        .deleteAccount .btn, .deleteBudget .btn {
+            height:                     100%;
+            width:                      100%;
+            padding:                    0;
+        }
+        .deleteAccount, .deleteBudget {
+            &.hidden, .hidden {
+                display:                none;
+            }
+            button, .btn, .btn-danger {
+                border-radius:          0 0.25rem 0.25rem 0 !important;
+            }
         }
     }
     
@@ -60,7 +80,7 @@ html, body, #root, .App {
 }
 
 // _AccountsCard
-#accountsCard {
+#accountsCard, .modal {
     
     > .card-body {
         background-color:               $gray-300;
@@ -122,8 +142,7 @@ html, body, #root, .App {
     }
 }
 
-#budgetsCard {
-
+#budgetsCard, .modal {
     > .card-body {
         background-color:               $gray-300;
     }
@@ -155,6 +174,11 @@ html, body, #root, .App {
             .progress {
                 border: 1px solid       $gray-500;
                 background-color:       $gray-400;
+            }
+        }
+        &.border-fix {
+            .card {
+                border-radius:          0.25rem 0 0 0.25rem !important;
             }
         }
     }
@@ -202,16 +226,22 @@ html, body, #root, .App {
     .card-body {
         padding:                        1rem;
 
-        label {
-            margin-bottom:              0.25rem;
-            font-size:                  0.9rem;
-            font-weight:                500;
-        }
-
         button {
             margin-top:                 2rem;
         }
     }
+}
+
+form {
+    .card-header {
+        padding: 0.5rem !important;
+    }
+}
+
+label {
+    margin-bottom:                      0.25rem;
+    font-size:                          0.9rem;
+    font-weight:                        500;
 }
 
 label.required::after {
@@ -219,15 +249,21 @@ label.required::after {
     color:                              $red;
 }
 
-.createButton {
+.createButton, .deleteButton {
     height:                             100%;
+    padding-left:                       5px;
 
     button {
       height:                           35px;
-      width:                            35px;
+      min-width:                        25px;
       padding:                          0;
+
+      @media (min-width: 300px) {
+        min-width:                      35px !important;
+      }
     }
 }
+
 .tooltip {
     transition:                         opacity ease 0.25s;
     -webkit-transition:                 opacity ease 0.25s;
@@ -235,4 +271,24 @@ label.required::after {
 
 .error {
     color:                              $red !important;
+}
+
+.modal-open {
+    padding-right:                      0 !important;
+    overflow-y:                         auto;
+}
+
+.modal {
+    .modal-content {
+        .modal-body {
+            padding:                    0.5rem;
+            background-color:           $gray-300;
+        }
+    }
+}
+
+@media (min-width: 576px) {
+    .modal-dialog {
+        max-width:                      700px;
+    }
 }
