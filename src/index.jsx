@@ -39,10 +39,9 @@ const auth = {
       let login = false
       //Check DB for username and password
       await API.login(userName, password).then((res) => {
-        if (res !== 0) {
-          console.log("intrue");
+        if (res.login) {
           localStorage.setItem("username", userName);
-          localStorage.setItem("userId", res);
+          localStorage.setItem("userId", res.id);
           login = true;
         } else {
           //handle failed login

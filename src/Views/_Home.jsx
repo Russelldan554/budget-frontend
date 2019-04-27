@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import {Container, Row, Col, Card, CardHeader, CardBody } from 'reactstrap';
 
-import TransactionsTable from "../Components/TransactionsTable"
+import TransactionsTable from "../Components/Transactions/TransactionsTable"
 
 import AccountsCard from '../Components/AccountsCard/_AccountsCard'
 import BudgetsCard from '../Components/BudgetsCard/_BudgetsCard'

@@ -14,7 +14,7 @@ class LoginCard extends Component {
     e.preventDefault();
     if (e.target.password.value === e.target.confirmPassword.value) {
       let payload = {
-        "userName" : e.target.userName.value,
+        "userName": e.target.userName.value,
         "firstName": e.target.firstName.value,
         "lastName": e.target.lastName.value,
         "email": e.target.email.value,
@@ -44,7 +44,6 @@ class LoginCard extends Component {
                   type="text"
                   name="firstName"
                   id="firstName"
-                  placeholder="First Name"
                   required
                   onChange={(e) => this.handleChange(e)}
                 />
@@ -57,7 +56,6 @@ class LoginCard extends Component {
                   type="text"
                   name="lastName"
                   id="lastName"
-                  placeholder="Last Name"
                   required
                   onChange={(e) => this.handleChange(e)}
                 />
@@ -71,7 +69,6 @@ class LoginCard extends Component {
                   type="text"
                   name="email"
                   id="email"
-                  placeholder="Your@email.com"
                   required
                   onChange={(e) => this.handleChange(e)}
                 />
@@ -89,7 +86,6 @@ class LoginCard extends Component {
                   type="text"
                   name="username"
                   id="userName"
-                  placeholder="Username"
                   required
                   onChange={(e) => this.handleChange(e)}
                 />
@@ -107,7 +103,6 @@ class LoginCard extends Component {
                   type="password"
                   name="password"
                   id="Password"
-                  placeholder="password"
                   required
                   onChange={(e) => this.handleChange(e)}
                 />
@@ -125,7 +120,6 @@ class LoginCard extends Component {
                   type="password"
                   name="confirmPassword"
                   id="confirmPassword"
-                  placeholder="password"
                   required
                   onChange={(e) => this.handleChange(e)}
                 />

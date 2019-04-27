@@ -2,10 +2,10 @@ import axios from "axios";
 //Comment out whichever one you need for testing
 const URL = 'https://moolah-backend.herokuapp.com/';
 //const URL = 'http://localhost:8080';
+const userID = localStorage.getItem('userId');
 const headers = {
   'Content-Type': 'application/json'
 }
-
 
 export const getUsers = payload => {
   return axios(URL + '/users', {
@@ -20,7 +20,7 @@ export const getUsers = payload => {
 };
 
 export const getUser = payload => {
-  return axios(URL + '/users/' + payload, {
+  return axios(URL + '/users/' + userID, {
     method: 'GET',
     headers: headers,
     data: payload,
@@ -32,7 +32,7 @@ export const getUser = payload => {
 };
 
 export const getAccounts = payload => {
-  return axios(URL + '/users/' + payload + '/accounts', {
+  return axios(URL + '/users/' + userID + '/accounts', {
     method: 'GET',
     headers: headers,
     data: payload,
@@ -43,6 +43,30 @@ export const getAccounts = payload => {
     });
 };
 
+export const getTransactions = payload => {
+  return axios(URL + '/users/' + userID + '/transactions', {
+    method: 'GET',
+    headers: headers,
+    data: payload,
+  })
+    .then(response => response.data)
+    .catch(error => {
+      throw error;
+    });
+};
+
+export const getBudgets = payload => {
+  return axios(URL + '/users/' + userID + '/budgets', {
+    method: 'GET',
+    headers: headers,
+    data: payload,
+  })
+    .then(response => response.data)
+    .catch(error => {
+      throw error;
+    })
+}
+
 //This is experimental call for login not implemented on backend yet
 export const login = (userName,password) => {
   return axios(URL + '/users/login' , {
@@ -50,8 +74,12 @@ export const login = (userName,password) => {
     headers: {"Content-Type":"application/json"},
     data: {'username':userName, 'password': password},
   })
-    .then(response => response.data)
+    .then(response => {
+      return {login: true, id: response.data}
+    })
     .catch(error => {
+      if (error.response.data)
+        return {login: false, message: error.response.data.message}
       throw error;
     });
 };
@@ -69,10 +97,75 @@ export const addUser = payload => {
 };
 
 export const addAccount = (id, payload) => {
-  return axios(URL + '/users/' + id + '/accounts', {
+  return axios(URL + '/users/' + userID + '/accounts', {
     method: 'POST',
     headers: headers,
     data: payload,
+  })
+    .then(response => response.data)
+    .catch(error => {
+      throw error;
+    });
+};
+
+
+export const addTransaction = ( payload) => {
+  return axios(URL + '/users/' + userID + '/accounts/' + payload.accountID + '/transactions', {
+    method: 'POST',
+    headers: headers,
+    data: {
+      name: payload.name,
+      date: payload.date,
+      category: payload.category,
+      amount: payload.amount,
+      userId: userID
+    },
+  })
+    .then(response => response.data)
+    .catch(error => {
+      throw error;
+    });
+};
+
+export const addBudget = (id, payload) => {
+  return axios(URL + '/users/' + userID + '/budgets', {
+    method: 'POST',
+    headers: headers,
+    data: payload,
+  })
+    .then(response => response.data)
+    .catch(error => {
+      throw error;
+    });
+};
+
+export const updateUser = payload => {
+  return axios(URL + '/users/' + userID, {
+    method: 'PUT',
+    headers: headers,
+    data: payload,
+  })
+    .then(response => response.data)
+    .catch(error => {
+      throw error;
+    });
+};
+
+export const deleteAccount = (userId, id) => {
+  return axios(URL + '/users/' + userId + '/accounts/' + id, {
+    method: 'DELETE',
+    headers: headers,
+  })
+    .then(response => response.data)
+    .catch(error => {
+      throw error;
+    });
+};
+
+export const deleteBudget = (userId, id) => {
+  return axios(URL + '/users/' + userId + '/budgets/' + id, {
+    method: 'DELETE',
+    headers: headers,
   })
     .then(response => response.data)
     .catch(error => {
