@@ -5,170 +5,184 @@ const URL = 'http://localhost:8080';
 const userID = localStorage.getItem('userId');
 const headers = {
   'Content-Type': 'application/json',
-}
-
-export const getUsers = payload => {
-  return axios(URL + '/users', {
-    method: 'GET',
-    headers: headers,
-    data: payload,
-  })
-    .then(response => response.data)
-    .catch(error => {
-      throw error;
-    });
 };
 
-export const getUser = payload => {
-  return axios(URL + '/users/' + userID, {
+export const getUsers = (payload => axios(
+  `${URL}/users`, {
     method: 'GET',
-    headers: headers,
+    headers,
     data: payload,
+  },
+)
+  .then(response => response.data)
+  .catch((error) => {
+    throw error;
   })
-    .then(response => response.data)
-    .catch(error => {
-      throw error;
-    });
-};
+);
 
-export const getAccounts = payload => {
-  return axios(URL + '/users/' + userID + '/accounts', {
+export const getUser = (payload => axios(
+  `${URL}/users/${userID}`, {
     method: 'GET',
-    headers: headers,
+    headers,
     data: payload,
+  },
+)
+  .then(response => response.data)
+  .catch((error) => {
+    throw error;
   })
-    .then(response => response.data)
-    .catch(error => {
-      throw error;
-    });
-};
+);
 
-export const getTransactions = payload => {
-  return axios(URL + '/users/' + userID + '/transactions', {
+export const getAccounts = (payload => axios(
+  `${URL}/users/${userID}/accounts`, {
     method: 'GET',
-    headers: headers,
+    headers,
     data: payload,
+  },
+)
+  .then(response => response.data)
+  .catch((error) => {
+    throw error;
   })
-    .then(response => response.data)
-    .catch(error => {
-      throw error;
-    });
-};
+);
 
-export const getBudgets = payload => {
-  return axios(URL + '/users/' + userID + '/budgets', {
+export const getTransactions = (payload => axios(
+  `${URL}/users/${userID}/transactions`, {
     method: 'GET',
-    headers: headers,
+    headers,
     data: payload,
+  },
+)
+  .then(response => response.data)
+  .catch((error) => {
+    throw error;
   })
-    .then(response => response.data)
-    .catch(error => {
-      throw error;
-    })
-}
+);
 
-//This is experimental call for login not implemented on backend yet
-export const login = (userName,password) => {
-  return axios(URL + '/users/login' , {
+export const getBudgets = (payload => axios(
+  `${URL}/users/${userID}/budgets`, {
+    method: 'GET',
+    headers,
+    data: payload,
+  },
+)
+  .then(response => response.data)
+  .catch((error) => {
+    throw error;
+  })
+);
+
+// This is experimental call for login not implemented on backend yet
+export const login = ((userName, password) => axios(
+  `${URL}/users/login`, {
     method: 'POST',
-    headers: {"Content-Type":"application/json"},
-    data: {'username':userName, 'password': password},
+    headers: { 'Content-Type': 'application/json' },
+    data: { username: userName, password },
+  },
+)
+  .then(response => (
+    { login: true, id: response.data }
+  ))
+  .catch((error) => {
+    if (error.response.data) {
+      return { login: false, message: error.response.data.message };
+    }
+    throw error;
   })
-    .then(response => {
-      return {login: true, id: response.data}
-    })
-    .catch(error => {
-      if (error.response.data)
-        return {login: false, message: error.response.data.message}
-      throw error;
-    });
-};
+);
 
-export const addUser = payload => {
-  return axios(URL + '/users', {
+export const addUser = (payload => axios(
+  `${URL}/users`, {
     method: 'POST',
-    headers: headers,
+    headers,
     data: payload,
+  },
+)
+  .then(response => response.data)
+  .catch((error) => {
+    throw error;
   })
-    .then(response => response.data)
-    .catch(error => {
-      throw error;
-    });
-};
+);
 
-export const addAccount = (id, payload) => {
-  return axios(URL + '/users/' + userID + '/accounts', {
+export const addAccount = ((id, payload) => axios(
+  `${URL}/users/${userID}/accounts`, {
     method: 'POST',
-    headers: headers,
+    headers,
     data: payload,
+  },
+)
+  .then(response => response.data)
+  .catch((error) => {
+    throw error;
   })
-    .then(response => response.data)
-    .catch(error => {
-      throw error;
-    });
-};
+);
 
 
-export const addTransaction = ( payload) => {
-  return axios(URL + '/users/' + userID + '/accounts/' + payload.accountID + '/transactions', {
+export const addTransaction = (payload => axios(
+  `${URL}/users/${userID}/accounts/${payload.accountID}/transactions`, {
     method: 'POST',
-    headers: headers,
+    headers,
     data: {
       name: payload.name,
       date: payload.date,
       category: payload.category,
       amount: payload.amount,
-      userId: userID
+      userId: userID,
     },
+  },
+)
+  .then(response => response.data)
+  .catch((error) => {
+    throw error;
   })
-    .then(response => response.data)
-    .catch(error => {
-      throw error;
-    });
-};
+);
 
-export const addBudget = (id, payload) => {
-  return axios(URL + '/users/' + userID + '/budgets', {
+export const addBudget = ((id, payload) => axios(
+  `${URL}/users/${userID}/budgets`, {
     method: 'POST',
-    headers: headers,
+    headers,
     data: payload,
+  },
+)
+  .then(response => response.data)
+  .catch((error) => {
+    throw error;
   })
-    .then(response => response.data)
-    .catch(error => {
-      throw error;
-    });
-};
+);
 
-export const updateUser = payload => {
-  return axios(URL + '/users/' + userID, {
+export const updateUser = (payload => axios(
+  `${URL}/users/${userID}`, {
     method: 'PUT',
-    headers: headers,
+    headers,
     data: payload,
+  },
+)
+  .then(response => response.data)
+  .catch((error) => {
+    throw error;
   })
-    .then(response => response.data)
-    .catch(error => {
-      throw error;
-    });
-};
+);
 
-export const deleteAccount = (userId, id) => {
-  return axios(URL + '/users/' + userId + '/accounts/' + id, {
+export const deleteAccount = ((userId, id) => axios(
+  `${URL}/users/${userId}/accounts/${id}`, {
     method: 'DELETE',
-    headers: headers,
+    headers,
+  },
+)
+  .then(response => response.data)
+  .catch((error) => {
+    throw error;
   })
-    .then(response => response.data)
-    .catch(error => {
-      throw error;
-    });
-};
+);
 
-export const deleteBudget = (userId, id) => {
-  return axios(URL + '/users/' + userId + '/budgets/' + id, {
+export const deleteBudget = ((userId, id) => axios(
+  `${URL}/users/${userId}/budgets/${id}`, {
     method: 'DELETE',
-    headers: headers,
+    headers,
+  },
+)
+  .then(response => response.data)
+  .catch((error) => {
+    throw error;
   })
-    .then(response => response.data)
-    .catch(error => {
-      throw error;
-    });
-};
+);
