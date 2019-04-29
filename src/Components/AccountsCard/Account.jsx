@@ -1,64 +1,75 @@
 import React, { Component } from 'react';
-import { Button, Card, CardBody, CardHeader, Col, Row,  } from 'reactstrap';
+import {
+  Button, Card, CardBody, CardHeader, Col, Row,
+} from 'reactstrap';
 import PropTypes from 'prop-types';
 import * as API from '../API';
 
 class Account extends Component {
   async deleteAccount(e) {
     e.preventDefault();
-    let userId = localStorage.getItem("userId");
-    API.deleteAccount(userId, this.props.id)
-    .then(() => {
-      this.props.getAccounts();
-    })
+    const { getAccounts, id } = this.props;
+    const userId = localStorage.getItem('userId');
+    API.deleteAccount(userId, id)
+      .then(() => {
+        getAccounts();
+      });
   }
 
   render() {
+    const {
+      accountName, accountType, balance, bankName, deleteButtons,
+    } = this.props;
+
     return (
       <React.Fragment>
-        <Col 
+        <Col
           className={
-            this.props.deleteButtons ? 
-              "account border-fix col-10 col-sm-11" 
-            : 
-              "account col-12"
+            deleteButtons
+              ? (
+                'account border-fix col-10 col-sm-11'
+              )
+              : (
+                'account col-12'
+              )
           }
         >
           <Card>
             <CardHeader className="bg-dark">
               <h6 className="accountName">
-                {this.props.accountName}
+                {accountName}
               </h6>
-              <div className="bankName">{this.props.bankName}</div>
+              <div className="bankName">{bankName}</div>
             </CardHeader>
             <CardBody>
               <Row className="info">
                 <Col className="text-left accountType">
-                  {this.props.accountType}
+                  {accountType}
                 </Col>
-                <Col className="text-right balance">
-                  ${this.props.balance}
-                </Col>
+                <Col className="text-right balance">{`$${balance}`}</Col>
               </Row>
             </CardBody>
           </Card>
         </Col>
-        <Col 
+        <Col
           className={
-            this.props.deleteButtons ? 
-              "deleteAccount" 
-            : 
-              "deleteAccount hidden"
-            } 
-          xs={2} 
+            deleteButtons
+              ? (
+                'deleteAccount'
+              )
+              : (
+                'deleteAccount hidden'
+              )
+            }
+          xs={2}
           sm={1}
         >
-          <Button 
-            color="danger" 
-            className={this.props.deleteButtons ? "" : "hidden"}
-            onClick={(e) => this.deleteAccount(e)}
+          <Button
+            color="danger"
+            className={deleteButtons ? '' : 'hidden'}
+            onClick={e => this.deleteAccount(e)}
           >
-            <i className="fa fa-times" aria-hidden="true"></i>
+            <i className="fa fa-times" aria-hidden="true" />
           </Button>
         </Col>
       </React.Fragment>
@@ -73,7 +84,11 @@ Account.propTypes = {
   balance: PropTypes.number.isRequired,
   deleteButtons: PropTypes.bool.isRequired,
   getAccounts: PropTypes.func.isRequired,
-  id: PropTypes.number
+  id: PropTypes.number,
+};
+
+Account.defaultProps = {
+  id: null,
 };
 
 export default Account;
