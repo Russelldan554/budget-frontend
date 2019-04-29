@@ -8,7 +8,12 @@ import * as API from '../API';
 class Account extends Component {
   async deleteAccount(e) {
     e.preventDefault();
-    const { getAccounts, id } = this.props;
+
+    const {
+      getAccounts,
+      id,
+    } = this.props;
+
     const userId = localStorage.getItem('userId');
     API.deleteAccount(userId, id)
       .then(() => {
@@ -18,7 +23,11 @@ class Account extends Component {
 
   render() {
     const {
-      accountName, accountType, balance, bankName, deleteButtons,
+      accountName,
+      accountType,
+      balance,
+      bankName,
+      deleteButtons,
     } = this.props;
 
     return (

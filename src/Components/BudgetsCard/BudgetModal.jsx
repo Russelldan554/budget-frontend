@@ -1,47 +1,39 @@
 import React, { Component } from 'react';
-import { 
-  Card, 
-  CardHeader, 
-  CardBody, 
-  Col, 
-  FormGroup, 
-  Input, 
-  InputGroup, 
-  InputGroupAddon, 
-  Label, 
-  Progress, 
-  Row 
+import {
+  Card, CardHeader, CardBody, Col, FormGroup, Input, InputGroup,
+  InputGroupAddon, Label, Progress, Row,
 } from 'reactstrap';
 import PropTypes from 'prop-types';
 import * as API from '../API';
 
 class BudgetModal extends Component {
-  constructor(props) {
-    super(props)
-    this.submitForm = this.submitForm.bind(this);
-  }
-
   async submitForm(e) {
     e.preventDefault();
-    let id = localStorage.getItem("userId");
-    let payload = {
-      "budgetId": null,
-      "category": e.target.category.value,
-      "spentAmount": 0,
-      "maxAmount": e.target.maxAmount.value
-    }
+
+    const {
+      getBudgets,
+    } = this.props;
+
+    const id = localStorage.getItem('userId');
+    const payload = {
+      budgetId: null,
+      category: e.target.category.value,
+      spentAmount: 0,
+      maxAmount: e.target.maxAmount.value,
+    };
+
     API.addBudget(id, payload)
-    .then(() => {
-      this.props.getBudgets();
-    })
+      .then(() => {
+        getBudgets();
+      });
   }
 
-  handleChange = async (event) => {
-    const { target } = event;
+  async handleChange(e) {
+    const { target } = e;
     const value = target.type === 'checkbox' ? target.checked : target.value;
     const { name } = target;
     await this.setState({
-      [ name ]: value,
+      [name]: value,
     });
   }
 
@@ -60,7 +52,7 @@ class BudgetModal extends Component {
                       name="category"
                       id="newCategory"
                       required
-                      onChange={(e) => this.handleChange(e)}
+                      onChange={e => this.handleChange(e)}
                     />
                   </FormGroup>
                 </Col>
@@ -71,7 +63,7 @@ class BudgetModal extends Component {
                   <FormGroup>
                     <InputGroup>
                       <InputGroupAddon addonType="prepend" className="account">
-                        $
+                        {'$'}
                       </InputGroupAddon>
                       <Input
                         type="number"
@@ -80,10 +72,10 @@ class BudgetModal extends Component {
                         id="newMaxAmount"
                         step="1"
                         required
-                        onChange={(e) => this.handleChange(e)}
+                        onChange={e => this.handleChange(e)}
                       />
                       <InputGroupAddon addonType="append" className="account">
-                        .00
+                        {'.00'}
                       </InputGroupAddon>
                     </InputGroup>
                   </FormGroup>
@@ -109,8 +101,7 @@ class BudgetModal extends Component {
 }
 
 BudgetModal.propTypes = {
-  getBudgets: PropTypes.func,
-  submitForm: PropTypes.func
+  getBudgets: PropTypes.func.isRequired,
 };
 
 export default BudgetModal;

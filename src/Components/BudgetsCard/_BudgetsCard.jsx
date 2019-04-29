@@ -1,18 +1,17 @@
 import React, { Component } from 'react';
-import { Card, CardBody, Row } from 'reactstrap';
+import {
+  Card, CardBody, Row,
+} from 'reactstrap';
+import PropTypes from 'prop-types';
 import * as API from '../API';
 import Utils from '../Utils';
 
-import Budget from './Budget'
-import WidgetCardHeader from '../WidgetCardHeader/_WidgetCardHeader'
+import Budget from './Budget';
+import WidgetCardHeader from '../WidgetCardHeader/_WidgetCardHeader';
 
 class BudgetsCard extends Component {
   constructor(props) {
     super(props);
-    this.actionConfirm = "Create Budget";
-    this.actionTitle = " Budget";
-    this.buttonID = "Budget";
-    this.cardHeader = Utils.cardHeaders[1];
     this.getBudgets = this.getBudgets.bind(this);
     this.toggleDeleteButtons = this.toggleDeleteButtons.bind(this);
     this.state = {
@@ -20,81 +19,104 @@ class BudgetsCard extends Component {
       deleteButtons: false,
       error: null,
       isLoading: true,
-    }
-  }
-
-  getBudgets() {
-    API.getBudgets(1)
-    .then(res => {
-      this.setState({
-        budgets: res,
-        isLoading: false
-      });
-    })
-    .catch(error => {
-      this.setState ({
-        error,
-        isLoading: false
-      })
-    });
-  }
-
-  toggleDeleteButtons() {
-    this.setState ({
-      deleteButtons: !this.state.deleteButtons
-    })
+    };
   }
 
   componentDidMount() {
     this.getBudgets();
   }
 
+  getBudgets() {
+    API.getBudgets(1)
+      .then((res) => {
+        this.setState({
+          budgets: res,
+          isLoading: false,
+        });
+      })
+      .catch((error) => {
+        this.setState({
+          error,
+          isLoading: false,
+        });
+      });
+  }
+
+  toggleDeleteButtons() {
+    const { deleteButtons } = this.state;
+    this.setState({
+      deleteButtons: !deleteButtons,
+    });
+  }
+
   render() {
-    const { isLoading, budgets, error } = this.state;
+    const {
+      actionConfirm,
+      actionTitle,
+      buttonID,
+      cardHeader,
+    } = this.props;
+
+    const {
+      budgets,
+      deleteButtons,
+      error,
+      isLoading,
+    } = this.state;
+
     return (
       <Card id="budgetsCard">
-        <WidgetCardHeader 
-          actionConfirm={this.actionConfirm} 
-          actionTitle={this.actionTitle} 
-          buttonID={this.buttonID} 
-          cardHeader={this.cardHeader} 
-          getBudgets={this.getBudgets} 
-          toggleDeleteButtons={this.toggleDeleteButtons} 
+        <WidgetCardHeader
+          actionConfirm={actionConfirm}
+          actionTitle={actionTitle}
+          buttonID={buttonID}
+          cardHeader={cardHeader}
+          getBudgets={this.getBudgets}
+          toggleDeleteButtons={this.toggleDeleteButtons}
         />
         <CardBody>
-          <Row noGutters fluid={"true"}>
-            {/*Create a Budget Component for each of the User's budgets*/}
+          <Row noGutters fluid="true">
+            {/* Create a Budget Component for each of the User's budgets */}
             <React.Fragment>
-              {error ?  
-                <Budget 
-                  spentAmount={0} 
-                  maxAmount={0} 
-                  category={<span className="error">{error.message}</span>} 
-                /> 
-                : 
-                null
+              {error
+                ? (
+                  <Budget
+                    category={<span className="error">{error.message}</span>}
+                    deleteButtons={deleteButtons}
+                    maxAmount={0}
+                    spentAmount={0}
+                  />
+                )
+                : (
+                  null
+                )
               }
               {!isLoading ? (
-                budgets.map(budget => {
-                  const { budgetId, spentAmount, maxAmount, category } = budget;
+                budgets.map((budget) => {
+                  const {
+                    budgetId,
+                    category,
+                    maxAmount,
+                    spentAmount,
+                  } = budget;
                   return (
-                    <Budget 
-                      category={category} 
-                      deleteButtons={this.state.deleteButtons} 
-                      getBudgets={this.getBudgets} 
-                      id={budgetId} 
-                      key={budgetId} 
-                      maxAmount={maxAmount} 
-                      spentAmount={spentAmount} 
-                      
+                    <Budget
+                      category={category}
+                      deleteButtons={deleteButtons}
+                      getBudgets={this.getBudgets}
+                      id={budgetId}
+                      key={budgetId}
+                      maxAmount={maxAmount}
+                      spentAmount={spentAmount}
                     />
                   );
                 })
               ) : (
-                <Budget 
-                  spentAmount={0} 
-                  maxAmount={0} 
-                  category={"Loading..."} 
+                <Budget
+                  category="Loading..."
+                  deleteButtons={deleteButtons}
+                  maxAmount={0}
+                  spentAmount={0}
                 />
               )}
             </React.Fragment>
@@ -104,5 +126,19 @@ class BudgetsCard extends Component {
     );
   }
 }
+
+BudgetsCard.propTypes = {
+  actionConfirm: PropTypes.string,
+  actionTitle: PropTypes.string,
+  buttonID: PropTypes.string,
+  cardHeader: PropTypes.string,
+};
+
+BudgetsCard.defaultProps = {
+  actionConfirm: 'Create Budget',
+  actionTitle: ' Budget',
+  buttonID: 'Budget',
+  cardHeader: Utils.cardHeaders[1],
+};
 
 export default BudgetsCard;

@@ -92,11 +92,20 @@ class AccountsCard extends Component {
 
   render() {
     const {
-      actionConfirm, actionTitle, buttonID, cardHeader,
+      actionConfirm,
+      actionTitle,
+      buttonID,
+      cardHeader,
     } = this.props;
 
     const {
-      accounts, assets, debts, deleteButtons, error, isLoading, netWorth,
+      accounts,
+      assets,
+      debts,
+      deleteButtons,
+      error,
+      isLoading,
+      netWorth,
     } = this.state;
 
     return (

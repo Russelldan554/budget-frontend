@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
-import { 
-  Card, CardHeader, CardBody, Col, FormGroup, Input, InputGroup, 
+import {
+  Card, CardHeader, CardBody, Col, FormGroup, Input, InputGroup,
   InputGroupAddon, Label, Row,
 } from 'reactstrap';
 import PropTypes from 'prop-types';
@@ -9,7 +9,11 @@ import * as API from '../API';
 class AccountModal extends Component {
   async submitForm(e) {
     e.preventDefault();
-    const { getAccounts } = this.props;
+
+    const {
+      getAccounts,
+    } = this.props;
+
     const id = localStorage.getItem('userId');
     const payload = {
       accountId: null,
