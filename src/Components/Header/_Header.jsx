@@ -9,17 +9,18 @@ import { NavLink } from 'react-router-dom';
 import Brand from './Brand';
 
 class Header extends Component {
-  static logout() {
-    localStorage.clear();
-    window.location.reload();
-  }
-
   constructor(props) {
     super(props);
     this.toggleNavbar = this.toggleNavbar.bind(this);
+    this.logout = this.logout.bind(this);
     this.state = {
       collapsed: true,
     };
+  }
+
+  logout() {
+    localStorage.clear();
+    window.location.reload();
   }
 
   toggleNavbar() {

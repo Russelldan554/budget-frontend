@@ -56,9 +56,7 @@ class AccountsCard extends Component {
       netWorth: 0,
     });
 
-    const { accounts } = this.state;
-
-    accounts.forEach((account) => {
+    this.state.accounts.forEach((account) => {
       const { assets, debts } = this.state;
       if (account.accountType === 'Checking'
       || account.accountType === 'Savings') {

@@ -83,6 +83,7 @@ class BudgetsCard extends Component {
                   <Budget
                     category={<span className="error">{error.message}</span>}
                     deleteButtons={deleteButtons}
+                    getBudgets={this.getBudgets}
                     maxAmount={0}
                     spentAmount={0}
                   />
@@ -115,6 +116,7 @@ class BudgetsCard extends Component {
                 <Budget
                   category="Loading..."
                   deleteButtons={deleteButtons}
+                  getBudgets={this.getBudgets}
                   maxAmount={0}
                   spentAmount={0}
                 />

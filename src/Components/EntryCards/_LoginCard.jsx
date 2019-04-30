@@ -1,24 +1,34 @@
 import React, { Component } from 'react';
-import { InputGroup, InputGroupAddon, Card, CardHeader, CardBody, Form, FormGroup, Label, Input, Button, InputGroupText } from "reactstrap";
+import {
+  Button, Card, CardHeader, CardBody, Form, FormGroup, Input, InputGroup,
+  InputGroupAddon, InputGroupText, Label,
+} from 'reactstrap';
+import PropTypes from 'prop-types';
 
 class LoginCard extends Component {
   constructor(props) {
     super(props);
     this.handleChange = this.props.handleChange;
-    this.submitForm = this.submitForm.bind(this);
     this.onRedirectTrue = this.props.onRedirectTrue;
+    this.submitForm = this.submitForm.bind(this);
   }
 
   async submitForm(e) {
     e.preventDefault();
-    let userName = e.target.userName.value;
-    await this.props.auth.authenticate(e.target.userName.value, e.target.password.value)
-      .then( (res) => {
+
+    const {
+      auth,
+      loggedIn,
+    } = this.props;
+
+    const userName = e.target.userName.value;
+    await auth.authenticate(e.target.userName.value, e.target.password.value)
+      .then((res) => {
         if (res) {
-          this.props.loggedIn(userName);
+          loggedIn(userName);
           this.onRedirectTrue(e);
         } else {
-          alert("Login Failed");
+          alert('Login Failed');
         }
       });
   }
@@ -30,13 +40,13 @@ class LoginCard extends Component {
           <h4 className="cardHeader">Login to Moolah</h4>
         </CardHeader>
         <CardBody>
-          <Form onSubmit={(e) => this.submitForm(e)} >
+          <Form onSubmit={e => this.submitForm(e)}>
             <FormGroup>
               <Label>Username</Label>
               <InputGroup>
                 <InputGroupAddon addonType="prepend">
                   <InputGroupText>
-                    <i className="fa fa-user"></i>
+                    <i className="fa fa-user" />
                   </InputGroupText>
                 </InputGroupAddon>
                 <Input
@@ -44,7 +54,7 @@ class LoginCard extends Component {
                   name="username"
                   id="userName"
                   required
-                  onChange={(e) => this.handleChange(e)}
+                  onChange={e => this.handleChange(e)}
                 />
               </InputGroup>
             </FormGroup>
@@ -53,7 +63,7 @@ class LoginCard extends Component {
               <InputGroup>
                 <InputGroupAddon addonType="prepend">
                   <InputGroupText>
-                    <i className="fa fa-lock"></i>
+                    <i className="fa fa-lock" />
                   </InputGroupText>
                 </InputGroupAddon>
                 <Input
@@ -61,7 +71,7 @@ class LoginCard extends Component {
                   name="password"
                   id="examplePassword"
                   required
-                  onChange={(e) => this.handleChange(e)}
+                  onChange={e => this.handleChange(e)}
                 />
               </InputGroup>
             </FormGroup>
@@ -72,5 +82,20 @@ class LoginCard extends Component {
     );
   }
 }
+
+LoginCard.propTypes = {
+  auth:
+    PropTypes.oneOfType(
+      [PropTypes.string, PropTypes.object],
+    ).isRequired,
+  handleChange: PropTypes.func,
+  loggedIn: PropTypes.func.isRequired,
+  onRedirectTrue: PropTypes.func,
+};
+
+LoginCard.defaultProps = {
+  handleChange: () => {},
+  onRedirectTrue: () => {},
+};
 
 export default LoginCard;
