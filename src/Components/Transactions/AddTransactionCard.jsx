@@ -7,7 +7,6 @@ import * as API from '../API';
 class AddTransactionCard extends Component {
   constructor(props) {
     super(props);
-    this.toggle = this.toggle.bind(this);
     this.addTransaction = this.addTransaction.bind(this);
     this.handleChange = this.handleChange.bind(this);
     this.state = {
@@ -36,7 +35,7 @@ class AddTransactionCard extends Component {
         this.setState({ accountInfo: res });
         window.location.reload();
       }));
-    this.toggle();
+    this.props.toggle();
   }
 
   async handleChange(e) {

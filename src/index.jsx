@@ -46,6 +46,7 @@ const auth = {
           localStorage.setItem('username', userName);
           localStorage.setItem('userId', res.id);
           login = true;
+          window.location.reload();
         } else {
           // handle failed login
           login = false;
