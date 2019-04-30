@@ -1,6 +1,5 @@
-
-var cardHeaders = ["Accounts","Budgets"];
+const cardHeaders = ['Accounts', 'Budgets'];
 
 export default {
-  cardHeaders
-}
+  cardHeaders,
+};

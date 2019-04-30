@@ -1,0 +1,11 @@
+{
+  "env": {
+    "browser": true
+  },
+  "extends": "airbnb",
+  "rules": {
+    "linebreak-style": 0,
+    "max-len": [2, 80, 4],
+    "react/destructuring-assignment": ["always", { "ignoreClassFields": true }]
+  }
+}

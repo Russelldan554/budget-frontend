@@ -1,56 +1,62 @@
 import React, { Component } from 'react';
-import {Row, Col, Card, Button, Form, FormGroup, Label, InputGroup, Input} from 'reactstrap'
-import * as API from "../../Components/API";
+import {
+  Button, Col, Card, Form, FormGroup, Input, InputGroup, Label, Row,
+} from 'reactstrap';
+import * as API from '../API';
 
 class AddTransactionCard extends Component {
-    constructor(props) {
-      super(props);
-
-      this.state = {
-        accountInfo: []
-      }
-
-      this.addTransaction = this.addTransaction.bind(this);
-      this.handleChange = this.handleChange.bind(this);
-    }
-
-  componentDidMount() {
-    API.getAccounts().then((res)=>{this.setState({accountInfo: res})});
+  constructor(props) {
+    super(props);
+    this.toggle = this.toggle.bind(this);
+    this.addTransaction = this.addTransaction.bind(this);
+    this.handleChange = this.handleChange.bind(this);
+    this.state = {
+      accountInfo: [],
+    };
   }
 
-  addTransaction(e){
+  componentDidMount() {
+    API.getAccounts().then((res) => {
+      this.setState({
+        accountInfo: res,
+      });
+    });
+  }
+
+  addTransaction(e) {
     e.preventDefault();
     API.addTransaction({
       name: e.target.name.value,
       date: e.target.date.value,
       category: e.target.category.value,
       amount: e.target.amount.value,
-      accountID: e.target.accountID.value
-    }).then((x) => API.getAccounts()
-        .then((res)=>{
-            this.setState({accountInfo: res});
-            window.location.reload();
-        })
-    );
-    this.props.toggle();
+      accountID: e.target.accountID.value,
+    }).then(() => API.getAccounts()
+      .then((res) => {
+        this.setState({ accountInfo: res });
+        window.location.reload();
+      }));
+    this.toggle();
   }
 
-  handleChange = async (event) => {
-    const { target } = event;
+  async handleChange(e) {
+    const { target } = e;
     const value = target.type === 'checkbox' ? target.checked : target.value;
     const { name } = target;
     await this.setState({
-      [ name ]: value,
+      [name]: value,
     });
   }
 
   render() {
-    const { transactions, accountInfo } = this.state;
-    const accounts = accountInfo.map((acc) => <option value={acc.accountId} >{acc.accountName}</option>);
+    const { accountInfo } = this.state;
+    const accounts = accountInfo.map(acc => (
+      <option value={acc.accountId}>{acc.accountName}</option>
+    ));
     return (
       <div className="p-3 ">
         <Card className="p-3">
-          <Form onSubmit={(e) => this.addTransaction(e)} >
+          <Form onSubmit={e => this.addTransaction(e)}>
             <FormGroup>
               <Label className="required">Name</Label>
               <InputGroup>
@@ -59,7 +65,7 @@ class AddTransactionCard extends Component {
                   name="name"
                   id="name"
                   required
-                  onChange={(e) => this.handleChange(e)}
+                  onChange={e => this.handleChange(e)}
                 />
               </InputGroup>
             </FormGroup>
@@ -71,12 +77,12 @@ class AddTransactionCard extends Component {
                   name="category"
                   id="category"
                   required
-                  onChange={(e) => this.handleChange(e)}
+                  onChange={e => this.handleChange(e)}
                 />
               </InputGroup>
             </FormGroup>
             <Row>
-              <Col sm ={7}>
+              <Col sm={7}>
                 <FormGroup>
                   <Label className="required">Date</Label>
                   <InputGroup>
@@ -85,7 +91,7 @@ class AddTransactionCard extends Component {
                       name="date"
                       id="date"
                       required
-                      onChange={(e) => this.handleChange(e)}
+                      onChange={e => this.handleChange(e)}
                     />
                   </InputGroup>
                 </FormGroup>
@@ -99,7 +105,7 @@ class AddTransactionCard extends Component {
                       name="amount"
                       id="amount"
                       required
-                      onChange={(e) => this.handleChange(e)}
+                      onChange={e => this.handleChange(e)}
                     />
                   </InputGroup>
                 </FormGroup>
@@ -113,8 +119,8 @@ class AddTransactionCard extends Component {
             </FormGroup>
 
             <Button className="btn-block bg-success">Submit</Button>
-        </Form>
-      </Card>
+          </Form>
+        </Card>
       </div>
     );
   }

@@ -1,5 +1,9 @@
 import React, { Component } from 'react';
-import {Collapse, Navbar, Nav, NavItem, NavbarToggler, UncontrolledDropdown,  DropdownToggle,  DropdownMenu,  DropdownItem } from "reactstrap";
+import {
+  Collapse, DropdownToggle, DropdownMenu, DropdownItem, Navbar, Nav, NavItem,
+  NavbarToggler, UncontrolledDropdown,
+} from 'reactstrap';
+import PropTypes from 'prop-types';
 import { NavLink } from 'react-router-dom';
 
 import Brand from './Brand';
@@ -8,15 +12,10 @@ class Header extends Component {
   constructor(props) {
     super(props);
     this.toggleNavbar = this.toggleNavbar.bind(this);
+    this.logout = this.logout.bind(this);
     this.state = {
       collapsed: true,
-    }
-  }
-
-  toggleNavbar() {
-    this.setState({
-      collapsed: !this.state.collapsed,
-    });
+    };
   }
 
   logout() {
@@ -24,47 +23,111 @@ class Header extends Component {
     window.location.reload();
   }
 
+  toggleNavbar() {
+    const {
+      collapsed,
+    } = this.state;
+
+    this.setState({
+      collapsed: !collapsed,
+    });
+  }
+
   render() {
+    const {
+      userName,
+    } = this.props;
+
+    const {
+      collapsed,
+    } = this.state;
+
     return (
       <Navbar color="dark" dark expand="md">
         <Brand />
         <NavbarToggler onClick={this.toggleNavbar} className="mr-2" />
-        <Collapse isOpen={!this.state.collapsed} navbar>
+        <Collapse isOpen={!collapsed} navbar>
           <Nav className="ml-auto" navbar>
-            { this.props.userName ?
-              <React.Fragment>
-                <NavItem>
-                  <NavLink to="/accounts" className="nav-link" activeClassName="active">Accounts</NavLink>
-                </NavItem>
-                <NavItem>
-                  <NavLink to="/transactions" className="nav-link" activeClassName="active">Transactions</NavLink>
-                </NavItem>
-                <NavItem>
-                  <NavLink to="/budgets" className="nav-link" activeClassName="active">Budgets</NavLink>
-                </NavItem>
-                <UncontrolledDropdown nav inNavbar>
-                  <DropdownToggle nav caret>
-                    {this.props.userName}
-                  </DropdownToggle>
-                  <DropdownMenu right className="bg-dark">
-                    <DropdownItem className="bg-dark">
-                      <NavLink to="/user" className="nav-link" activeclassname="active">Profile</NavLink>
-                    </DropdownItem>
-                    <DropdownItem className="bg-dark">
-                      <NavLink className="nav-link" activeclassname="active" onClick={() => (this.logout())} to="">Logout</NavLink>
-                    </DropdownItem>
-                  </DropdownMenu>
-                </UncontrolledDropdown>
-              </React.Fragment>
-            :
-              <React.Fragment>
-                <NavItem>
-                  <NavLink to="/signup" className="nav-link" activeClassName="active">Signup</NavLink>
-                </NavItem>
-                <NavItem>
-                  <NavLink to="/login" className="nav-link" activeClassName="active">Login</NavLink>
-                </NavItem>
-              </ React.Fragment>
+            {userName
+              ? (
+                <React.Fragment>
+                  <NavItem>
+                    <NavLink
+                      activeClassName="active"
+                      className="nav-link"
+                      to="/accounts"
+                    >
+                      {'Accounts'}
+                    </NavLink>
+                  </NavItem>
+                  <NavItem>
+                    <NavLink
+                      activeClassName="active"
+                      className="nav-link"
+                      to="/transactions"
+                    >
+                      {'Transactions'}
+                    </NavLink>
+                  </NavItem>
+                  <NavItem>
+                    <NavLink
+                      activeClassName="active"
+                      className="nav-link"
+                      to="/budgets"
+                    >
+                      {'Budgets'}
+                    </NavLink>
+                  </NavItem>
+                  <UncontrolledDropdown nav inNavbar>
+                    <DropdownToggle nav caret>
+                      {userName}
+                    </DropdownToggle>
+                    <DropdownMenu right className="bg-dark">
+                      <DropdownItem className="bg-dark">
+                        <NavLink
+                          activeclassname="active"
+                          className="nav-link"
+                          to="/user"
+                        >
+                          {'Profile'}
+                        </NavLink>
+                      </DropdownItem>
+                      <DropdownItem className="bg-dark">
+                        <NavLink
+                          activeclassname="active"
+                          className="nav-link"
+                          onClick={() => (this.logout())}
+                          to=""
+                        >
+                          {'Logout'}
+                        </NavLink>
+                      </DropdownItem>
+                    </DropdownMenu>
+                  </UncontrolledDropdown>
+                </React.Fragment>
+              )
+              : (
+                <React.Fragment>
+                  <NavItem>
+                    <NavLink
+                      activeClassName="active"
+                      className="nav-link"
+                      to="/signup"
+                    >
+                      {'Signup'}
+                    </NavLink>
+                  </NavItem>
+                  <NavItem>
+                    <NavLink
+                      activeClassName="active"
+                      className="nav-link"
+                      to="/login"
+                    >
+                      {'Login'}
+                    </NavLink>
+                  </NavItem>
+                </React.Fragment>
+              )
             }
           </Nav>
         </Collapse>
@@ -72,5 +135,9 @@ class Header extends Component {
     );
   }
 }
+
+Header.propTypes = {
+  userName: PropTypes.string.isRequired,
+};
 
 export default Header;

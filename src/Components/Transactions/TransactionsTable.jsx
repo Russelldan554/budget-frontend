@@ -1,22 +1,24 @@
 import React, { Component } from 'react';
-import ReactTable from "react-table";
-import * as API from "../../Components/API";
-import "react-table/react-table.css";
+import ReactTable from 'react-table';
+import * as API from '../API';
+import 'react-table/react-table.css';
 
 class Transactions extends Component {
-    constructor(props) {
-      super(props);
-
-      this.state = {
-        transactions: []
-      }
-    }
+  constructor(props) {
+    super(props);
+    this.state = {
+      transactions: [],
+    };
+  }
 
   componentDidMount() {
-    API.getTransactions().then((res)=>{
-      console.log(res);
-      this.setState({transactions: res});
+    API.getTransactions().then((res) => {
+      this.setState({
+        transactions: res,
+      });
     }).catch((error) => {
+      this.setState({
+      });
     });
   }
 
@@ -28,24 +30,25 @@ class Transactions extends Component {
           data={transactions}
           columns={[
             {
-              Header: "Name",
-              accessor: "name"
+              accessor: 'name',
+              Header: 'Name',
             },
             {
-              Header: "Category",
-              accessor: "category"
+              accessor: 'category',
+              Header: 'Category',
             },
             {
-              Header: "Amount",
-              accessor: "amount"
+              accessor: 'amount',
+              Header: 'Amount',
             },
             {
-              Header: "Account",
-              accessor: "account.accountName"
+              accessor: 'account.accountName',
+              Header: 'Account',
+
             },
             {
-              Header: "Date",
-              accessor: "date"
+              accessor: 'date',
+              Header: 'Date',
             },
           ]}
           defaultPageSize={10}
