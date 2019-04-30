@@ -105,7 +105,7 @@ class App extends Component {
               <PrivateRoute path="/budgets" component={Budgets} />
               <PrivateRoute path="/accounts" component={Accounts} />
               <PrivateRoute path="/home" component={Home} />
-              <Route render={() => <Redirect to={{ pathname: '/home' }} />}/>
+              <Route render={() => <Redirect to={{ pathname: '/home' }} />} />
             </Switch>
           </Container>
           <Footer />
