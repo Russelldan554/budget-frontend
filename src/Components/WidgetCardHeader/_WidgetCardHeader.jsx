@@ -50,13 +50,13 @@ class WidgetCardHeader extends Component {
           <Col xs={4} className="d-flex justify-content-end">
             <WidgetButton
               id={this.buttonType[0] + buttonID}
-              tooltipMessage={`Remove a ${actionTitle}`}
+              tooltipMessage={`Remove a${actionTitle}`}
               buttonHandler={toggleDeleteButtons}
               buttonType={this.buttonType[0]}
             />
             <WidgetButton
               id={this.buttonType[1] + buttonID}
-              tooltipMessage={`Add a ${actionTitle}`}
+              tooltipMessage={`Add a${actionTitle}`}
               buttonHandler={this.toggleCreateModal}
               buttonType={this.buttonType[1]}
             />
