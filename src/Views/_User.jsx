@@ -44,7 +44,7 @@ class User extends Component {
       dateCreated: this.state.userInfo.dateCreated,
       userName: this.state.userInfo.userName,
     };
-    API.updateUser(payload)
+    API.updateUserFields(payload)
       .then(() => {
         API.getUser().then((res) => {
           this.setState({

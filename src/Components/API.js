@@ -10,12 +10,10 @@ const headers = {
 // Users Endpoint
 //
 //
-
-// Login - This is experimental call for login not implemented on backend yet
 export const login = ((userName, password) => axios(
   `${URL}/users/login`, {
     method: 'POST',
-    headers: { 'Content-Type': 'application/json' },
+    headers,
     data: { username: userName, password },
   },
 )
@@ -256,7 +254,7 @@ export const addTransaction = (payload => axios(
 // Update Transaction
 export const updateTransaction = (payload => axios(
   `${URL}/users/${userID}/accounts/${payload.accountID}/transactions/
-  ${payload.transactionID}`, {
+  ${payload.transactionId}`, {
     method: 'PUT',
     headers,
     data: payload,
@@ -270,8 +268,8 @@ export const updateTransaction = (payload => axios(
 
 // Delete Transaction
 export const deleteTransaction = (payload => axios(
-  `${URL}/users/${userID}/accounts/${payload.accountID}/transactions/
-  ${payload.transactionID}`, {
+  `${URL}/users/${userID}/accounts/${payload.account.accountId}/transactions/
+  ${payload.transactionId}`, {
     method: 'DELETE',
     headers,
   },

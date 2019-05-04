@@ -3,14 +3,19 @@ import {
   Button, Col, Card, Form, FormGroup, Input, InputGroup, Label, Row,
 } from 'reactstrap';
 import * as API from '../API';
+import CSVReader from 'react-csv-reader'
 
 class AddTransactionCard extends Component {
   constructor(props) {
     super(props);
     this.addTransaction = this.addTransaction.bind(this);
     this.handleChange = this.handleChange.bind(this);
+    this.handleFile = this.handleFile.bind(this);
+    this.handleFileError = this.handleFileError.bind(this);
+    this.addFile = this.addFile.bind(this);
     this.state = {
       accountInfo: [],
+      transFile: {}
     };
   }
 
@@ -22,6 +27,22 @@ class AddTransactionCard extends Component {
     });
   }
 
+  addFile(e){
+    e.preventDefault();
+    for (var i in this.state.transFile) {
+      if (this.state.transFile[i].length === 4) {
+          API.addTransaction({
+            name: this.state.transFile[i][0],
+            date: this.state.transFile[i][1],
+            category: this.state.transFile[i][2],
+            amount: this.state.transFile[i][3],
+            accountID: e.target.accountID.value,
+          });
+      }
+    }
+    this.props.toggle();
+  }
+
   addTransaction(e) {
     e.preventDefault();
     API.addTransaction({
@@ -30,11 +51,11 @@ class AddTransactionCard extends Component {
       category: e.target.category.value,
       amount: e.target.amount.value,
       accountID: e.target.accountID.value,
-    }).then(() => API.getAccounts()
-      .then((res) => {
-        this.setState({ accountInfo: res });
-        window.location.reload();
-      }));
+    }).then(() =>
+        API.getAccounts()
+          .then((res) => {
+            window.location.reload();
+          }));
     this.props.toggle();
   }
 
@@ -47,14 +68,47 @@ class AddTransactionCard extends Component {
     });
   }
 
+  handleFile(data){
+    this.setState({
+      transFile: data
+    });
+  }
+
+  handleFileError(e) {
+    console.log("error" + e);
+  }
+
   render() {
     const { accountInfo } = this.state;
     const accounts = accountInfo.map(acc => (
-      <option value={acc.accountId}>{acc.accountName}</option>
+      <option key={acc.accountId} value={acc.accountId}>{acc.accountName}</option>
     ));
     return (
       <div className="p-3 ">
         <Card className="p-3">
+          <Form onSubmit={e => this.addFile(e)}>
+            <CSVReader
+              cssClass="csv-reader-input"
+              label="Select CSV file with transactions. Must be formatted
+                     transaction Name, Date, Category, amount(credits in negative amounts)"
+              onFileLoaded={this.handleFile}
+              onError={this.handleFileError}
+              inputId="trans"
+              inputStyle={{color: 'red'}}
+            />
+            <FormGroup>
+              <Label for="exampleSelect">Select Account for transactions</Label>
+              <Input
+                type="select"
+                name="account"
+                id="accountID">
+                {accounts}
+              </Input>
+            </FormGroup>
+            <Button className="btn-block bg-success">Submit</Button>
+          </Form>
+            <br /> <span className="text-center">or</span>
+            <hr />
           <Form onSubmit={e => this.addTransaction(e)}>
             <FormGroup>
               <Label className="required">Name</Label>
@@ -100,7 +154,7 @@ class AddTransactionCard extends Component {
                   <Label className="required">Amount</Label>
                   <InputGroup>
                     <Input
-                      type="number"
+                      type="text"
                       name="amount"
                       id="amount"
                       required
@@ -112,7 +166,10 @@ class AddTransactionCard extends Component {
             </Row>
             <FormGroup>
               <Label for="exampleSelect">Account</Label>
-              <Input type="select" name="account" id="accountID">
+              <Input
+                type="select"
+                name="account"
+                id="accountID">
                 {accounts}
               </Input>
             </FormGroup>
