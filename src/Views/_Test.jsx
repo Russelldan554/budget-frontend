@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { Button } from 'reactstrap';
 import * as API from '../Components/API';
+import CSVReader from 'react-csv-reader'
 
 class Test extends Component {
   constructor(props) {
@@ -18,6 +19,8 @@ class Test extends Component {
     this.addAccount = this.addAccount.bind(this);
     this.getBudgets = this.getBudgets.bind(this);
     this.addBudgets = this.addBudgets.bind(this);
+    this.handleFile = this.handleFile.bind(this);
+    this.handleFileError = this.handleFileError.bind(this);
   }
 
   getUsers() {
@@ -125,6 +128,14 @@ class Test extends Component {
       });
   }
 
+  handleFile(data) {
+    console.log(data);
+  }
+
+  handleFileError(){
+
+  }
+
   render() {
     const {
       accountInfo,
@@ -134,6 +145,17 @@ class Test extends Component {
 
     return (
       <div className="container-fluid">
+
+        <CSVReader
+          cssClass="csv-reader-input"
+          label="Select CSV with transactions "
+          onFileLoaded={this.handleFile}
+          onError={this.handleFileError}
+          inputId="trans"
+          inputStyle={{color: 'red'}}
+        />
+
+        <br />
         <Button onClick={this.getUsers}>get users</Button>
         <Button onClick={this.getUser}>get user</Button>
         <Button onClick={this.addUser}>Add user</Button>
