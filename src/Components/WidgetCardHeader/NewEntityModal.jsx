@@ -60,7 +60,7 @@ class NewEntityModal extends Component {
       >
         <Form onSubmit={e => this.submitForm(e)}>
           <ModalHeader>
-            {`Add a ${modalTitle}`}
+            {`Add a${modalTitle}`}
           </ModalHeader>
           <ModalBody>
             {content}
