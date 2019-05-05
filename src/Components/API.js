@@ -352,3 +352,76 @@ export const deleteBudget = ((userId, id) => axios(
     throw error;
   })
 );
+
+// Categories
+//
+//
+
+// Get All Categories
+export const getCategories = (payload => axios(
+  `${URL}/users/${userID}/categories`, {
+    method: 'GET',
+    headers,
+    data: payload,
+  },
+)
+  .then(response => response.data)
+  .catch((error) => {
+    throw error;
+  })
+);
+
+// Get Category
+export const getCategory = (payload => axios(
+  `${URL}/users/${userID}/categories/${payload.categoryId}`, {
+    method: 'GET',
+    headers,
+    data: payload,
+  },
+)
+  .then(response => response.data)
+  .catch((error) => {
+    throw error;
+  })
+);
+
+// Add Category
+export const addCategory = (payload => axios(
+  `${URL}/users/${userID}/categories`, {
+    method: 'POST',
+    headers,
+    data: payload,
+  },
+)
+  .then(response => response.data)
+  .catch((error) => {
+    throw error;
+  })
+);
+
+// Update Category
+export const updateCategory = (payload => axios(
+  `${URL}/users/${userID}/categories/${payload.categoryId}`, {
+    method: 'PUT',
+    headers,
+    data: payload,
+  },
+)
+  .then(response => response.data)
+  .catch((error) => {
+    throw error;
+  })
+);
+
+// Delete Category
+export const deleteCategory = (payload => axios(
+  `${URL}/users/${userID}/categories/${payload.categoryId}`, {
+    method: 'DELETE',
+    headers,
+  },
+)
+  .then(response => response.data)
+  .catch((error) => {
+    throw error;
+  })
+);
