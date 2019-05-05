@@ -1,7 +1,8 @@
 import React, { Component } from 'react';
 import { Redirect } from 'react-router-dom';
+import PropTypes from 'prop-types';
 
-class Entry extends Component{
+class EntryCards extends Component {
   constructor(props) {
     super(props);
     this.handleChange = this.handleChange.bind(this);
@@ -9,8 +10,8 @@ class Entry extends Component{
     this.onRedirectLogin = this.onRedirectLogin.bind(this);
     this.state = {
       redirectToHome: false,
-      redirectToLogin: false
-    }
+      redirectToLogin: false,
+    };
   }
 
   componentDidMount() {
@@ -19,48 +20,61 @@ class Entry extends Component{
     }
   }
 
-  handleChange = async (event) => {
-    const { target } = event;
-    const value = target.type === 'checkbox' ? target.checked : target.value;
-    const { name } = target;
-    await this.setState({
-      [ name ]: value,
-    });
-  }
-
   onRedirectTrue() {
     this.setState({
-      redirectToHome: true
+      redirectToHome: true,
     });
   }
 
   onRedirectLogin() {
     this.setState({
-      redirectToLogin: true
+      redirectToLogin: true,
+    });
+  }
+
+  async handleChange(e) {
+    const { target } = e;
+    const value = target.type === 'checkbox' ? target.checked : target.value;
+    const { name } = target;
+    await this.setState({
+      [name]: value,
     });
   }
 
   render() {
-    if (this.state.redirectToHome === true) {
-      return <Redirect to={{pathname: "/home"}} />
+    const {
+      children,
+    } = this.props;
+
+    const {
+      redirectToHome,
+      redirectToLogin,
+    } = this.state;
+
+    if (redirectToHome === true) {
+      return <Redirect to={{ pathname: '/home' }} />;
     }
 
-    if (this.state.redirectToLogin === true) {
-      return <Redirect to={{pathname: "/login"}} />
+    if (redirectToLogin === true) {
+      return <Redirect to={{ pathname: '/login' }} />;
     }
 
     return (
       <div>
-        {React.cloneElement(this.props.children, {
+        {React.cloneElement(children, {
           handleChange: this.handleChange,
           parentClass: this.parentClass,
           submitForm: this.submitForm,
           onRedirectTrue: this.onRedirectTrue,
-          onRedirectLogin: this.onRedirectLogin
+          onRedirectLogin: this.onRedirectLogin,
         })}
       </div>
     );
   }
 }
 
-export default Entry;
+EntryCards.propTypes = {
+  children: PropTypes.node.isRequired,
+};
+
+export default EntryCards;

@@ -1,31 +1,36 @@
 import React, { Component } from 'react';
-import { InputGroup, InputGroupAddon, Card, CardHeader, CardBody, Form, FormGroup, Label, Input, Button, InputGroupText } from "reactstrap";
-import * as API from "../API"
+import {
+  Button, Card, CardHeader, CardBody, Form, FormGroup, Input, InputGroup,
+  InputGroupAddon, InputGroupText, Label,
+} from 'reactstrap';
+import PropTypes from 'prop-types';
+import * as API from '../API';
 
 class LoginCard extends Component {
   constructor(props) {
     super(props);
     this.handleChange = this.props.handleChange;
-    this.submitForm = this.submitForm.bind(this);
     this.onRedirectLogin = this.props.onRedirectLogin;
+    this.submitForm = this.submitForm.bind(this);
   }
 
   submitForm(e) {
     e.preventDefault();
     if (e.target.password.value === e.target.confirmPassword.value) {
-      let payload = {
-        "userName": e.target.userName.value,
-        "firstName": e.target.firstName.value,
-        "lastName": e.target.lastName.value,
-        "email": e.target.email.value,
-        "password": e.target.password.value,
-        "dateCreated": "2019-04-18"
-      }
-      API.addUser(payload).then((res)=>{
-        this.onRedirectLogin(e);
-      });
+      const payload = {
+        userName: e.target.userName.value,
+        firstName: e.target.firstName.value,
+        lastName: e.target.lastName.value,
+        email: e.target.email.value,
+        password: e.target.password.value,
+        dateCreated: '2019-04-18',
+      };
+      API.addUser(payload)
+        .then((res) => {
+          this.onRedirectLogin(e);
+        });
     } else {
-      //handle error message for mismatch password
+      // handle error message for mismatch password
     }
   }
 
@@ -36,7 +41,7 @@ class LoginCard extends Component {
           <h4 className="cardHeader">Create Account</h4>
         </CardHeader>
         <CardBody>
-          <Form onSubmit={(e) => this.submitForm(e)} >
+          <Form onSubmit={e => this.submitForm(e)}>
             <FormGroup>
               <Label className="required">First Name</Label>
               <InputGroup>
@@ -45,7 +50,7 @@ class LoginCard extends Component {
                   name="firstName"
                   id="firstName"
                   required
-                  onChange={(e) => this.handleChange(e)}
+                  onChange={e => this.handleChange(e)}
                 />
               </InputGroup>
             </FormGroup>
@@ -57,7 +62,7 @@ class LoginCard extends Component {
                   name="lastName"
                   id="lastName"
                   required
-                  onChange={(e) => this.handleChange(e)}
+                  onChange={e => this.handleChange(e)}
                 />
               </InputGroup>
             </FormGroup>
@@ -70,7 +75,7 @@ class LoginCard extends Component {
                   name="email"
                   id="email"
                   required
-                  onChange={(e) => this.handleChange(e)}
+                  onChange={e => this.handleChange(e)}
                 />
               </InputGroup>
             </FormGroup>
@@ -79,7 +84,7 @@ class LoginCard extends Component {
               <InputGroup>
                 <InputGroupAddon addonType="prepend">
                   <InputGroupText>
-                    <i className="fa fa-user"></i>
+                    <i className="fa fa-user" />
                   </InputGroupText>
                 </InputGroupAddon>
                 <Input
@@ -87,7 +92,7 @@ class LoginCard extends Component {
                   name="username"
                   id="userName"
                   required
-                  onChange={(e) => this.handleChange(e)}
+                  onChange={e => this.handleChange(e)}
                 />
               </InputGroup>
             </FormGroup>
@@ -96,7 +101,7 @@ class LoginCard extends Component {
               <InputGroup>
                 <InputGroupAddon addonType="prepend">
                   <InputGroupText>
-                    <i className="fa fa-lock"></i>
+                    <i className="fa fa-lock" />
                   </InputGroupText>
                 </InputGroupAddon>
                 <Input
@@ -104,16 +109,21 @@ class LoginCard extends Component {
                   name="password"
                   id="Password"
                   required
-                  onChange={(e) => this.handleChange(e)}
+                  onChange={e => this.handleChange(e)}
                 />
               </InputGroup>
             </FormGroup>
             <FormGroup>
-              <Label for="confirmPassword" className="required">Confirm Password</Label>
+              <Label
+                className="required"
+                for="confirmPassword"
+              >
+                {'Confirm Password'}
+              </Label>
               <InputGroup>
                 <InputGroupAddon addonType="prepend">
                   <InputGroupText>
-                    <i className="fa fa-lock"></i>
+                    <i className="fa fa-lock" />
                   </InputGroupText>
                 </InputGroupAddon>
                 <Input
@@ -121,7 +131,7 @@ class LoginCard extends Component {
                   name="confirmPassword"
                   id="confirmPassword"
                   required
-                  onChange={(e) => this.handleChange(e)}
+                  onChange={e => this.handleChange(e)}
                 />
               </InputGroup>
             </FormGroup>
@@ -132,5 +142,15 @@ class LoginCard extends Component {
     );
   }
 }
+
+LoginCard.propTypes = {
+  handleChange: PropTypes.func,
+  onRedirectLogin: PropTypes.func,
+};
+
+LoginCard.defaultProps = {
+  handleChange: () => {},
+  onRedirectLogin: () => {},
+};
 
 export default LoginCard;

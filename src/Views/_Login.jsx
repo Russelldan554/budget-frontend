@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
-import { Container, Row, Col } from "reactstrap";
+import { Container, Col, Row } from 'reactstrap';
+import PropTypes from 'prop-types';
 
 import Entry from '../Components/EntryCards/_EntryCard';
 import LoginCard from '../Components/EntryCards/_LoginCard';
@@ -9,9 +10,6 @@ class Login extends Component {
     super(props);
     this.auth = this.props.auth;
     this.loggedIn = this.props.loggedIn;
-    this.state = {
-      
-    }
   }
 
   render() {
@@ -28,5 +26,13 @@ class Login extends Component {
     );
   }
 }
+
+Login.propTypes = {
+  auth:
+    PropTypes.oneOfType(
+      [PropTypes.string, PropTypes.object],
+    ).isRequired,
+  loggedIn: PropTypes.func.isRequired,
+};
 
 export default Login;

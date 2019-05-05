@@ -1,8 +1,10 @@
 import React, { Component } from 'react';
 import { render } from 'react-dom';
-import { BrowserRouter as Router, Route, Switch, Redirect } from 'react-router-dom';
+import {
+  BrowserRouter as Router, Route, Switch, Redirect,
+} from 'react-router-dom';
+import { Container } from 'reactstrap';
 import * as serviceWorker from './serviceWorker';
-import { Container } from "reactstrap"
 
 import User from './Views/_User';
 import Transactions from './Views/_Transactions';
@@ -20,7 +22,7 @@ import * as API from './Components/API';
 
 import './styles/app.scss';
 
-const PrivateRoute = ({ component: Component, ...rest}) => {
+const PrivateRoute = ({ component: Component, ...rest }) => {
   const user_info = localStorage.getItem('username');
   return (
     <Route {...rest} render={(props) => (
@@ -36,43 +38,45 @@ const PrivateRoute = ({ component: Component, ...rest}) => {
 
 const auth = {
   async authenticate(userName, password) {
-      let login = false
-      //Check DB for username and password
-      await API.login(userName, password).then((res) => {
+    let login = false;
+    // Check DB for username and password
+    await API.login(userName, password)
+      .then((res) => {
         if (res.login) {
-          localStorage.setItem("username", userName);
-          localStorage.setItem("userId", res.id);
+          localStorage.setItem('username', userName);
+          localStorage.setItem('userId', res.id);
           login = true;
+          window.location.reload();
         } else {
-          //handle failed login
+          // handle failed login
           login = false;
         }
       });
-      return login;
-  }
-}
+    return login;
+  },
+};
 
 class App extends Component {
   constructor(props) {
     super(props);
     this.loggedIn = this.loggedIn.bind(this);
     this.state = {
-        userName: ""
-    }
+      userName: '',
+    };
   }
 
   componentDidMount() {
     const userName = localStorage.getItem('username');
     if (userName) {
-        this.setState({
-          userName: userName
-        });
+      this.setState({
+        userName,
+      });
     }
   }
 
   loggedIn(userName) {
     this.setState({
-      userName: userName
+      userName,
     });
   }
 
@@ -81,20 +85,28 @@ class App extends Component {
       <div className="App d-flex flex-column">
         <Router>
           <Header userName={this.state.userName} />
-          <Container className="App-body p-0 flex-grow-1" fluid  >
+          <Container className="App-body p-0 flex-grow-1" fluid>
             <Switch>
               <Route exact path="/" component={Welcome} />
-              <Route path="/signup" render={(props) => <SignUp {...props} auth={auth} loggedIn={this.loggedIn} />} />
-              <Route path="/login" render={(props) => <Login {...props} auth={auth} loggedIn={this.loggedIn} />} />
+              <Route
+                path="/signup"
+                render={props => (
+                  <SignUp {...props} auth={auth} loggedIn={this.loggedIn} />
+                )}
+              />
+              <Route
+                path="/login"
+                render={props => (
+                  <Login {...props} auth={auth} loggedIn={this.loggedIn} />
+                )}
+              />
               <Route path="/test" component={Test} />
               <PrivateRoute path="/user" component={User} />
               <PrivateRoute path="/transactions" component={Transactions} />
               <PrivateRoute path="/budgets" component={Budgets} />
               <PrivateRoute path="/accounts" component={Accounts} />
               <PrivateRoute path="/home" component={Home} />
-              <Route render={() =>
-                <Redirect to={{pathname: "/home"}} />
-              }/>
+              <Route render={() => <Redirect to={{ pathname: '/home' }} />} />
             </Switch>
           </Container>
           <Footer />

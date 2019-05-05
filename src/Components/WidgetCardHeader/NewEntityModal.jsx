@@ -1,11 +1,11 @@
 import React, { Component } from 'react';
-import { 
-  Button, 
-  Form, 
-  Modal, 
-  ModalBody, 
-  ModalFooter, 
-  ModalHeader 
+import {
+  Button,
+  Form,
+  Modal,
+  ModalBody,
+  ModalFooter,
+  ModalHeader,
 } from 'reactstrap';
 import PropTypes from 'prop-types';
 import Utils from '../Utils';
@@ -25,33 +25,42 @@ class NewEntityModal extends Component {
   }
 
   render() {
-    let content;
+    const {
+      buttonHandler,
+      getAccounts,
+      getBudgets,
+      modalTitle,
+    } = this.props;
+
+    let content = null;
 
     if (this.props.modalBody === Utils.cardHeaders[0]) {
-      content = 
-        <AccountModal 
-          getAccounts={this.props.getAccounts} 
-          ref={this.contentRef} 
-          toggleModal={this.props.buttonHandler} 
+      content = (
+        <AccountModal
+          getAccounts={getAccounts}
+          ref={this.contentRef}
+          toggleModal={buttonHandler}
         />
+      );
     } else if (this.props.modalBody === Utils.cardHeaders[1]) {
-      content = 
-        <BudgetModal 
-          getBudgets={this.props.getBudgets} 
-          ref={this.contentRef} 
-          toggleModal={this.props.buttonHandler} 
+      content = (
+        <BudgetModal
+          getBudgets={getBudgets}
+          ref={this.contentRef}
+          toggleModal={buttonHandler}
         />
+      );
     }
 
     return (
-      <Modal 
-        isOpen={this.props.buttonState} 
-        toggle={this.props.buttonHandler} 
-        centered={true}
+      <Modal
+        isOpen={this.props.buttonState}
+        toggle={this.props.buttonHandler}
+        centered
       >
-        <Form onSubmit={(e) => this.submitForm(e)}>
+        <Form onSubmit={e => this.submitForm(e)}>
           <ModalHeader>
-            Add a{this.props.modalTitle}
+            {`Add a${modalTitle}`}
           </ModalHeader>
           <ModalBody>
             {content}
@@ -60,11 +69,11 @@ class NewEntityModal extends Component {
             <Button color="success">
               {this.props.actionConfirm}
             </Button>
-            <Button 
-              color="danger" 
+            <Button
+              color="danger"
               onClick={this.props.buttonHandler}
             >
-              Cancel
+              {'Cancel'}
             </Button>
           </ModalFooter>
         </Form>
@@ -77,9 +86,15 @@ NewEntityModal.propTypes = {
   actionConfirm: PropTypes.string.isRequired,
   buttonHandler: PropTypes.func.isRequired,
   buttonState: PropTypes.bool.isRequired,
+  getAccounts: PropTypes.func,
   getBudgets: PropTypes.func,
   modalBody: PropTypes.string.isRequired,
-  modalTitle: PropTypes.string.isRequired
+  modalTitle: PropTypes.string.isRequired,
+};
+
+NewEntityModal.defaultProps = {
+  getAccounts: () => {},
+  getBudgets: () => {},
 };
 
 export default NewEntityModal;

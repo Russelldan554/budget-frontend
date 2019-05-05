@@ -3,61 +3,29 @@ import {
   Button, Col, Card, Form, FormGroup, Input, InputGroup, Label, Row,
 } from 'reactstrap';
 import * as API from '../API';
-import CSVReader from 'react-csv-reader'
 
 class AddTransactionCard extends Component {
   constructor(props) {
     super(props);
-    this.addTransaction = this.addTransaction.bind(this);
+    this.updateTransaction = this.updateTransaction.bind(this);
     this.handleChange = this.handleChange.bind(this);
-    this.handleFile = this.handleFile.bind(this);
-    this.handleFileError = this.handleFileError.bind(this);
-    this.addFile = this.addFile.bind(this);
-    this.state = {
-      accountInfo: [],
-      transFile: {}
-    };
+
   }
 
-  componentDidMount() {
-    API.getAccounts().then((res) => {
-      this.setState({
-        accountInfo: res,
-      });
-    });
-  }
-
-  addFile(e){
+  updateTransaction(e) {
     e.preventDefault();
-    for (var i in this.state.transFile) {
-      if (this.state.transFile[i].length === 4) {
-          API.addTransaction({
-            name: this.state.transFile[i][0],
-            date: this.state.transFile[i][1],
-            category: this.state.transFile[i][2],
-            amount: this.state.transFile[i][3],
-            accountID: e.target.accountID.value,
-          });
-      }
-    }
-    this.props.refresh();
-    this.props.toggle();
-  }
-
-  addTransaction(e) {
-    e.preventDefault();
-    API.addTransaction({
+    API.updateTransaction({
+      transactionId: this.props.transaction.transactionId,
       name: e.target.name.value,
       date: e.target.date.value,
       category: e.target.category.value,
       amount: e.target.amount.value,
-      accountID: e.target.accountID.value,
-    }).then(() =>
-        API.getAccounts()
-          .then((res) => {
-            window.location.reload();
-          }));
+      accountID: this.props.transaction.account.accountId,
+    }).then(() => {
+      window.location.reload();
+    });
     this.props.toggle();
+
   }
 
   async handleChange(e) {
@@ -69,52 +37,17 @@ class AddTransactionCard extends Component {
     });
   }
 
-  handleFile(data){
-    this.setState({
-      transFile: data
-    });
-  }
-
-  handleFileError(e) {
-    console.log("error" + e);
-  }
-
   render() {
-    const { accountInfo } = this.state;
-    const accounts = accountInfo.map(acc => (
-      <option key={acc.accountId} value={acc.accountId}>{acc.accountName}</option>
-    ));
+    const {transaction} = this.props;
     return (
       <div className="p-3 ">
         <Card className="p-3">
-          <Form onSubmit={e => this.addFile(e)}>
-            <CSVReader
-              cssClass="csv-reader-input"
-              label="Select CSV file with transactions. Must be formatted
-                     transaction Name, Date, Category, amount(credits in negative amounts)"
-              onFileLoaded={this.handleFile}
-              onError={this.handleFileError}
-              inputId="trans"
-              inputStyle={{color: 'red'}}
-            />
-            <FormGroup>
-              <Label for="exampleSelect">Select Account for transactions</Label>
-              <Input
-                type="select"
-                name="account"
-                id="accountID">
-                {accounts}
-              </Input>
-            </FormGroup>
-            <Button className="btn-block bg-success">Submit</Button>
-          </Form>
-            <br /> <span className="text-center">or</span>
-            <hr />
-          <Form onSubmit={e => this.addTransaction(e)}>
+          <Form onSubmit={e => this.updateTransaction(e)}>
             <FormGroup>
               <Label className="required">Name</Label>
               <InputGroup>
                 <Input
+                  defaultValue={transaction.name}
                   type="text"
                   name="name"
                   id="name"
@@ -127,6 +60,7 @@ class AddTransactionCard extends Component {
               <Label className="required">Category</Label>
               <InputGroup>
                 <Input
+                  defaultValue={transaction.category}
                   type="text"
                   name="category"
                   id="category"
@@ -141,6 +75,7 @@ class AddTransactionCard extends Component {
                   <Label className="required">Date</Label>
                   <InputGroup>
                     <Input
+                      defaultValue={transaction.date}
                       type="date"
                       name="date"
                       id="date"
@@ -155,6 +90,7 @@ class AddTransactionCard extends Component {
                   <Label className="required">Amount</Label>
                   <InputGroup>
                     <Input
+                      defaultValue={transaction.amount}
                       type="text"
                       name="amount"
                       id="amount"
@@ -165,16 +101,6 @@ class AddTransactionCard extends Component {
                 </FormGroup>
               </Col>
             </Row>
-            <FormGroup>
-              <Label for="exampleSelect">Account</Label>
-              <Input
-                type="select"
-                name="account"
-                id="accountID">
-                {accounts}
-              </Input>
-            </FormGroup>
-
             <Button className="btn-block bg-success">Submit</Button>
           </Form>
         </Card>
