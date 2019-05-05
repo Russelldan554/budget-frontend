@@ -6,6 +6,32 @@ import PropTypes from 'prop-types';
 import * as API from '../API';
 
 class Budget extends Component {
+  constructor(props) {
+    super(props);
+    this.determineColor = this.determineColor.bind(this);
+    this.state = {
+      spentAmount: 0,
+    };
+  }
+
+  componentDidMount() {
+    const { category } = this.props;
+    let amount = 0;
+
+    API.getTransactions()
+      .then((res) => {
+        for (let i = 0; i < res.length; i += 1) {
+          if (res[i].category === category) {
+            // Multiplies by 100 to remove addition errors with floats
+            amount += parseFloat(res[i].amount * 100);
+          }
+        }
+        this.setState({
+          spentAmount: (amount / 100),
+        });
+      });
+  }
+
   async deleteBudget(e) {
     e.preventDefault();
 
@@ -24,8 +50,11 @@ class Budget extends Component {
   determineColor() {
     const {
       maxAmount,
-      spentAmount,
     } = this.props;
+
+    const {
+      spentAmount,
+    } = this.state;
 
     let color = 'success';
     const percentSpent = (spentAmount / maxAmount);
@@ -44,8 +73,11 @@ class Budget extends Component {
       category,
       deleteButtons,
       maxAmount,
-      spentAmount,
     } = this.props;
+
+    const {
+      spentAmount,
+    } = this.state;
 
     return (
       <React.Fragment>
@@ -120,7 +152,6 @@ Budget.propTypes = {
   deleteButtons: PropTypes.bool.isRequired,
   getBudgets: PropTypes.func.isRequired,
   id: PropTypes.number,
-  spentAmount: PropTypes.number.isRequired,
   maxAmount: PropTypes.number.isRequired,
 };
 

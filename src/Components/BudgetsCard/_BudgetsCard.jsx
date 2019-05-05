@@ -85,7 +85,6 @@ class BudgetsCard extends Component {
                     deleteButtons={deleteButtons}
                     getBudgets={this.getBudgets}
                     maxAmount={0}
-                    spentAmount={0}
                   />
                 )
                 : (
@@ -98,7 +97,6 @@ class BudgetsCard extends Component {
                     budgetId,
                     category,
                     maxAmount,
-                    spentAmount,
                   } = budget;
                   return (
                     <Budget
@@ -108,7 +106,6 @@ class BudgetsCard extends Component {
                       id={budgetId}
                       key={budgetId}
                       maxAmount={maxAmount}
-                      spentAmount={spentAmount}
                     />
                   );
                 })
@@ -118,7 +115,6 @@ class BudgetsCard extends Component {
                   deleteButtons={deleteButtons}
                   getBudgets={this.getBudgets}
                   maxAmount={0}
-                  spentAmount={0}
                 />
               )}
             </React.Fragment>
