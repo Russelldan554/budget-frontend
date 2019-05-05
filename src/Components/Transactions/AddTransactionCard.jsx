@@ -40,6 +40,7 @@ class AddTransactionCard extends Component {
           });
       }
     }
+    this.props.refresh();
     this.props.toggle();
   }
 

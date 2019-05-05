@@ -13,9 +13,12 @@ class Transactions extends Component {
     this.state = {
       modal: false,
       updateModal: false,
-      updateTransaction: {}
+      updateTransaction: {},
+      refresh: false
     };
 
+    this.doneRefresh = this.doneRefresh.bind(this);
+    this.refreshTable = this.refreshTable.bind(this);
     this.toggleModal = this.toggleModal.bind(this);
     this.toggleUpdateModal = this.toggleUpdateModal.bind(this);
   }
@@ -32,6 +35,18 @@ class Transactions extends Component {
     this.setState({
       updateModal: !updateModal,
     });
+  }
+
+  refreshTable(){
+    this.setState({
+      refresh: true
+    })
+  }
+
+  doneRefresh(){
+    this.setState({
+      refresh: false
+    })
   }
 
   updateTransaction(tran) {
@@ -64,6 +79,8 @@ class Transactions extends Component {
             </span>
           </CardHeader>
           <TransactionsTable
+            update={this.doneRefresh}
+            refresh={this.state.refresh}
             updateTransaction={(tran) => this.updateTransaction(tran)}
           />
         </Card>
@@ -78,7 +95,9 @@ class Transactions extends Component {
               {'Add Transaction'}
             </ModalHeader>
             <ModalBody>
-              <AddTransactionCard toggle={this.toggleModal} />
+              <AddTransactionCard
+                toggle={this.toggleModal}
+                refresh={this.refreshTable}/>
             </ModalBody>
           </Modal>
         ) : (
@@ -95,7 +114,9 @@ class Transactions extends Component {
               Update Transaction
             </ModalHeader>
             <ModalBody>
-              <UpdateTransactionCard transaction={updateTransaction} toggle={this.toggleUpdateModal} />
+              <UpdateTransactionCard
+                transaction={updateTransaction}
+                toggle={this.toggleUpdateModal} />
             </ModalBody>
           </Modal>
         ) : (

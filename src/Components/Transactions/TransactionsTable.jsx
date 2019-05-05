@@ -10,7 +10,7 @@ class Transactions extends Component {
     this.state = {
       transactions: [],
     };
-
+    this.update = this.update.bind(this);
     this.updateTransaction = this.updateTransaction.bind(this);
     this.deleteTransaction = this.deleteTransaction.bind(this);
   }
@@ -21,9 +21,18 @@ class Transactions extends Component {
         transactions: res,
       });
     }).catch((error) => {
-      this.setState({
-      });
     });
+  }
+
+  update(){
+    API.getTransactions().then((res) => {
+      this.setState({
+        transactions: res,
+      });
+      this.props.update();
+    });
+
+
   }
 
   updateTransaction(transactionId) {
@@ -35,12 +44,28 @@ class Transactions extends Component {
     let payload = this.state.transactions.find(x => x.transactionId===transactionId)
     API.deleteTransaction(payload)
       .then(() => {
-        window.location.reload();
+        API.getTransactions().then((res) => {
+          if (res) {
+            this.setState({
+              transactions: res,
+            });
+          } else {
+            this.setState({
+              transactions: {},
+            });
+          }
+        }).catch((error) => {
+          window.location.reload();
+        });
       });
   }
 
   render() {
     const { transactions } = this.state;
+    const {refresh} = this.props;
+    if (refresh) {
+      this.update();
+    }
     return (
       <div className="p-3 ">
         <ReactTable
