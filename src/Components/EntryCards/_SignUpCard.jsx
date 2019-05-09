@@ -16,6 +16,8 @@ class LoginCard extends Component {
 
   submitForm(e) {
     e.preventDefault();
+    let today = new Date();
+    var date = today.getFullYear()+'-'+(today.getMonth()+1)+'-'+today.getDate();
     if (e.target.password.value === e.target.confirmPassword.value) {
       const payload = {
         userName: e.target.userName.value,
@@ -23,7 +25,7 @@ class LoginCard extends Component {
         lastName: e.target.lastName.value,
         email: e.target.email.value,
         password: e.target.password.value,
-        dateCreated: '2019-04-18',
+        dateCreated: date,
       };
       API.addUser(payload)
         .then((res) => {

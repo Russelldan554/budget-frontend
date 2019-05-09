@@ -28,9 +28,27 @@ class AddTransactionCard extends Component {
   }
 
   addFile(e){
+    if (!e.target.accountID.value) {
+      alert("No Account! Please create an account.")
+      return
+    }
     e.preventDefault();
     for (var i in this.state.transFile) {
       if (this.state.transFile[i].length === 4) {
+        // eslint-disable-next-line
+        if (i == (this.state.transFile.length-2) ) {
+          API.addTransaction({
+            name: this.state.transFile[i][0],
+            date: this.state.transFile[i][1],
+            category: this.state.transFile[i][2],
+            amount: this.state.transFile[i][3],
+            accountID: e.target.accountID.value,
+          })
+          .then(() => {
+            this.props.refresh();
+            this.props.toggle();
+          });
+        } else {
           API.addTransaction({
             name: this.state.transFile[i][0],
             date: this.state.transFile[i][1],
@@ -38,13 +56,17 @@ class AddTransactionCard extends Component {
             amount: this.state.transFile[i][3],
             accountID: e.target.accountID.value,
           });
+        }
       }
     }
-    this.props.refresh();
-    this.props.toggle();
+
   }
 
   addTransaction(e) {
+    if (!e.target.accountID.value) {
+      alert("No Account! Please create an account.")
+      return
+    }
     e.preventDefault();
     API.addTransaction({
       name: e.target.name.value,

@@ -20,10 +20,16 @@ class Budget extends Component {
 
     API.getTransactions()
       .then((res) => {
+        let currentDate = new Date();
         for (let i = 0; i < res.length; i += 1) {
           if (res[i].category === category) {
-            // Multiplies by 100 to remove addition errors with floats
-            amount += parseFloat(res[i].amount * 100);
+            //Check for current month
+            let date = new Date(res[i].date);
+            date.setDate(date.getDate() + 1);
+            if (date.getMonth() === currentDate.getMonth()) {
+              // Multiplies by 100 to remove addition errors with floats
+              amount += parseFloat(res[i].amount * 100);
+            }
           }
         }
         this.setState({

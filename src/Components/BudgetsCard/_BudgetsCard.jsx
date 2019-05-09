@@ -7,6 +7,7 @@ import * as API from '../API';
 import Utils from '../Utils';
 
 import Budget from './Budget';
+import Graph from './SpendingGraph';
 import WidgetCardHeader from '../WidgetCardHeader/_WidgetCardHeader';
 
 class BudgetsCard extends Component {
@@ -75,6 +76,7 @@ class BudgetsCard extends Component {
           toggleDeleteButtons={this.toggleDeleteButtons}
         />
         <CardBody>
+          <Graph  />
           <Row noGutters fluid="true">
             {/* Create a Budget Component for each of the User's budgets */}
             <React.Fragment>
