@@ -4,7 +4,6 @@ import {
 } from 'reactstrap';
 import PropTypes from 'prop-types';
 import * as API from '../API';
-import Utils from '../Utils';
 
 import Account from './Account';
 import WidgetCardHeader from '../WidgetCardHeader/_WidgetCardHeader';
@@ -193,14 +192,17 @@ AccountsCard.propTypes = {
   actionConfirm: PropTypes.string,
   actionTitle: PropTypes.string,
   buttonID: PropTypes.string,
-  cardHeader: PropTypes.string,
+  cardHeader: PropTypes.oneOf([
+    'Accounts',
+    'Budgets',
+  ]),
 };
 
 AccountsCard.defaultProps = {
   actionConfirm: 'Add Account',
   actionTitle: 'n Account',
   buttonID: 'addAccount',
-  cardHeader: Utils.cardHeaders[0],
+  cardHeader: 'Accounts',
 };
 
 export default AccountsCard;

@@ -23,18 +23,25 @@ import * as API from './Components/API';
 import './styles/app.scss';
 
 const PrivateRoute = ({ component: Component, ...rest }) => {
-  const user_info = localStorage.getItem('username');
+  const userInfo = localStorage.getItem('username');
   return (
-    <Route {...rest} render={(props) => (
-      user_info
-        ? <Component {...props}/>
-      : <Redirect to={{
-        pathname:'/',
-        state: { from: props.location}
-      }}/>
-    )
-  }/>)
-}
+    <Route
+      {...rest}
+      render={
+        props => (userInfo ? (
+          <Component {...props} />
+        ) : (
+          <Redirect
+            to={{
+              pathname: '/',
+              state: { from: props.location },
+            }}
+          />
+        ))
+      }
+    />
+  );
+};
 
 const auth = {
   async authenticate(userName, password) {

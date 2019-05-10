@@ -4,9 +4,9 @@ import {
 } from 'reactstrap';
 import PropTypes from 'prop-types';
 import * as API from '../API';
-import Utils from '../Utils';
 
 import Budget from './Budget';
+import Graph from './SpendingGraph';
 import WidgetCardHeader from '../WidgetCardHeader/_WidgetCardHeader';
 
 class BudgetsCard extends Component {
@@ -75,6 +75,7 @@ class BudgetsCard extends Component {
           toggleDeleteButtons={this.toggleDeleteButtons}
         />
         <CardBody>
+          <Graph />
           <Row noGutters fluid="true">
             {/* Create a Budget Component for each of the User's budgets */}
             <React.Fragment>
@@ -129,14 +130,17 @@ BudgetsCard.propTypes = {
   actionConfirm: PropTypes.string,
   actionTitle: PropTypes.string,
   buttonID: PropTypes.string,
-  cardHeader: PropTypes.string,
+  cardHeader: PropTypes.oneOf([
+    'Accounts',
+    'Budgets',
+  ]),
 };
 
 BudgetsCard.defaultProps = {
   actionConfirm: 'Create Budget',
   actionTitle: ' Budget',
   buttonID: 'Budget',
-  cardHeader: Utils.cardHeaders[1],
+  cardHeader: 'Budgets',
 };
 
 export default BudgetsCard;

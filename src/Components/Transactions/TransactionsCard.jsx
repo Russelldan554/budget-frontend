@@ -6,7 +6,7 @@ import TransactionsTable from './TransactionsTable';
 import AddTransactionCard from './AddTransactionCard';
 import UpdateTransactionCard from './UpdateTransactionCard';
 
-class Transactions extends Component {
+class TransactionsCard extends Component {
   constructor(props) {
     super(props);
 
@@ -14,7 +14,7 @@ class Transactions extends Component {
       modal: false,
       updateModal: false,
       updateTransaction: {},
-      refresh: false
+      refresh: false,
     };
 
     this.doneRefresh = this.doneRefresh.bind(this);
@@ -37,30 +37,30 @@ class Transactions extends Component {
     });
   }
 
-  refreshTable(){
+  refreshTable() {
     this.setState({
-      refresh: true
-    })
+      refresh: true,
+    });
   }
 
-  doneRefresh(){
+  doneRefresh() {
     this.setState({
-      refresh: false
-    })
+      refresh: false,
+    });
   }
 
   updateTransaction(tran) {
     this.setState({
       updateTransaction: tran,
-      updateModal: true
-    })
+      updateModal: true,
+    });
   }
 
   render() {
     const {
       modal,
       updateModal,
-      updateTransaction
+      updateTransaction,
     } = this.state;
     return (
       <div>
@@ -81,7 +81,7 @@ class Transactions extends Component {
           <TransactionsTable
             update={this.doneRefresh}
             refresh={this.state.refresh}
-            updateTransaction={(tran) => this.updateTransaction(tran)}
+            updateTransaction={tran => this.updateTransaction(tran)}
           />
         </Card>
 
@@ -97,7 +97,8 @@ class Transactions extends Component {
             <ModalBody>
               <AddTransactionCard
                 toggle={this.toggleModal}
-                refresh={this.refreshTable}/>
+                refresh={this.refreshTable}
+              />
             </ModalBody>
           </Modal>
         ) : (
@@ -111,12 +112,13 @@ class Transactions extends Component {
             toggle={this.toggleUpdateModal}
           >
             <ModalHeader>
-              Update Transaction
+              {'Update Transaction'}
             </ModalHeader>
             <ModalBody>
               <UpdateTransactionCard
                 transaction={updateTransaction}
-                toggle={this.toggleUpdateModal} />
+                toggle={this.toggleUpdateModal}
+              />
             </ModalBody>
           </Modal>
         ) : (
@@ -127,4 +129,4 @@ class Transactions extends Component {
   }
 }
 
-export default Transactions;
+export default TransactionsCard;

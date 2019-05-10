@@ -1,10 +1,11 @@
 import React, { Component } from 'react';
 import ReactTable from 'react-table';
-import {Button} from 'reactstrap';
+import { Button } from 'reactstrap';
+import PropTypes from 'prop-types';
 import * as API from '../API';
 import 'react-table/react-table.css';
 
-class Transactions extends Component {
+class TransactionsTable extends Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -20,28 +21,28 @@ class Transactions extends Component {
       this.setState({
         transactions: res,
       });
-    }).catch((error) => {
+    }).catch(() => {
     });
   }
 
-  update(){
+  update() {
     API.getTransactions().then((res) => {
       this.setState({
         transactions: res,
       });
       this.props.update();
     });
-
-
   }
 
   updateTransaction(transactionId) {
-    let tran = this.state.transactions.find(x => x.transactionId===transactionId)
+    const { transactions } = this.state;
+    const tran = transactions.find(x => x.transactionId === transactionId);
     this.props.updateTransaction(tran);
   }
 
   deleteTransaction(transactionId) {
-    let payload = this.state.transactions.find(x => x.transactionId===transactionId)
+    const { transactions } = this.state;
+    const payload = transactions.find(x => x.transactionId === transactionId);
     API.deleteTransaction(payload)
       .then(() => {
         API.getTransactions().then((res) => {
@@ -54,7 +55,7 @@ class Transactions extends Component {
               transactions: {},
             });
           }
-        }).catch((error) => {
+        }).catch(() => {
           window.location.reload();
         });
       });
@@ -62,7 +63,7 @@ class Transactions extends Component {
 
   render() {
     const { transactions } = this.state;
-    const {refresh} = this.props;
+    const { refresh } = this.props;
     if (refresh) {
       this.update();
     }
@@ -93,29 +94,37 @@ class Transactions extends Component {
               Header: 'Date',
             },
             {
-              Header:'Options',
-              Cell: (data) => (<div className="text-center">
-                <Button
-                  onClick={() => this.updateTransaction(data.original.transactionId)}
-                  color={"success"}
-                  size="sm">
+              Header: 'Options',
+              Cell: data => (
+                <div className="text-center">
+                  <Button
+                    onClick={
+                      () => this.updateTransaction(data.original.transactionId)
+                    }
+                    color="success"
+                    size="sm"
+                  >
                     <i className="fa fa-edit" />
-                </Button>&nbsp;
-                <Button
-                  onClick={() => this.deleteTransaction(data.original.transactionId)}
-                  color={"danger"}
-                  size="sm">
+                  </Button>
+                    &nbsp;
+                  <Button
+                    onClick={
+                      () => this.deleteTransaction(data.original.transactionId)
+                    }
+                    color="danger"
+                    size="sm"
+                  >
                     <i className="fa fa-trash" />
-                </Button>
-              </div>
+                  </Button>
+                </div>
               ),
-            }
+            },
           ]}
           defaultPageSize={10}
           defaultSorted={[{
-                    id: 'date',
-                    desc: 'true'
-                }]}
+            id: 'date',
+            desc: 'true',
+          }]}
           className="-highlight bg-light"
         />
         <br />
@@ -124,4 +133,10 @@ class Transactions extends Component {
   }
 }
 
-export default Transactions;
+TransactionsTable.propTypes = {
+  refresh: PropTypes.func.isRequired,
+  update: PropTypes.func.isRequired,
+  updateTransaction: PropTypes.func.isRequired,
+};
+
+export default TransactionsTable;

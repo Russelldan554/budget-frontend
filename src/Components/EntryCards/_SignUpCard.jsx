@@ -16,6 +16,11 @@ class LoginCard extends Component {
 
   submitForm(e) {
     e.preventDefault();
+    const today = new Date();
+    const date = (
+      `${today.getFullYear()}-${today.getMonth() + 1}-${today.getDate()}`
+    );
+
     if (e.target.password.value === e.target.confirmPassword.value) {
       const payload = {
         userName: e.target.userName.value,
@@ -23,10 +28,10 @@ class LoginCard extends Component {
         lastName: e.target.lastName.value,
         email: e.target.email.value,
         password: e.target.password.value,
-        dateCreated: '2019-04-18',
+        dateCreated: date,
       };
       API.addUser(payload)
-        .then((res) => {
+        .then(() => {
           this.onRedirectLogin(e);
         });
     } else {
@@ -91,6 +96,7 @@ class LoginCard extends Component {
                   type="text"
                   name="username"
                   id="userName"
+                  autoComplete="username"
                   required
                   onChange={e => this.handleChange(e)}
                 />
@@ -108,6 +114,7 @@ class LoginCard extends Component {
                   type="password"
                   name="password"
                   id="Password"
+                  autoComplete="new-password"
                   required
                   onChange={e => this.handleChange(e)}
                 />
@@ -130,6 +137,7 @@ class LoginCard extends Component {
                   type="password"
                   name="confirmPassword"
                   id="confirmPassword"
+                  autoComplete="new-password"
                   required
                   onChange={e => this.handleChange(e)}
                 />
