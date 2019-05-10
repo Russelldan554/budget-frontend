@@ -2,8 +2,9 @@ import React, { Component } from 'react';
 import {
   Button, Col, Card, Form, FormGroup, Input, InputGroup, Label, Row,
 } from 'reactstrap';
+import CSVReader from 'react-csv-reader';
+import PropTypes from 'prop-types';
 import * as API from '../API';
-import CSVReader from 'react-csv-reader'
 
 class AddTransactionCard extends Component {
   constructor(props) {
@@ -15,7 +16,7 @@ class AddTransactionCard extends Component {
     this.addFile = this.addFile.bind(this);
     this.state = {
       accountInfo: [],
-      transFile: {}
+      transFile: {},
     };
   }
 
@@ -27,45 +28,45 @@ class AddTransactionCard extends Component {
     });
   }
 
-  addFile(e){
+  addFile(e) {
+    const { transFile } = this.state;
+
     if (!e.target.accountID.value) {
-      alert("No Account! Please create an account.")
-      return
+      alert('No Account! Please create an account.');
+      return;
     }
     e.preventDefault();
-    for (var i in this.state.transFile) {
-      if (this.state.transFile[i].length === 4) {
-        // eslint-disable-next-line
-        if (i == (this.state.transFile.length-2) ) {
+    for (const i in transFile) {
+      if (transFile[i].length === 4) {
+        if (i === (transFile.length - 2)) {
           API.addTransaction({
-            name: this.state.transFile[i][0],
-            date: this.state.transFile[i][1],
-            category: this.state.transFile[i][2],
-            amount: this.state.transFile[i][3],
+            name: transFile[i][0],
+            date: transFile[i][1],
+            category: transFile[i][2],
+            amount: transFile[i][3],
             accountID: e.target.accountID.value,
           })
-          .then(() => {
-            this.props.refresh();
-            this.props.toggle();
-          });
+            .then(() => {
+              this.props.refresh();
+              this.props.toggle();
+            });
         } else {
           API.addTransaction({
-            name: this.state.transFile[i][0],
-            date: this.state.transFile[i][1],
-            category: this.state.transFile[i][2],
-            amount: this.state.transFile[i][3],
+            name: transFile[i][0],
+            date: transFile[i][1],
+            category: transFile[i][2],
+            amount: transFile[i][3],
             accountID: e.target.accountID.value,
           });
         }
       }
     }
-
   }
 
   addTransaction(e) {
     if (!e.target.accountID.value) {
-      alert("No Account! Please create an account.")
-      return
+      alert('No Account! Please create an account.');
+      return;
     }
     e.preventDefault();
     API.addTransaction({
@@ -74,11 +75,10 @@ class AddTransactionCard extends Component {
       category: e.target.category.value,
       amount: e.target.amount.value,
       accountID: e.target.accountID.value,
-    }).then(() =>
-        API.getAccounts()
-          .then((res) => {
-            window.location.reload();
-          }));
+    }).then(() => API.getAccounts()
+      .then(() => {
+        window.location.reload();
+      }));
     this.props.toggle();
   }
 
@@ -91,20 +91,25 @@ class AddTransactionCard extends Component {
     });
   }
 
-  handleFile(data){
+  handleFile(data) {
     this.setState({
-      transFile: data
+      transFile: data,
     });
   }
 
   handleFileError(e) {
-    console.log("error" + e);
+    console.log(`error${e}`);
   }
 
   render() {
     const { accountInfo } = this.state;
     const accounts = accountInfo.map(acc => (
-      <option key={acc.accountId} value={acc.accountId}>{acc.accountName}</option>
+      <option
+        key={acc.accountId}
+        value={acc.accountId}
+      >
+        {acc.accountName}
+      </option>
     ));
     return (
       <div className="p-3 ">
@@ -113,25 +118,29 @@ class AddTransactionCard extends Component {
             <CSVReader
               cssClass="csv-reader-input"
               label="Select CSV file with transactions. Must be formatted
-                     transaction Name, Date, Category, amount(credits in negative amounts)"
+                     transaction Name, Date, Category,
+                     amount(credits in negative amounts)"
               onFileLoaded={this.handleFile}
               onError={this.handleFileError}
               inputId="trans"
-              inputStyle={{color: 'red'}}
+              inputStyle={{ color: 'red' }}
             />
             <FormGroup>
               <Label for="exampleSelect">Select Account for transactions</Label>
               <Input
                 type="select"
                 name="account"
-                id="accountID">
+                id="accountID"
+              >
                 {accounts}
               </Input>
             </FormGroup>
             <Button className="btn-block bg-success">Submit</Button>
           </Form>
-            <br /> <span className="text-center">or</span>
-            <hr />
+          <br />
+          {' '}
+          <span className="text-center">or</span>
+          <hr />
           <Form onSubmit={e => this.addTransaction(e)}>
             <FormGroup>
               <Label className="required">Name</Label>
@@ -192,7 +201,8 @@ class AddTransactionCard extends Component {
               <Input
                 type="select"
                 name="account"
-                id="accountID">
+                id="accountID"
+              >
                 {accounts}
               </Input>
             </FormGroup>
@@ -204,5 +214,10 @@ class AddTransactionCard extends Component {
     );
   }
 }
+
+AddTransactionCard.propTypes = {
+  toggle: PropTypes.func.isRequired,
+  refresh: PropTypes.func.isRequired,
+};
 
 export default AddTransactionCard;
