@@ -8,7 +8,6 @@ import {
   ModalHeader,
 } from 'reactstrap';
 import PropTypes from 'prop-types';
-import Utils from '../Utils';
 
 import BudgetModal from '../BudgetsCard/BudgetModal';
 import AccountModal from '../AccountsCard/AccountModal';
@@ -34,7 +33,7 @@ class NewEntityModal extends Component {
 
     let content = null;
 
-    if (this.props.modalBody === Utils.cardHeaders[0]) {
+    if (this.props.modalBody === 'Accounts') {
       content = (
         <AccountModal
           getAccounts={getAccounts}
@@ -42,7 +41,7 @@ class NewEntityModal extends Component {
           toggleModal={buttonHandler}
         />
       );
-    } else if (this.props.modalBody === Utils.cardHeaders[1]) {
+    } else if (this.props.modalBody === 'Budgets') {
       content = (
         <BudgetModal
           getBudgets={getBudgets}
