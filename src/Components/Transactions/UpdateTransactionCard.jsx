@@ -2,30 +2,30 @@ import React, { Component } from 'react';
 import {
   Button, Col, Card, Form, FormGroup, Input, InputGroup, Label, Row,
 } from 'reactstrap';
+import PropTypes from 'prop-types';
 import * as API from '../API';
 
-class AddTransactionCard extends Component {
+class UpdateTransactionCard extends Component {
   constructor(props) {
     super(props);
     this.updateTransaction = this.updateTransaction.bind(this);
     this.handleChange = this.handleChange.bind(this);
-
   }
 
   updateTransaction(e) {
+    const { transaction, toggle } = this.props;
     e.preventDefault();
     API.updateTransaction({
-      transactionId: this.props.transaction.transactionId,
+      transactionId: transaction.transactionId,
       name: e.target.name.value,
       date: e.target.date.value,
       category: e.target.category.value,
       amount: e.target.amount.value,
-      accountID: this.props.transaction.account.accountId,
+      accountID: transaction.account.accountId,
     }).then(() => {
       window.location.reload();
     });
-    this.props.toggle();
-
+    toggle();
   }
 
   async handleChange(e) {
@@ -38,7 +38,7 @@ class AddTransactionCard extends Component {
   }
 
   render() {
-    const {transaction} = this.props;
+    const { transaction } = this.props;
     return (
       <div className="p-3 ">
         <Card className="p-3">
@@ -109,4 +109,8 @@ class AddTransactionCard extends Component {
   }
 }
 
-export default AddTransactionCard;
+UpdateTransactionCard.propTypes = {
+  toggle: PropTypes.func.isRequired,
+};
+
+export default UpdateTransactionCard;
