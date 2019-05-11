@@ -51,6 +51,7 @@ class BudgetModal extends Component {
                       type="text"
                       name="category"
                       id="newCategory"
+                      maxLength={40}
                       required
                       onChange={e => this.handleChange(e)}
                     />
@@ -71,6 +72,7 @@ class BudgetModal extends Component {
                         placeholder="0"
                         id="newMaxAmount"
                         step="1"
+                        maxLength={10}
                         required
                         onChange={e => this.handleChange(e)}
                       />

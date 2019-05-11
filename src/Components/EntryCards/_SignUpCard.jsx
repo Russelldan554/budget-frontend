@@ -54,6 +54,7 @@ class LoginCard extends Component {
                   type="text"
                   name="firstName"
                   id="firstName"
+                  maxLength={20}
                   required
                   onChange={e => this.handleChange(e)}
                 />
@@ -66,6 +67,7 @@ class LoginCard extends Component {
                   type="text"
                   name="lastName"
                   id="lastName"
+                  maxLength={20}
                   required
                   onChange={e => this.handleChange(e)}
                 />
@@ -79,6 +81,7 @@ class LoginCard extends Component {
                   type="text"
                   name="email"
                   id="email"
+                  maxLength={30}
                   required
                   onChange={e => this.handleChange(e)}
                 />
@@ -97,6 +100,7 @@ class LoginCard extends Component {
                   name="username"
                   id="userName"
                   autoComplete="username"
+                  maxLength={20}
                   required
                   onChange={e => this.handleChange(e)}
                 />
@@ -115,6 +119,7 @@ class LoginCard extends Component {
                   name="password"
                   id="Password"
                   autoComplete="new-password"
+                  maxLength={255}
                   required
                   onChange={e => this.handleChange(e)}
                 />
@@ -138,6 +143,7 @@ class LoginCard extends Component {
                   name="confirmPassword"
                   id="confirmPassword"
                   autoComplete="new-password"
+                  maxLength={255}
                   required
                   onChange={e => this.handleChange(e)}
                 />

@@ -131,6 +131,7 @@ class AddTransactionCard extends Component {
                 type="select"
                 name="account"
                 id="accountID"
+                maxLength={20}
               >
                 {accounts}
               </Input>
@@ -149,6 +150,7 @@ class AddTransactionCard extends Component {
                   type="text"
                   name="name"
                   id="name"
+                  maxLength={40}
                   required
                   onChange={e => this.handleChange(e)}
                 />
@@ -161,6 +163,7 @@ class AddTransactionCard extends Component {
                   type="text"
                   name="category"
                   id="category"
+                  maxLength={40}
                   required
                   onChange={e => this.handleChange(e)}
                 />
@@ -189,6 +192,7 @@ class AddTransactionCard extends Component {
                       type="text"
                       name="amount"
                       id="amount"
+                      maxLength={10}
                       required
                       onChange={e => this.handleChange(e)}
                     />
@@ -202,6 +206,7 @@ class AddTransactionCard extends Component {
                 type="select"
                 name="account"
                 id="accountID"
+                maxLength={20}
               >
                 {accounts}
               </Input>
