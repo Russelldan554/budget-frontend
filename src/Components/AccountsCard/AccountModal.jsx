@@ -50,6 +50,7 @@ class AccountModal extends Component {
                   type="text"
                   name="accountName"
                   id="newAccountName"
+                  maxLength={30}
                   required
                   onChange={e => this.handleChange(e)}
                 />
@@ -60,6 +61,7 @@ class AccountModal extends Component {
                   type="text"
                   name="bankName"
                   id="newBankName"
+                  maxLength={30}
                   required
                   onChange={e => this.handleChange(e)}
                 />
@@ -72,6 +74,7 @@ class AccountModal extends Component {
                   type="select"
                   name="accountType"
                   id="newAccountType"
+                  maxLength={30}
                   readOnly
                   required
                   onChange={e => this.handleChange(e)}
@@ -89,6 +92,7 @@ class AccountModal extends Component {
                     type=""
                     name="balance"
                     id="newBalance"
+                    maxLength={10}
                     required
                     onChange={e => this.handleChange(e)}
                   />

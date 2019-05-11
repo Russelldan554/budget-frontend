@@ -134,6 +134,7 @@ class User extends Component {
                       type="text"
                       name="userInfo.firstName"
                       id="firstName"
+                      maxLength={20}
                       onChange={e => this.handleChange(e)}
                     />
                   </InputGroup>
@@ -146,6 +147,7 @@ class User extends Component {
                       type="text"
                       name="lastName"
                       id="lastName"
+                      maxLength={20}
                       onChange={e => this.handleChange(e)}
                     />
                   </InputGroup>
@@ -158,6 +160,7 @@ class User extends Component {
                       type="text"
                       name="email"
                       id="email"
+                      maxLength={30}
                       onChange={e => this.handleChange(e)}
                     />
                   </InputGroup>

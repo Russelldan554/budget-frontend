@@ -54,6 +54,7 @@ class LoginCard extends Component {
                   name="username"
                   id="userName"
                   autoComplete="username"
+                  maxLength={20}
                   required
                   onChange={e => this.handleChange(e)}
                 />
@@ -72,6 +73,7 @@ class LoginCard extends Component {
                   name="password"
                   id="examplePassword"
                   autoComplete="current-password"
+                  maxLength={255}
                   required
                   onChange={e => this.handleChange(e)}
                 />
