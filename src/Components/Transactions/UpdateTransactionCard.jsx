@@ -51,6 +51,7 @@ class UpdateTransactionCard extends Component {
                   type="text"
                   name="name"
                   id="name"
+                  maxLength={40}
                   required
                   onChange={e => this.handleChange(e)}
                 />
@@ -64,6 +65,7 @@ class UpdateTransactionCard extends Component {
                   type="text"
                   name="category"
                   id="category"
+                  maxLength={40}
                   required
                   onChange={e => this.handleChange(e)}
                 />
@@ -94,6 +96,7 @@ class UpdateTransactionCard extends Component {
                       type="text"
                       name="amount"
                       id="amount"
+                      maxLength={10}
                       required
                       onChange={e => this.handleChange(e)}
                     />
